@@ -1,0 +1,173 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&family=Satisfy&display=swap');
+
+:root{
+    --midnight-green: #114B5F;
+    --sea-green: #1A936F;
+    --celadon: #88D498;
+    --tea-green: #C6DABF;
+    --moka-light: #F3E9D2;
+
+}
+
+::placeholder{
+    color: var(--moka-light);
+}
+
+.capaBlur{
+    background-color: rgba(255,255,255,0.3);
+    content: '';
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(1.5rem);
+    z-index: 3;
+}
+
+*{
+    font-family: "Mulish", sans-serif;
+    font-weight: 500;
+}
+
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.parallax img{
+    opacity: 0.9;
+    height: 450px;
+}
+
+.parallax{
+    height: 650px;
+    background-image: url(../img/parallax.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.logo-parallax{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.principal-objetivo{
+    padding: 40px;
+    text-align: center;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+.principal-objetivo > p:first-child{
+    margin-bottom: 50px;
+    font-size: 2.1em;;
+}
+
+.cards{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    
+    
+}
+
+.card{
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 10px;
+    max-width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    background-color: var(--sea-green);
+    box-shadow: 5px 5px 15px 2px rgba(130, 125, 113, 0.54);
+    border: 2px solid var(--midnight-green);
+}
+
+.card p{
+    font-size: 1.2em;
+}
+
+.card i{
+    font-size: 3.3em;
+}
+
+.card:last-child > div:last-child p{
+    font-size: 1.3em;
+}
+
+
+
+#form-registro{
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-width:450px;
+    border: 2px solid var(--midnight-green);
+    background-color: white;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: entradaSuave;
+    animation-duration: 1s;
+}
+
+form{
+    margin: 10px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+input{
+    border-radius: 5px;
+    border: none;
+    background-color: var(--sea-green);
+    color: var(--moka-light);
+    padding: 10px;
+    width: 90%;
+}
+
+#form-registro h3{
+    font-size: 1.1em;
+    margin: 5px;
+    color: black;
+}
+
+#form-registro a{
+    color: var(--sea-green);
+    text-decoration: underline;
+}
+
+#form-registro a:hover{
+    background-color: var(--moka-light);
+}
+
+@keyframes entradaSuave {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

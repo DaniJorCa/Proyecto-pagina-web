@@ -1,0 +1,142 @@
+:root{
+    --midnight-green: #114B5F;
+    --sea-green: #1A936F;
+    --celadon: #88D498;
+    --tea-green: #C6DABF;
+    --moka-light: #F3E9D2;
+
+}
+
+.slideshowArea--items{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+button{
+    height: auto;
+    width: auto;
+    border-radius: 50%;
+    border: none;  
+    cursor: pointer;
+    background: none;
+}
+
+.button-slideshow{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px;
+    width: 40px;
+    height: 350px;
+    background-color: var(--sea-green);
+}
+
+.slideshow--arrow{
+    font-size: 2.1em;
+    margin: 0px;
+}
+
+.articulos-top{
+    max-width: 90%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.slideshowArea--items > p {
+    font-size: 3em;
+    text-align: center;
+}
+
+.articulo p:last-of-type{
+    font-size: 1.6em;
+}
+
+.articulos{
+    overflow-x: scroll;
+    height: 400px;
+    width: auto;
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+@keyframes desplazamientoLateralDerecho {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+  }
+
+  @keyframes desplazamientoLateralIzquierdo {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+
+.articulo{
+    position: relative;
+    display: flex;
+    justify-content: stretch;
+    flex-direction: column;
+    align-items: center;
+    text-wrap: wrap;
+    overflow-x: hidden;
+    white-space: normal;
+    margin: 20px;
+    text-align: center;
+    height: 350px;
+    min-width: 250px;
+    border: 2px solid var(--sea-green);
+    border-radius: 10px;
+    color: black;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    transition: transform 2s linear;
+}
+
+.articulo a{
+    color: black;
+}
+
+
+.articulo img{
+    padding: 10px;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.carrito-item--slideshow{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+
+.carrito-item--slideshow > i{
+    font-size: 1.4em;
+}
+
+.fa-heart{
+    font-size: 1.8em;
+}
+
+.action-butt-articulo{
+    background-color: var(--midnight-green);
+    border-radius: 5px;
+    margin: 2px;
+    padding: 3px;
+    width: 50%;
+    border: 2px solid var(--tea-green);
+}
+
+
