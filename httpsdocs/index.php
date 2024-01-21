@@ -9,12 +9,14 @@
         <script type="text/javascript" src="../script/jsMain.js"></script>
         <script type="text/javascript" src="../script/index.js"></script>
     </head>
+    <body>
     <?php include ('includes/header.html') ?>
-    <div class="aside--body">
+    <div class="aside--main">
         <?php include ('includes/aside.html') ?>
-        <body>
+        <main>
             <h2>Prueba de posicionamiento</h2>
-        <body>
+        </main>
     </div>
     <?php include ('includes/footer.html') ?>
+    </body>
 </html>

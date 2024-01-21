@@ -77,9 +77,6 @@ let anchoTotalDivArticulos = calcularDimensionDivArticulos(articulos, anchoTotal
 let anchoVisibleDivArticulos = divArticulos[0].clientWidth;
 let desplazamientoTotalLateralMaximo = desplazamientoLateralMaximo(articulos, anchoTotalArticulo, anchoVisibleDivArticulos);
 
-/*for (articulo of articulos) {
-    articulo.style.transform = `translateX(-${desplazamientoTotalLateralMaximo}px)`;
-}*/
 
 
   function calcularDimensionDivArticulos(articulos, anchoTotalArticulo){
