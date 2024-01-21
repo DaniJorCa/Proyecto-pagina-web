@@ -67,61 +67,7 @@ capaBlur[0].addEventListener('click', (e) => {
 
 });
 
-
-/*let cardsArticulos = document.getElementsByClassName('articulo');
-let botonDesplazamientoIzq = document.getElementById('button-slideshow-left');
-let botonDesplazamientoDer = document.getElementById('button-slideshow-right');
-let inicioTiempo = new Date().getTime();
-let tiempoTranscurrido = 0;
-let intervaloPosicion;
-
-function desplazarIzquierda() {
-    for(articulo of cardsArticulos){
-        articulo.style.transition = 'transform 3s linear';
-        articulo.style.transform = 'translateX(-100%)'; 
-    }
-        tiempoTranscurrido = 0;
-        intervaloPosicion = setInterval(function() {
-        let tiempoTranscurrido = new Date().getTime() - inicioTiempo;
-        console.log("Tiempo transcurrido: " + tiempoTranscurrido + " milisegundos");
-    }, 30);
-  }
-
-  function desplazarDerecha() {
-    for(articulo of cardsArticulos){
-        articulo.style.transition = 'transform 3s linear';
-        articulo.style.transform = 'translateX(100%)';
-    }
-        tiempoTranscurrido = 0;
-        intervaloPosicion = setInterval(function() {
-        let tiempoTranscurrido = new Date().getTime() - inicioTiempo;
-        console.log("Tiempo transcurrido: " + tiempoTranscurrido + " milisegundos");
-    }, 30);
-  }
-
-  function pausarAnimacion() {
-    clearInterval(intervaloPosicion);
-    for (articulo of cardsArticulos) {
-        articulo.style.transition = 'none';
-        articulo.style.transform = `translateX(${calcularPosicion()}%)`;
-    }
-}
-
-
-function calcularPosicion() {
-    let porcentajeDesplazamiento = (tiempoTranscurrido * 100) / 3000;
-    return porcentajeDesplazamiento;
-}
-
-  botonDesplazamientoIzq.addEventListener('mouseenter', desplazarIzquierda);
-  botonDesplazamientoIzq.addEventListener('mouseleave', pausarAnimacion);
-
-  botonDesplazamientoDer.addEventListener('mouseenter', desplazarDerecha);
-  botonDesplazamientoDer.addEventListener('mouseleave', pausarAnimacion);*/
-
-
   
-
 /* Funciones Y Calculo de distancias de SlideShow*/  
 
 const articulos = document.getElementsByClassName('articulo');

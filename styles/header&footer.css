@@ -56,6 +56,12 @@ nav{
     padding: 10px;
 }
 
+#hamburguer{
+    font-size: 1.8rem;
+    display: none;
+    overflow: hidden;
+}
+
 
 .menu-dropdown{
     background-color: var(--midnight-green);
