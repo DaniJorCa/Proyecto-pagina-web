@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="../styles/bodyMain.css">
         <link rel="stylesheet" href="../styles/aside.css">
         <link rel="stylesheet" href="../styles/slideshowArea.css">
+        <link rel="stylesheet" href="../styles/showGoods.css">
         <script type="text/javascript" src="../script/jsMain.js"></script>
         <script type="text/javascript" src="../script/index.js"></script>
     </head>
@@ -13,27 +14,7 @@
     <?php include ('includes/header.html') ?>
     <?php include ('includes/aside.html') ?>
     <main>
-        <?php
-            require "../php/controllers/articulos_controller.php";
-
-            $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
-
-            switch ($mostrar){
-
-                case '_mas-vendidos':
-                    consultar_art_mas_vendidos();
-                    break;
-                
-                case '_mantenimiento-art':
-                    consultar_mantenimiento_articulos();
-
-                    default:
-                    consultar_art_mas_vendidos();
-                    break;
-
-            }
-        ?>
-        
+        <?php include ('includes/showGoods.html') ?>
     </main>
     <?php include ('includes/footer.html') ?>
     </body>
