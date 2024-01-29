@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <link rel="stylesheet" href="../styles/header&footer.css">
@@ -36,7 +35,11 @@
                 </div>
             </div>
         </div>    
-        <?php include('includes/slideshowArea.html'); ?>
+<?php 
+
+include('includes/slideshowArea.html'); 
+
+?>
 
         <div id="form-registro">
             <h2>LOGIN / REGISTRO </h2>
@@ -47,10 +50,12 @@
                 <input name="passwd" class="passwd" type="text" placeholder="Contraseña" required>
             </form>
             <h3>¿Todavia no eres usuario?</h3>
-            <h3><a href="registrooooooo.php">Date de Alta</a></h3>
+            <h3><a href="registro.php">Date de Alta</a></h3>
         </div>
     </body>
     
 
-<?php include ('includes/footer.html') ?>
+<?php 
+include ('includes/footer.html') 
+?>
 </html>

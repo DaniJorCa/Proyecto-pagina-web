@@ -16,6 +16,7 @@ function setClass() {
         hijoflecha.classList.add('despliega');
     }
     if (menuDropdown) {
+        menuDropdown.style.display = "block";
         menuDropdown.classList.add('recubre');
         menuDropdown.classList.remove('menu-dropdown');
     }
@@ -31,7 +32,11 @@ function unsetClass() {
         hijoflecha.classList.remove('despliega');
     }
     if(menuRecubre){
-        menuRecubre.classList.add('menu-dropdown');
+        setTimeout(function(){
+            menuRecubre.style.display = "none";
+            menuRecubre.classList.add('menu-dropdown');
+        }, 10);
+        
         menuRecubre.classList.remove('recubre');
     }
 }
@@ -59,7 +64,6 @@ capaBlur[0].addEventListener('click', (e) => {
     let clickDentroCapaBlur = capaBlur[0].contains(e.target);
 
     if(clickDentroCapaBlur){
-        console.log('Click fuera del formulario');
         formularioRegistro.style.zIndex = '3';
         capaBlur[0].style.display = "none";
         ventanaRegistro.style.display = 'none';

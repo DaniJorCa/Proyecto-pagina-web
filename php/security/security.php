@@ -6,6 +6,5 @@ if (!isset($_SESSION)) {
 if(!$_SESSION['logueado']){
     header('Location: main.php');
     exit();
-}
-    
+}    
 ?>

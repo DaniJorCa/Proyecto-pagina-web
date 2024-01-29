@@ -63,6 +63,7 @@ nav{
 
 
 .menu-dropdown{
+    display: none;
     background-color: var(--midnight-green);
     opacity: 0%;
     height: 0px;
