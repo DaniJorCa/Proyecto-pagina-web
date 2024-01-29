@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="../styles/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/header&footer.css">
     <link rel="stylesheet" href="../styles/genericBody.css">
     <link rel="stylesheet" href="../styles/bodyMain.css">
@@ -8,7 +9,7 @@
     <script type="text/javascript" src="../script/jsMain.js"></script>
 </head>
 <div class="capaBlur" id="capaBlur"></div>
-<?php include ('includes/header.html') ?>
+<?php include ('../php/views/header.html') ?>
 
     <body>
         
@@ -37,25 +38,26 @@
         </div>    
 <?php 
 
-include('includes/slideshowArea.html'); 
+include('../php/views/slideshowArea.html'); 
 
 ?>
 
         <div id="form-registro">
             <h2>LOGIN / REGISTRO </h2>
-            <form method="POST" action="index.php">
+            <form class="row g-3" method="POST" action="index.php">
                 <label for="email">Email</label>
                 <input name="email" class="email" type="email" placeholder="Email" autofocus required>
                 <label for="passwd">Contraseña</label>
                 <input name="passwd" class="passwd" type="text" placeholder="Contraseña" required>
             </form>
             <h3>¿Todavia no eres usuario?</h3>
-            <h3><a href="registro.php">Date de Alta</a></h3>
+            <h3><a href="registro_usuario.php">Date de Alta</a></h3>
         </div>
+        <script src="../styles/js/bootstrap.bundle.min.js"></script>
     </body>
     
 
 <?php 
-include ('includes/footer.html') 
+include ('../php/views/footer.html') 
 ?>
 </html>

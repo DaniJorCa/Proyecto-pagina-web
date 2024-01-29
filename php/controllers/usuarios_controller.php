@@ -3,7 +3,7 @@ function alta_usuario_en_BD(){
     require '../php/models/usuario_model.php';
     $errores_formulario = comprobar_errores_formulario($_POST);
     if(!empty($errores_formulario)){
-        header('Location: registro.php' . $errores_formulario);
+        header('Location: registro_usuario.php' . $errores_formulario);
         exit();
     }
     $arrayDatosUsuarioRegistrado = array_registros_formulario(); 
@@ -15,7 +15,7 @@ function alta_usuario_en_BD(){
             check_log($arrayDatosUsuarioRegistrado);
         }        
     }else{
-        header('Location: registro.php?dni=already-exist');
+        header('Location: registro_usuario.php?dni=already-exist');
         exit();
     }
     

@@ -18,4 +18,27 @@ function edicion_informacion_articulo($id){
     include '../php/views/edicion_articulo.php';
 }
 
+function formulario_alta(){
+    require '../php/models/articulos_model.php';
+    if(isset($_FILES['imagen']) && ($_FILES['imagen']['size'])){
+        $checkImg = formato($_FILES['imagen']['name']);
+        if($checkImg){
+            subirImg($_FILES["imagen"]);
+            $_SESSION['imagen'] = "imgUploads/". $_FILES['imagen']['name'];  
+        }else{
+            echo "<p>Carga de imagen abortada. Compruebe formato PNG|GIF|JPG|JPEG.</p>";
+        }   
+    }
+
+    if(isset($POST['registro_articulo'])){
+       $cadena_errores_formulario = comprobar_datos_registro($POST['registro_articulo']); 
+    }
+
+    if(empty($cadena_errores_formulario)){
+
+    }
+    
+    include '../php/views/form_registro_articulo.php';
+}
+
 ?>

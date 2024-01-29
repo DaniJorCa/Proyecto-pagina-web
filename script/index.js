@@ -66,4 +66,13 @@ if (aside.length = 1){
     divAsideMain.appendChild(main[0]);
 }
 
+
+let boton_alta_articulo = document.getElementById('btn-alta_articulo');
+
+boton_alta_articulo.addEventListener('click', () => window.location.href = 'index.php?view=_alta-articulo');
+
+
+
+
+
 });

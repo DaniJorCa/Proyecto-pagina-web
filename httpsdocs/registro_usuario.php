@@ -12,9 +12,9 @@
     </head>
     <body>
 <?php session_start();
-        include_once('includes/header.html');
-        include_once('includes/formularioRegistro.php'); 
-        include_once('includes/footer.html');
+        include_once('../php/views/header.html');
+        include_once('../php/views/form_registro_usuario.php'); 
+        include_once('../php/views/footer.html');
 ?>
         <script src="../styles/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" src="../script/jsMain.js"></script>

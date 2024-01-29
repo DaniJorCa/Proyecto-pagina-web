@@ -1,5 +1,6 @@
-<form method="POST" class="row form-control-sm" action="index.php?view=_registro">
-    <h2 class="display-4 text-center">Formulario Registro</h2>
+<form method="POST" class="row form-control-sm justify-content-center" action="index.php?view=_registro">
+    <h2 class="display-4 text-center">Date de alta</h2>
+    <h2 class="display-6 text-center">Y obtén tu dto de nuevo usuario</h2>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'already-exist') ? "El DNI ya esta registrado" : ''; ?></p>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'incorrect') ? "El DNI debe de ser formato 8 números y 1 letra" : ''; ?></p>
@@ -71,7 +72,7 @@
 }
 ?>
         
-    <div class="mb-3 form-check col-5">
+    <div class="mb-3 form-check col-12 justify-content-center">
       <input type="checkbox" class="form-check-input" id="check-terminos">
       <label class="form-check-label" for="exampleCheck1">Acepto los terminos y condiciones</label>
     </div>

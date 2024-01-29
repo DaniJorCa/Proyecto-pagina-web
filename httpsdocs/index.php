@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="../styles/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../styles/header&footer.css">
         <link rel="stylesheet" href="../styles/genericBody.css">
         <link rel="stylesheet" href="../styles/bodyMain.css">
@@ -14,8 +15,8 @@
 <?php
 ob_start();
 session_start();
-include_once('includes/header.html'); 
-include_once('includes/aside.php');
+include_once('../php/views/header.html'); 
+include_once('../php/views/aside.php');
 require "../php/controllers/articulos_controller.php";
 require "../php/controllers/usuarios_controller.php";
 ?>
@@ -37,6 +38,10 @@ require "../php/controllers/usuarios_controller.php";
                 case '_registro':
                     alta_usuario_en_BD();
                     break;
+                case '_alta-articulo':
+                    formulario_alta();
+                    break; 
+                       
 
                 default:
                     consultar_art_mas_vendidos();
@@ -47,7 +52,9 @@ require "../php/controllers/usuarios_controller.php";
         
     </main>
 <?php 
-include ('includes/footer.html') 
+include ('../php/views/footer.html');
+
 ?>
+<script src="../styles/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
