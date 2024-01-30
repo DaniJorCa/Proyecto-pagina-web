@@ -6,6 +6,7 @@ if(!is_array($articulos)){
 
 <div class="my-4">
     <button id="btn-alta_articulo" class="btn btn-success">Alta Articulos</button>
+    <button id="btn-alta_categorias" class="btn btn-warning">Alta Categorias</button>
 </div>
 <div>
 <table class="table-hover table-striped">

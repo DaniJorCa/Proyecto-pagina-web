@@ -1,7 +1,7 @@
 <?php
 
 function getArrayTopVentasDesc(){
-    require '../php/conection/conectar_BD.php';
+    require_once '../php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT * FROM articulos ORDER BY total_ventas DESC");
     $stmt->execute();
@@ -16,7 +16,7 @@ function getArrayTopVentasDesc(){
 }
 
 function getArrayArtsPorCategoriaAsc(){
-    require '../php/conection/conectar_BD.php';
+    require_once '../php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT * FROM articulos ORDER BY categoria ASC");
     $stmt->execute();
@@ -41,19 +41,6 @@ function getArrayArtPorId($id){
         return 'No hay artículos que mostrar';
     }
     return $articulos;
-}
-
-function insertarArticulo($id_articulo, $nombre, $img, $descripcion, $precio,
-    $genero, $categoria, $neto_compra, $iva, $stock, $stock_minimo, $total_ventas, 
-    $esBaja){
-    require '../models/articulos_model.php';
-    require '../conection/conectar_BD';
-    $con = conexion_BD();
-    $stmt = $con->prepare("INSERT INTO articulos (id_articulo, nombre, img, descripcion, 
-        precio, genero, categoria, neto_compra, iva, stock, stock_minimo, total_ventas, esBaja) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$id_articulo, $nombre, $img, $descripcion, $precio,
-    $genero, $categoria, $neto_compra, $iva, $stock, $stock_minimo, $total_ventas, 
-    $esBaja]);    
 }
 
 
@@ -174,8 +161,9 @@ function incrementar_cadena_letras($cadena) {
 
 function subirImg($array){
     $temporal = $array["tmp_name"];
-    $destino = "img/" . $array['name'];
+    $destino = "../img/" . $array['name'];
     $checkImg = formato($array['name']);
+    $_SESSION['img'] = "imgUploads/". $_FILES['imagen']['name'];
     if($checkImg){
        if (move_uploaded_file($temporal, $destino)){
         }else{
@@ -251,9 +239,37 @@ function comprobar_datos_registro($array){
 }
 
 
-function insertar_articulo_en_BD(){
-    
+function insertar_articulo_en_BD($array){
+    try {
+        require_once '../php/conection/conectar_BD.php';
+        $con = conexion_BD();
+        $stmt = $con->prepare('INSERT INTO articulos (id_articulo, nombre, img, descripcion, precio, genero, categoria, subcategoria, neto_compra, iva, stock, stock_minimo) 
+            VALUES (:id_articulo, :nombre, :img, :descripcion, :precio, :genero, :categoria, :subcategoria, :neto_compra, :iva, :stock, :stock_minimo)');
+        $rows = $stmt->execute(array(
+            ':id_articulo' => $array['id_articulo'],
+            ':nombre' => $array['nombre'],
+            ':img' => $_SESSION['img'],
+            ':descripcion' => $array['descripcion'],
+            ':precio' => $array['precio'],
+            ':genero' => $array['genero'],
+            ':categoria' => $array['categoria'],
+            ':subcategoria' => $array['subcategoria'],
+            ':neto_compra' => $array['precio_compra'],
+            ':iva' => $array['iva'],
+            ':stock' => $array['stock'],
+            ':stock_minimo' => $array['stock_minimo']
+        ));
+
+        if ($rows == 1) {
+            return 'Insercion correcta';
+        }
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+    }
 }
 
+function boolean_img_is_too_size($array){
+    return ($array['imagen']['size'] > 2000000) ? true : false; 
+}
 
 ?>

@@ -49,6 +49,7 @@ include('../php/views/slideshowArea.html');
                 <input name="email" class="email" type="email" placeholder="Email" autofocus required>
                 <label for="passwd">Contraseña</label>
                 <input name="passwd" class="passwd" type="text" placeholder="Contraseña" required>
+                <button id="btn-alta_articulo" class="btn btn-success">Entrar</button>
             </form>
             <h3>¿Todavia no eres usuario?</h3>
             <h3><a href="registro_usuario.php">Date de Alta</a></h3>

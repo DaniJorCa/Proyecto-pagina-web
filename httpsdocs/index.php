@@ -40,7 +40,9 @@ require "../php/controllers/usuarios_controller.php";
                     break;
                 case '_alta-articulo':
                     formulario_alta();
-                    break; 
+                    break;
+                case '_mant-arts':
+                    mostrar_articulos();     
                        
 
                 default:

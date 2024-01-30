@@ -68,9 +68,10 @@ if (aside.length = 1){
 
 
 let boton_alta_articulo = document.getElementById('btn-alta_articulo');
+let boton_alta_categorias = document.getElementById('btn-alta_categorias');
 
-boton_alta_articulo.addEventListener('click', () => window.location.href = 'index.php?view=_alta-articulo');
-
+boton_alta_articulo.addEventListener('click', () => window.location.href = 'registro_articulo.php');
+boton_alta_categorias.addEventListener('click', () => window.location.href = 'registro_categorias.php');
 
 
 

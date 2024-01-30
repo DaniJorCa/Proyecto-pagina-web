@@ -1,13 +1,14 @@
+<main>
 <h2 class="display-2 text-center"> Alta Nuevo Articulo </h2>
 <div class="row justify-content-center">
-<form class="row g-3 row col-7" method="POST" action="index.php?good-added" enctype="multipart/form-data">
+<form class="row g-3 row col-7" method="POST" action="index.php?view=_alta-articulo" enctype="multipart/form-data">
 <div class="col-md-6">
       <label for="disabledTextInput" class="form-label">Codigo Articulo</label>
-      <input type="text" name="id_articulo" id="disabledTextInput" class="form-control" placeholder= <?php echo '"'. generar_codigo_art() . '"'?> disabled required>
+      <input type="text" name="id_articulo" id="disabledTextInput" class="form-control" placeholder= <?php echo '"'. generar_codigo_art() . '"'?> readonly required>
     </div>
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">Nombre</label>
-    <input type="password" name="nombre" class="form-control" id="inputPassword4" required>
+    <input type="text" name="nombre" class="form-control" required>
   </div>
   <div class="col-md-12">
     <label for="inputPassword4" class="form-label">Imagen</label>
@@ -17,7 +18,7 @@
 </div>
   <div class="input-group">
   <label class="input-group-text" for="inputGroupFile01" >Upload</label>
-  <input type="file" name="imagen" class="form-control" id="inputImg" onchange="showPreview()" required>
+  <input type="file" name="img" class="form-control" id="inputImg" onchange="showPreview()" required>
 </div>
   <div class="col-12">
     <label for="inputAddress2" class="form-label">Descripcion</label>
@@ -95,6 +96,7 @@
   </div>
 </form>
 </div>
+  </main>
 
 <script>
 function showPreview() {
