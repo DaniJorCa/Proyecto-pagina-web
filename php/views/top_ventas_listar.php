@@ -1,52 +1,25 @@
 <?php
 if(!is_array($articulos)){
     echo '<p>No hay articulos que mostrar</p>';
-}else{   
+}else{      
 ?>    
 
-<table border="1">
-<tr>
-<td>ID</td>
-<td>Nombre</td>
-<td>Img</td>
-<td>Descripcion</td>
-<td>Precio Actual</td>
-<td>Precios Anteriores</td>
-<td>Precio Compra</td>
-<td>Género</td>
-<td>Categoria</td>
-<td>Subcategoria</td>
-<td>Dto Venta</td>
-<td>Dto Compra</td>
-<td>Iva</td>
-<td>Stock</td>
-<td>Stock Mínimo</td>
-<td>Total Ventas</td>
-<td>Esta de Baja?</td>
-</tr>
+<h2 class="">
+
 <?php
+echo "<table>";
 
     foreach ($articulos as $fila) {
-    echo "<tr>";
-    echo "<td>{$fila["id"]}</td>"; 
-    echo "<td>{$fila["nombre"]}</td>";
-    echo "<td><img src='{$fila["img"]}'></img></td>";
-    echo "<td>{$fila["descripcion"]}</td>";
-    echo "<td>{$fila["precio"]}</td>";
-    echo "<td>{$fila["preciosAnteriores"]}</td>";
-    echo "<td>{$fila["precioCompra"]}</td>";
-    echo "<td>{$fila["genero"]}</td>"; 
-    echo "<td>{$fila["categoria"]}</td>";
-    echo "<td>{$fila["subcategoria"]}</td>";
-    echo "<td>{$fila["dtoVenta"]}</td>";
-    echo "<td>{$fila["dtoCompra"]}</td>";
-    echo "<td>{$fila["iva"]}</td>"; 
-    echo "<td>{$fila["stock"]}</td>";
-    echo "<td>{$fila["stockMinimo"]}</td>";
-    echo "<td>{$fila["totalVentas"]}</td>";
-    echo "<td>{$fila["esBaja"]}</td>";
-    echo "</tr>";
+    echo "<div class='card col-md-6' style='width: 18rem;'>";
+    echo '<img src="' . $fila['img'] . '" class="card-img-top" alt="...">';
+    echo '<div class="card-body">';
+    echo '<h5 class="card-title">' . $fila["nombre"] . '</h5>';
+    echo  '<p class="card-text">' . $fila["descripcion"] . "</p>";
+    echo  '<a href="#" class="btn btn-primary">Comprar</a>';
+    echo  '</div>';
+    echo  '</div>';
     }
+
+echo "</table>";
 }
 ?>
-</table>

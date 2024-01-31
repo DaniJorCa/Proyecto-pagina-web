@@ -1,8 +1,14 @@
 <?php
 
 function conexion_BD(){
-    define ("USER_DB","root"); 
-    define ("PASSWORD","");
+    if (!defined('USER_DB')) {
+        define ("USER_DB","root");
+    }
+    
+    if(!defined('PASSWORD')){
+      define ("PASSWORD","");  
+    }
+    
 try {
     $dsn = "mysql:host=localhost;dbname=empresa";
     $con = new PDO($dsn, USER_DB, PASSWORD);

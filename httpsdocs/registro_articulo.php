@@ -11,10 +11,14 @@
         <link rel="stylesheet" href="../styles/slideshowArea.css">
         <script type="text/javascript" src="../script/jsMain.js"></script>
         <script type="text/javascript" src="../script/index.js"></script>
+        <script type="text/javascript" src="../script/registro_articulos.js"></script>
+        <script type="text/javascript" src="../script/clases.js"></script>
+
         
     </head>
     <body>
 <?php session_start();
+        require('../php/models/categorias_model.php');
         require('../php/models/articulos_model.php');
         include_once('../php/views/header.html');
         include_once('../php/views/aside.php');

@@ -31,7 +31,7 @@ if(!is_array($articulos)){
 
     foreach ($articulos as $fila) {
     echo "<tr>";
-    echo "<td>{$fila["id_articulod"]}</td>"; 
+    echo "<td>{$fila["id_articulo"]}</td>"; 
     echo "<td>{$fila["nombre"]}</td>";
     echo "<td><img class='img-tabla'src='{$fila["img"]}'></img></td>";
     echo "<td class='td-wrap'>{$fila["descripcion"]}</td>";
@@ -45,7 +45,7 @@ if(!is_array($articulos)){
     echo "<td>{$fila["stock_minimo"]}</td>";
     echo "<td>{$fila["total_ventas"]}</td>";
     echo "<td>{$fila["esBaja"]}</td>";
-    echo "<td><a href=?view=_edicion-art&id={$fila["id"]}></a></td>";
+    echo "<td><a href=?view=_edicion-art&id={$fila["id_articulo"]}></a></td>";
     echo "</tr>";
     }
 }

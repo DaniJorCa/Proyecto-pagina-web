@@ -4,7 +4,7 @@
 <form class="row g-3 row col-7" method="POST" action="index.php?view=_alta-articulo" enctype="multipart/form-data">
 <div class="col-md-6">
       <label for="disabledTextInput" class="form-label">Codigo Articulo</label>
-      <input type="text" name="id_articulo" id="disabledTextInput" class="form-control" placeholder= <?php echo '"'. generar_codigo_art() . '"'?> readonly required>
+      <input type="text" name="id_articulo" id="disabledTextInput" class="form-control" value="<?php echo generar_codigo_art(); ?>" placeholder="<?php echo generar_codigo_art(); ?>" readonly required>
     </div>
   <div class="col-md-6">
     <label for="inputPassword4" class="form-label">Nombre</label>
@@ -47,16 +47,16 @@
   </div>
   <div class="col-md-6">
     <label for="inputState" class="form-label">Categoria</label>
-    <select id="inputState" name="categoria" class="form-select" required>
+    <select id="input-categoria_articulo" name="categoria" class="form-select" required>
 <?php
     $categorias = get_array_categorias();
     $contador = 0;
     foreach ($categorias as $categoria){
         if($contador == 0){
-            echo "<option selected>" . $categoria . "</option>";
+            echo "<option selected value ='".$categoria['codigo']."'>" . $categoria['nombre'] . "</option>";
             $contador++;
         }else{
-            echo "<option>" . $categoria . "</option>";
+            echo "<option value ='".$categoria['codigo']."'>" . $categoria['nombre'] . "</option>";
         }
         
     }
@@ -65,20 +65,8 @@
 </div>
     <div class="col-md-6">
     <label for="inputState" class="form-label">Subcategoria</label>
-    <select id="inputState" name="subcategoria" class="form-select" required>
-<?php
-    $categorias = get_array_subcategorias();
-    $contador = 0;
-    foreach ($categorias as $categoria){
-        if($contador == 0){
-            echo "<option selected>" . $categoria . "</option>";
-            $contador++;
-        }else{
-            echo "<option>" . $categoria . "</option>";
-        }
-        
-    }
-?>     
+    <select id="input-subcategoria_articulo" name="subcategoria" class="form-select" required> 
+         
     </select>
   </div>
   <div class="col-md-3">

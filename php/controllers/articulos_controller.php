@@ -26,7 +26,7 @@ function formulario_alta(){
     }elseif(boolean_img_is_too_size($_FILES)){
         header('Location: registro_articulo.php?img=too_size');
     }else{
-        subirImg($_FILES['imagen']);
+        subirImg($_FILES['img']);
         insertar_articulo_en_BD($_POST);
     }
 
@@ -37,5 +37,7 @@ function mostrar_articulos(){
     $articulos = getArrayArtsPorCategoriaAsc();
     include '../php/views/mantenimiento_articulos.php';
 }
+
+
 
 ?>

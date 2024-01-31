@@ -19,6 +19,7 @@ include_once('../php/views/header.html');
 include_once('../php/views/aside.php');
 require "../php/controllers/articulos_controller.php";
 require "../php/controllers/usuarios_controller.php";
+require "../php/controllers/categorias_controller.php";
 ?>
     <main>
 <?php
@@ -42,8 +43,11 @@ require "../php/controllers/usuarios_controller.php";
                     formulario_alta();
                     break;
                 case '_mant-arts':
-                    mostrar_articulos();     
-                       
+                    mostrar_articulos();
+                    break;     
+                case '_alta-categoria':
+                    formulario_alta_categorias();
+                    break;       
 
                 default:
                     consultar_art_mas_vendidos();

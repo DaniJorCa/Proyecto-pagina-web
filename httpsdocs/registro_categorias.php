@@ -11,11 +11,12 @@
         <link rel="stylesheet" href="../styles/slideshowArea.css">
         <script type="text/javascript" src="../script/jsMain.js"></script>
         <script type="text/javascript" src="../script/index.js"></script>
+        <script type="text/javascript" src="../script/registro_categorias.js"></script>
         
     </head>
     <body>
 <?php session_start();
-        require('../php/models/articulos_model.php');
+        require('../php/models/categorias_model.php');
         include_once('../php/views/header.html');
         include_once('../php/views/aside.php');
         include_once('../php/views/form_registro_categorias.php'); 

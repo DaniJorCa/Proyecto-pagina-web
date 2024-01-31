@@ -1,17 +1,17 @@
 <?php
 
 include_once('../php/models/articulos_model.php');
-
-$letras = extraer_parte_alfabetica('AAAXXXXX');
-
-echo $letras;
+include_once('../php/models/categorias_model.php');
 
 
-$numero = extraer_parte_numerica('aaa111111');
 
-echo $numero;
+$codigo_padre = get_cod_categoria_padre('Hogar');
 
-$boolean = formato('prueba.jpg');
+echo $codigo_padre;
 
+echo extraer_parte_alfabetica('AAA345434');
+
+echo extraer_parte_numerica('BBB888888');
+   
 
 ?>
