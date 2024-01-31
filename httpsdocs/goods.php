@@ -11,11 +11,11 @@
         <script type="text/javascript" src="../script/index.js"></script>
     </head>
     <body>
-    <?php include ('includes/header.html') ?>
-    <?php include ('includes/aside.html') ?>
+    <?php include ('../php/views/header.html') ?>
+    <?php include ('../php/views/aside.php') ?>
     <main>
-        <?php include ('includes/showGoods.html') ?>
+        <?php include ('../php/views/showGoods.html') ?>
     </main>
-    <?php include ('includes/footer.html') ?>
+    <?php include ('../php/views/footer.html') ?>
     </body>
 </html>

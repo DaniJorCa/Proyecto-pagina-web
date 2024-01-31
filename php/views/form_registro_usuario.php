@@ -1,4 +1,4 @@
-<form method="POST" class="row form-control-sm justify-content-center" action="index.php?view=_registro">
+<form method="POST" class="row form-control-sm justify-content-center" action="main.php?view=_registro">
     <h2 class="display-4 text-center">Date de alta</h2>
     <h2 class="display-6 text-center">Y obtén tu dto de nuevo usuario</h2>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
@@ -6,7 +6,7 @@
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'incorrect') ? "El DNI debe de ser formato 8 números y 1 letra" : ''; ?></p>
     <div class="mb-3 col-5 ">
       <label for="input-dni" class="form-label">DNI</label>
-      <input name="dni" type="text" class="form-control form-control-sm" id="input-dni" value=>
+      <input name="dni" type="text" class="form-control form-control-sm" id="input-dni">
     </div>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['password']) && $_GET['password'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
     <div class="mb-3 col-5">

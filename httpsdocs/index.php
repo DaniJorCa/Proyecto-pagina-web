@@ -10,11 +10,13 @@
         <link rel="stylesheet" href="../styles/slideshowArea.css">
         <script type="text/javascript" src="../script/jsMain.js"></script>
         <script type="text/javascript" src="../script/index.js"></script>
+        
     </head>
     <body>
 <?php
 ob_start();
 session_start();
+include_once('../php/security/security.php');
 include_once('../php/views/header.html'); 
 include_once('../php/views/aside.php');
 require "../php/controllers/articulos_controller.php";
@@ -36,11 +38,9 @@ require "../php/controllers/categorias_controller.php";
                 case '_edicion-art':
                     edicion_informacion_articulo($_GET['id']);
                     break; 
-                case '_registro':
-                    alta_usuario_en_BD();
-                    break;
                 case '_alta-articulo':
                     formulario_alta();
+                    consultar_art_mas_vendidos();
                     break;
                 case '_mant-arts':
                     mostrar_articulos();

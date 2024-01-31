@@ -137,7 +137,49 @@ function comprobar_errores_formulario($array){
         }
 }   
 
+function checkLog($email, $passwd){
+    $check;
+    try{
+        if(!isset($con)){
+            require_once '../php/conection/conectar_BD.php'; 
+            $con = conexion_BD();
+            $stmt = $con->prepare('SELECT * FROM usuarios WHERE  email = :email');
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->execute();
+        } 
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($usuario && password_verify($passwd, $usuario['passwd'])) {
+            session_start();
+            $_SESSION['dni'] = $usuario['dni'];
+            $_SESSION['password'] = $usuario['password'];
+            $_SESSION['nombre'] = $usuario['nombre'];
+            $_SESSION['primer_apellido'] = $usuario['primer_apellido'];
+            $_SESSION['segundo_apellido'] = $usuario['segundo_apellido'];
+            $_SESSION['direccion'] = $usuario['direccion'];
+            $_SESSION['provincia'] = $usuario['provincia'];
+            $_SESSION['poblacion'] = $usuario['poblacion'];
+            $_SESSION['cod_postal'] = $usuario['cod_postal'];
+            $_SESSION['telefono'] = $usuario['telefono'];
+            $_SESSION['email'] = $usuario['email'];
+            $_SESSION['perfil'] = $usuario['perfil'];
+            $_SESSION['esBaja'] = $usuario['esBaja'];
+
+            $check = true;
+        }else{
+            $check = false;
+        }
+        
+        return $check;
+    }catch(PDOException $e){
+        echo 'Error: ' . $e ->getMessage();
+    }
+}
+
+
+
 function check_log($array){
+
+
         
     $_SESSION['password_reg_log'] = $array['password'] ;
     $_SESSION['nombre_log'] = $array['nombre'];
@@ -150,6 +192,8 @@ function check_log($array){
     $_SESSION['telefono_log'] = $array['telefono'];
     $_SESSION['email_log'] = $array['email'];
 
+    $_SESSION['logueado'] = true;
+
 }
 
     
@@ -157,11 +201,11 @@ function check_log($array){
 function insertar_usuario_completo_en_BD($array){
 
         try{
-            require '../php/conection/conectar_BD.php';
+            require_once ('../php/conection/conectar_BD.php');
             $con = conexion_BD();
             $stmt = $con->prepare('INSERT INTO usuarios (dni, password, nombre, primer_apellido, segundo_apellido,  
             direccion, provincia, poblacion, cod_postal, telefono, email) VALUES (:dni, :password, :nombre, :primer_apellido, :segundo_apellido, :direccion, :provincia, :poblacion, :cod_postal, :telefono, :email)');
-            $rows = $stmt->execute(array(':dni' => $array['dni'], ':password' => $array['password'], ':nombre' => $array['nombre'], ':primer_apellido' => $array['primer_apellido'],
+            $rows = $stmt->execute(array(':dni' => $array['dni'], ':password' => password_hash($array['password'],PASSWORD_DEFAULT), ':nombre' => $array['nombre'], ':primer_apellido' => $array['primer_apellido'],
             ':segundo_apellido' => $array['segundo_apellido'], ':direccion' => $array['direccion'], ':provincia' => $array['provincia'], ':poblacion' => $array['poblacion'], 
             ':cod_postal' => $array['cod_postal'], ':telefono' => $array['telefono'], ':email' => $array['email']));
 
@@ -174,23 +218,22 @@ function insertar_usuario_completo_en_BD($array){
 
 
 function existe_usuario_con_dni($dni){
-    require '../php/conection/conectar_BD.php';
+    require_once '../php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare('SELECT * FROM usuarios WHERE dni = :dni');
-    $rows = $stmt->execute(array(':dni' => $dni));
+    $stmt->bindParam(':dni', $dni);
+    $stmt->execute();
     
-    if($rows > 0){
-        return true;
-    }else{
-        return false;
-    }
+    $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return ($rows !== false);
 }
 
 
 function insertar_usuario_basico_en_BD($email, $password, $nombre, $direccion, $provincia, $poblacion, $telefono){
 
         try{
-            require '../php/conection/conectar_BD.php';
+            require_once ('../php/conection/conectar_BD.php');
             $con = conexion_BD();
             $stmt = $con->prepare('INSERT INTO usuarios (email, password, nombre, 
             direccion, provincia, poblacion, telefono) VALUES (:email, :password, :nombre, :direccion, :provincia, :poblacion, :telefono)');

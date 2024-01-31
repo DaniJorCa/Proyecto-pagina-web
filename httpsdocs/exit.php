@@ -1,24 +1,7 @@
-<?php if(isset($_SESSION['logueado'])){
-    echo $_SESSION['logueado'];
-}
-
-
-require_once("../php/controllers/usuarios_controller.php");
-
-
-$mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
-
-switch ($mostrar){
-
-    case '_registro':
-        alta_usuario_en_BD();
-        break;    
-
-    default:
-        
-        break;
-
-}
+<?php
+session_start();
+$_SESSION = array();
+session_destroy();
 
 ?>
 
@@ -33,11 +16,7 @@ switch ($mostrar){
     <script type="text/javascript" src="../script/jsMain.js"></script>
 </head>
 <div class="capaBlur" id="capaBlur"></div>
-<?php 
-
-include ('../php/views/header.html');
-
-?>
+<?php include ('../php/views/header.html') ?>
 
     <body>
         
@@ -69,8 +48,6 @@ include ('../php/views/header.html');
 include('../php/views/slideshowArea.html'); 
 
 ?>
-
-
 
         <div id="form-registro">
             <h2>LOGIN / REGISTRO </h2>
