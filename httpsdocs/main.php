@@ -1,10 +1,10 @@
-<?php if(isset($_SESSION['logueado'])){
-    echo $_SESSION['logueado'];
-}
+<?php 
 
+session_start();
+$_SESSION = array();
+session_destroy();
 
 require_once("../php/controllers/usuarios_controller.php");
-
 
 $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
 

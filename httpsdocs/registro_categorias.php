@@ -16,6 +16,7 @@
     </head>
     <body>
 <?php session_start();
+        include_once('../php/security/security.php');
         require('../php/models/categorias_model.php');
         include_once('../php/views/header.html');
         include_once('../php/views/aside.php');

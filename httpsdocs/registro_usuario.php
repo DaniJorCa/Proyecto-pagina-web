@@ -12,6 +12,7 @@
     </head>
     <body>
 <?php
+        include_once('../php/security/security.php');
         include_once('../php/views/header.html');
         include_once('../php/views/form_registro_usuario.php'); 
         include_once('../php/views/footer.html');

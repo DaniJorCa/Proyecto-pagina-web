@@ -18,6 +18,7 @@ session_destroy();
 <div class="capaBlur" id="capaBlur"></div>
 <?php include ('../php/views/header.html') ?>
 
+    <h2 class="display-3">Hasta Pronto!!</h2>
     <body>
         
         <div class="parallax">

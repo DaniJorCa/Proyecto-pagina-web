@@ -12,7 +12,6 @@ function alta_usuario_en_BD(){
     if(!$boolean_existe){
         insertar_usuario_completo_en_BD($arrayDatosUsuarioRegistrado);
         if(count($arrayDatosUsuarioRegistrado) > 0){
-            check_log($arrayDatosUsuarioRegistrado);
             header('Location: index.php');
         }        
     }else{
@@ -20,5 +19,31 @@ function alta_usuario_en_BD(){
         exit();
     }
     
+}
+
+function modificar_usuario_controller(){
+    require_once('../php/models/usuario_model.php');
+
+    if(!isset($_POST['submit_edit_passwd'])){
+        $campos_en_blanco = boolean_check_empty_fields($_POST);
+        if($campos_en_blanco){
+            header('Location: perfil_usuario.php?info=empty_fields');
+            exit;
+        }
+        $arrayUsuario = get_array_datos_usuario_or_string_if_is_not($_POST['dni_edit']);
+        if(is_array($arrayUsuario)){
+            check_edit_usuario($arrayUsuario, $_POST);
+            modificar_datos_usuario_en_BD($_POST);
+            header('Location: index.php');
+            exit;
+        }
+        
+    }else{
+        check_passwd_y_repasswd($_POST);
+            if(modificar_passwd($_POST)){
+                header('Location: index.php?info=update_passwd');
+            }
+        }
+
 }
 ?>

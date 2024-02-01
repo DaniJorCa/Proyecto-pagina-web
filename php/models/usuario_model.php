@@ -148,21 +148,21 @@ function checkLog($email, $passwd){
             $stmt->execute();
         } 
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($usuario && password_verify($passwd, $usuario['passwd'])) {
+        if ($usuario && password_verify($passwd, $usuario['password'])) {
             session_start();
-            $_SESSION['dni'] = $usuario['dni'];
-            $_SESSION['password'] = $usuario['password'];
-            $_SESSION['nombre'] = $usuario['nombre'];
-            $_SESSION['primer_apellido'] = $usuario['primer_apellido'];
-            $_SESSION['segundo_apellido'] = $usuario['segundo_apellido'];
-            $_SESSION['direccion'] = $usuario['direccion'];
-            $_SESSION['provincia'] = $usuario['provincia'];
-            $_SESSION['poblacion'] = $usuario['poblacion'];
-            $_SESSION['cod_postal'] = $usuario['cod_postal'];
-            $_SESSION['telefono'] = $usuario['telefono'];
-            $_SESSION['email'] = $usuario['email'];
-            $_SESSION['perfil'] = $usuario['perfil'];
-            $_SESSION['esBaja'] = $usuario['esBaja'];
+            $_SESSION['password_reg_log'] = $usuario['password'] ;
+            $_SESSION['nombre_log'] = $usuario['nombre'];
+            $_SESSION['dni_log'] = $usuario['dni'];
+            $_SESSION['primer_apellido_log'] = $usuario['primer_apellido'];
+            $_SESSION['segundo_apellido_log'] = $usuario['segundo_apellido'];
+            $_SESSION['direccion_log'] = $usuario['direccion'];
+            $_SESSION['provincia_log'] =$usuario['provincia'];
+            $_SESSION['poblacion_log'] = $usuario['poblacion'];
+            $_SESSION['cod_postal_log'] = $usuario['cod_postal'];
+            $_SESSION['telefono_log'] = $usuario['telefono'];
+            $_SESSION['email_log'] = $usuario['email'];
+            $_SESSION['perfil_log'] = $usuario['perfil'];
+            $_SESSION['email_log'] = $usuario['email'];
 
             $check = true;
         }else{
@@ -176,10 +176,8 @@ function checkLog($email, $passwd){
 }
 
 
-
-function check_log($array){
-
-
+//Borrar
+/*function check_log($array){
         
     $_SESSION['password_reg_log'] = $array['password'] ;
     $_SESSION['nombre_log'] = $array['nombre'];
@@ -191,10 +189,9 @@ function check_log($array){
     $_SESSION['cod_postal_log'] = $array['cod_postal'];
     $_SESSION['telefono_log'] = $array['telefono'];
     $_SESSION['email_log'] = $array['email'];
-
-    $_SESSION['logueado'] = true;
-
-}
+    $_SESSION['perfil_log'] = $array['perfil'];
+    $_SESSION['email_log'] = $array['email'];
+}*/
 
     
 
@@ -230,6 +227,159 @@ function existe_usuario_con_dni($dni){
 }
 
 
+function get_array_datos_usuario_or_string_if_is_not($dni){
+    require_once '../php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare('SELECT * FROM usuarios WHERE dni = :dni');
+    $stmt->bindParam(':dni', $dni);
+    $stmt->execute();
+    
+    $array_usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return ($array_usuario !== false) ? $array_usuario : "Usuario no encontrado en la base de datos";
+}
+
+function extraer_apellidos($cadena){
+    $arrayApellidos = [];
+    $posicion_espacio = strpos($cadena, ' ');
+    $primer_apellido = substr($cadena, 0, $posicion_espacio);
+    $segundo_apellido = substr($cadena, $posicion_espacio, strlen($cadena));
+
+    array_push($arrayApellidos, $primer_apellido);
+    array_push($arrayApellidos, $segundo_apellido);
+
+    return $arrayApellidos;
+}
+
+function modificar_datos_usuario_en_BD($array){
+    try {
+        $array_explode_apellidos = extraer_apellidos($array['apellidos_edit']);
+
+        require_once ('../php/conection/conectar_BD.php');
+        $con = conexion_BD();
+        $stmt = $con->prepare('UPDATE usuarios SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido,  
+        direccion = :direccion, provincia = :provincia, poblacion = :poblacion, cod_postal = :cod_postal, telefono = :telefono, email = :email WHERE dni = :dni');
+        $rows = $stmt->execute(array(
+            ':nombre' => $array['nombre_edit'],
+            ':primer_apellido' => $array_explode_apellidos[0],
+            ':segundo_apellido' => $array_explode_apellidos[1],
+            ':direccion' => $array['direccion_edit'],
+            ':provincia' => $array['provincia_edit'],
+            ':poblacion' => $array['poblacion_edit'],
+            ':cod_postal' => $array['cod_postal_edit'],
+            ':telefono' => $array['telefono_edit'],
+            ':email' => $array['email_edit'],
+            ':dni' => $array['dni_edit']
+        ));
+
+        if ($rows == 1)
+            return 'Actualización correcta';
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+    } 
+}
+
+function boolean_check_empty_fields($array){
+    $campo_vacio = false;
+
+    if (is_array($array) || is_object($array)) {
+        foreach ($array as $clave => $valor) {
+            var_dump($valor);
+            if($valor === "" || empty(trim($valor))){
+                $campo_vacio = true;
+            }   
+        }
+    } else {
+        echo "La variable \$_POST no es un array u objeto.";
+    }
+    
+    return $campo_vacio;
+}
+
+
+function check_edit_usuario($usuarioActual, $usuarioEditado){
+
+    $array_string_diferencias = [];
+
+    if($usuarioActual['nombre'] !== $usuarioEditado['nombre_edit']){
+        $_SESSION['nombre_log'] = $usuarioEditado['nombre_edit'];
+        $_SESSION['nombre_anterior'] = $usuarioActual['nombre'];
+        $_SESSION['nombre_nuevo'] = $usuarioEditado['nombre_edit'];
+        array_push($array_string_diferencias, $usuarioActual['nombre']);
+        array_push($array_string_diferencias, $usuarioEditado['nombre_edit']);
+    }
+
+    if(($usuarioActual['primer_apellido'] . " " . $usuarioActual['segundo_apellido']) !== $usuarioEditado['apellidos_edit'] && $usuarioEditado['apellidos_edit'] !== ''){
+        $apellidos_explode = extraer_apellidos($usuarioEditado['nombre_edit']);
+        $_SESSION['primer_apellido_log'] = $apellidos_explode[0];
+        $_SESSION['segundo_apellido_log'] = $apellidos_explode[1];
+        $_SESSION['apellidos_anteriores'] = $usuarioActual['primer_apellido'] . " " . $usuarioActual['segundo_apellido'];
+        $_SESSION['apellidos_nuevos'] = $usuarioEditado['apellidos_edit'];
+        array_push($array_string_diferencias,$usuarioActual['primer_apellido'] . " " . $usuarioActual['segundo_apellido']);
+        array_push($array_string_diferencias,$usuarioEditado['apellidos_edit']);
+    }
+
+    if($usuarioActual['dni'] !== $usuarioEditado['dni_edit']){
+        $_SESSION['dni_log'] = $usuarioEditado['dni_edit'];
+        $_SESSION['dni_anterior'] = $usuarioActual['dni'];
+        $_SESSION['dni_nuevo'] = $usuarioEditado['dni_edit'];
+        array_push($array_string_diferencias,$usuarioActual['dni']);
+        array_push($array_string_diferencias, $usuarioEditado['dni_edit']);
+    }
+
+    if($usuarioActual['email'] !== $usuarioEditado['email_edit']){
+        $_SESSION['email_log'] = $usuarioEditado['email_edit'];
+        $_SESSION['email_anterior'] = $usuarioActual['email'];
+        $_SESSION['email_nuevo'] = $usuarioEditado['email_edit'];
+        array_push($array_string_diferencias,$usuarioActual['email']);
+        array_push($array_string_diferencias,$usuarioEditado['email_edit']);
+    }
+
+    if($usuarioActual['direccion'] !== $usuarioEditado['direccion_edit']){
+        $_SESSION['direccion_log'] = $usuarioEditado['direccion_edit'];
+        $_SESSION['direccion_anterior'] = $usuarioActual['direccion'];
+        $_SESSION['direccion_nuevo'] = $usuarioEditado['direccion_edit'];
+        array_push($array_string_diferencias,$usuarioActual['direccion']);
+        array_push($array_string_diferencias,$usuarioEditado['direccion_edit']);
+    }
+
+    if($usuarioActual['provincia'] !== $usuarioEditado['provincia_edit']){
+        $_SESSION['provincia_log'] = $usuarioEditado['provincia_edit'];
+        $_SESSION['provincia_anterior'] = $usuarioActual['provincia'];
+        $_SESSION['provincia_nuevo'] = $usuarioEditado['provincia_edit'];
+        array_push($array_string_diferencias,$usuarioActual['provincia']);
+        array_push($array_string_diferencias,$usuarioEditado['provincia_edit']);
+    }
+
+    if($usuarioActual['poblacion'] !== $usuarioEditado['poblacion_edit']){
+        $_SESSION['poblacion_log'] = $usuarioEditado['poblacion_edit'];
+        $_SESSION['poblacion_anterior'] = $usuarioActual['poblacion'];
+        $_SESSION['poblacion_nuevo'] = $usuarioEditado['poblacion_edit'];
+        array_push($array_string_diferencias,$usuarioActual['poblacion']);
+        array_push($array_string_diferencias,$usuarioEditado['poblacion_edit']);
+    }
+
+    if($usuarioActual['telefono'] !== $usuarioEditado['telefono_edit']){
+        $_SESSION['telefono_log'] = $usuarioEditado['telefono_edit'];
+        $_SESSION['telefono_anterior'] = $usuarioActual['telefono'];
+        $_SESSION['telefono_nuevo'] = $usuarioEditado['telefono_edit'];
+        array_push($array_string_diferencias,$usuarioActual['telefono']);
+        array_push($array_string_diferencias,$usuarioEditado['telefono_edit']);
+    }
+
+    if($usuarioActual['cod_postal'] !== $usuarioEditado['cod_postal_edit']){
+        $_SESSION['cod_postal_log'] = $usuarioEditado['cod_postal_edit'];
+        $_SESSION['cod_postal_anterior'] = $usuarioActual['cod_postal'];
+        $_SESSION['cod_postal_nuevo'] = $usuarioEditado['cod_postal_edit'];
+        array_push($array_string_diferencias,$usuarioActual['cod_postal']);
+        array_push($array_string_diferencias,$usuarioEditado['cod_postal_edit']);
+    }
+
+    return $array_string_diferencias;
+
+}
+
+
 function insertar_usuario_basico_en_BD($email, $password, $nombre, $direccion, $provincia, $poblacion, $telefono){
 
         try{
@@ -245,5 +395,27 @@ function insertar_usuario_basico_en_BD($email, $password, $nombre, $direccion, $
         }catch(PDOException $e){
             echo "Error:" . $e->getMessage();
         }
+}
+
+function check_passwd_y_repasswd($array) {
+    return $array['passwd_edit'] === $array['re-passwd_edit'];
+}
+
+
+function modificar_passwd($array){
+    try {
+        require_once ('../php/conection/conectar_BD.php');
+        $con = conexion_BD();
+        $stmt = $con->prepare('UPDATE usuarios SET password = :password WHERE email = :email');
+        $rows = $stmt->execute(array(
+            ':email' => $array['email_edit'],
+            ':password' => $array['passwd_edit']
+        ));
+
+        if ($rows == 1)
+            return 'Actualización correcta';
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+    } 
 }
 ?>
