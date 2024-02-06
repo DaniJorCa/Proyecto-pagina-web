@@ -29,6 +29,29 @@ function edicion_informacion_articulo($id){
     include 'php/views/edicion_articulo.php';
 }
 
+function check_and_edit_good(){
+    require_once 'php/models/articulos_model.php';
+    $array_articulo_a_editar = getArrayArtPorId($_POST['id_articulo']);
+    $headerCotejarCampos = cotejar_campos_editados($array_articulo_a_editar, $_POST);
+    var_dump($_POST);
+    $cadena_campos_vacios = comprobar_datos_registro($_POST);
+    var_dump($cadena_campos_vacios);
+    if(empty($cadena_campos_vacios)){
+        if(!empty($headerCotejarCampos)){
+            subirImg($_FILES['img']);
+            modificar_articulo($_POST);
+            array_datos_articulos_JSON();
+            header('Location: index.php'. $headerCotejarCampos);
+        }else{
+            header('Location: index.php?same-edit-fields');
+        }  
+    }else{
+        echo "Campos vacios en el formulario de edicion";
+    }
+    
+    
+}
+
 function formulario_alta(){
     require_once 'php/models/articulos_model.php';
     $err_log_form_registro_articulo = comprobar_datos_registro($_POST);

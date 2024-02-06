@@ -35,7 +35,9 @@ function asignar_values_categorias(data) {
         opcionEnBlanco.value = '';
         opcionEnBlanco.innerText = 'Seleccionar subcategoría';
         desplegable_subcategoria.appendChild(opcionEnBlanco);
-    } 
+    }
+        
+    
 
     for (let i in datos){
         console.log(datos);
@@ -55,7 +57,7 @@ function asignar_values_categorias(data) {
             var nueva_option = document.createElement('option');
 
             // Asignar un valor y texto a la nueva opción
-            nueva_option.value = cod_categoria_padre;
+            nueva_option.value = datos[j].codigo;
             nueva_option.innerText = datos[j].nombre_sub;
 
             // Agregar la nueva opción al final del select

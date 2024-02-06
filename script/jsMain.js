@@ -127,8 +127,9 @@ for (const btnEditarArticulo of btnsEditarArticulo){
         getDataFromAPI(urlAPI, function(response) {
             let arrayArticulo = obtenerDatosArticuloAEditar(response, idArticuloEdit.value);
             if (arrayArticulo) {
+                console.log('entra aqui');
                 imgArticuloEdit.src = arrayArticulo.img;
-                console.log(arrayArticulo);
+                console.log(arrayArticulo.img);
             } else {
                 console.log("No se encontró el artículo con ID: " + idArticuloEdit.value);
             }

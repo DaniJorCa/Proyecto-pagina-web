@@ -49,6 +49,9 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                 case '_edicion-art':
                     edicion_informacion_articulo($_POST['id']);
                     break;
+                case '_edit_good':
+                    check_and_edit_good($_POST);
+                    break;
                 case '_delete-art':
                     eliminar_articulo($_GET['id']);
                     break; 

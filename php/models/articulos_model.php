@@ -125,6 +125,110 @@ function getArrayArtPorId($id){
     return $articulos_editar;
 }
 
+function cotejar_campos_editados($array_antiguos_datos, $array_nuevos_datos){
+    $string_datos_modificados = '';
+    $contador_diferencias = 0;
+
+    if($array_antiguos_datos['nombre'] !== $array_nuevos_datos['nombre']){
+        $_SESSION['nombre-before-edit'] .= $array_antiguos_datos['nombre'];
+        $_SESSION['nombre-after-edit'] .= $array_nuevos_datos['nombre'];
+        $string_datos_modificados = '?name-art-edit';
+    }
+    if($array_antiguos_datos['img'] !== $_FILES['img'] || $_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE){
+        $_SESSION['img-before-edit'] = $array_antiguos_datos['img'];
+        $_SESSION['img-after-edit'] = $_FILES['img'];
+        if($contador_diferencias === 0){
+            $string_datos_modificados .= '?img-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'img-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['descripcion'] !== $array_nuevos_datos['descripcion']){
+        $_SESSION['descripcion-before-edit'] = $array_antiguos_datos['descripcion'];
+        $_SESSION['descripcion-after-edit'] = $array_nuevos_datos['descripcion'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?desc-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'desc-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['precio'] !== $array_nuevos_datos['precio']){
+        $_SESSION['precio-before-edit'] = $array_antiguos_datos['precio'];
+        $_SESSION['precio-after-edit'] = $array_nuevos_datos['precio'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?precio-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'precio-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['neto_compra'] !== $array_nuevos_datos['neto_compra']){
+        $_SESSION['compra-before-edit'] = $array_antiguos_datos['neto_compra'];
+        $_SESSION['compra-after-edit'] = $array_nuevos_datos['neto_compra'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?compra-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'compra-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['iva'] !== $array_nuevos_datos['iva']){
+        $_SESSION['iva-before-edit'] = $array_antiguos_datos['iva'];
+        $_SESSION['iva-after-edit'] = $array_nuevos_datos['iva'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?iva-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'iva-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['genero'] !== $array_nuevos_datos['genero']){
+        $_SESSION['genero-before-edit'] = $array_antiguos_datos['genero'];
+        $_SESSION['genero-after-edit'] = $array_nuevos_datos['genero'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?genero-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'genero-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['categoria'] !== $array_nuevos_datos['categoria']){
+        $_SESSION['categoria-before-edit'] = $array_antiguos_datos['categoria'];
+        $_SESSION['categoria-after-edit'] = $array_nuevos_datos['categoria'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?categoria-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'categoria-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['subcategoria'] !== $array_nuevos_datos['subcategoria']){
+        $_SESSION['sub-before-edit'] = $array_antiguos_datos['subcategoria'];
+        $_SESSION['sub-after-edit'] = $array_nuevos_datos['subcategoria'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?sub-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'sub-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['stock'] !== $array_nuevos_datos['stock']){
+        $_SESSION['stock-before-edit'] = $array_antiguos_datos['stock'];
+        $_SESSION['stock-after-edit'] = $array_nuevos_datos['stock'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?stock-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'stock-art-edit';
+        }  
+    }
+    if($array_antiguos_datos['stock_minimo'] !== $array_nuevos_datos['stock_minimo']){
+        $_SESSION['stock_minimo-before-edit'] = $array_antiguos_datos['stock_minimo'];
+        $_SESSION['stock_minimo-after-edit'] = $array_nuevos_datos['stock_minimo'];
+        if($contador_diferencias === 0){
+           $string_datos_modificados .= '?min-art-edit'; 
+        }else{
+            $string_datos_modificados .= 'min-art-edit';
+        }  
+    }
+
+    return $string_datos_modificados;
+
+}
+
 
 
 
@@ -232,18 +336,21 @@ function incrementar_cadena_letras($cadena) {
 
 
 function subirImg($array){
-    $temporal = $array["tmp_name"];
-    $destino = "img/" . $array['name'];
-    $checkImg = formato($array['name']);
-    $_SESSION['img'] = "img/". $_FILES['img']['name'];
-    if($checkImg){
-       if (move_uploaded_file($temporal, $destino)){
+    if($_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE){
+        $temporal = $array["tmp_name"];
+        $destino = "img/" . $array['name'];
+        $checkImg = formato($array['name']);
+        $_SESSION['img'] = "img/". $_FILES['img']['name'];
+        if($checkImg){
+        if (move_uploaded_file($temporal, $destino)){
+            }else{
+                echo "<p>Ocurrio un error, no se ha podido subir el archivo</p>";
+            }  
         }else{
-            echo "<p>Ocurrio un error, no se ha podido subir el archivo</p>";
-        }  
-    }else{
-        echo "<p>El formato de imagen no es correcto</p>";
+            echo "<p>El formato de imagen no es correcto</p>";
+        }
     }
+    
     
 }
 
@@ -279,7 +386,7 @@ function comprobar_datos_registro($array){
         if($contador_errores != 0 ? $cadena_errores .= '&empty=precio' : $cadena_errores .= '?empty=precio');
     }
 
-    if(empty($array['precio_compra'])){
+    if(empty($array['neto_compra'])){
         if($contador_errores != 0 ? $cadena_errores .= '&empty=precio_compra' : $cadena_errores .= '?empty=precio_compra');
     }
 
@@ -365,6 +472,59 @@ function delete_art($id){
         return false; 
     }
 }
+
+function modificar_articulo($array){
+      
+    try{
+        require_once 'php/conection/conectar_BD.php';
+        if($_FILES['img']['error'] == UPLOAD_ERR_NO_FILE){
+            $con = conexion_BD();
+            $stmt = $con->prepare('UPDATE articulos SET nombre = :nombre, descripcion = :descripcion, precio = :precio, neto_compra = :neto_compra, iva = :iva, genero = :genero, categoria = :categoria, subcategoria = :subcategoria, stock = :stock, stock_minimo = :stock_minimo WHERE id_articulo = :id' );
+            $rows = $stmt->execute(array(
+            ':id' => $array['id_articulo'],
+            ':nombre' => $array['nombre'], 
+            ':descripcion' => $array['descripcion'], 
+            ':precio' => $array['precio'], 
+            ':neto_compra' => trim($array['neto_compra']), 
+            ':iva' => $array['iva'], 
+            ':genero' => $array['genero'],
+            ':categoria' => $array['categoria'],
+            ':subcategoria' => $array['subcategoria'],
+            ':stock' => $array['stock'],
+            ':stock_minimo' => $array['stock_minimo']));
+
+        if($rows > 0){
+            echo "<p>Actualizacion realizada con exito! </p><br>";
+        }
+    
+        }else{
+            $con = conexion_BD();
+            $stmt = $con->prepare('UPDATE articulos SET nombre = :nombre, img = :img, descripcion = :descripcion, precio = :precio, neto_compra = :neto_compra, iva = :iva, genero = :genero, categoria = :categoria, subcategoria = :subcategoria, stock = :stock, stock_minimo = :stock_minimo WHERE id_articulo = :id' );
+            $rows = $stmt->execute(array(
+            ':id' => $array['id_articulo'],
+            ':nombre' => $array['nombre'], 
+            ':img' => 'img/'.$_FILES['img']['name'], 
+            ':descripcion' => $array['descripcion'], 
+            ':precio' => $array['precio'], 
+            ':neto_compra' => trim($array['neto_compra']), 
+            ':iva' => $array['iva'], 
+            ':genero' => $array['genero'],
+            ':categoria' => $array['categoria'],
+            ':subcategoria' => $array['subcategoria'],
+            ':stock' => $array['stock'],
+            ':stock_minimo' => $array['stock_minimo']));
+        if($rows > 0){
+            echo "<p>Actualizacion realizada con exito! </p><br>";
+        }
+    }
+        
+    }catch(PDOException $e){
+        echo 'Error: ' . $e->getMessage();
+    } 
+}
+
+        
+
 
 
 
