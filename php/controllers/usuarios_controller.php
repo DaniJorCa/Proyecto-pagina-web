@@ -1,6 +1,6 @@
 <?php
 function alta_usuario_en_BD(){
-    require_once('../php/models/usuario_model.php');
+    require_once('php/models/usuario_model.php');
     $errores_formulario = comprobar_errores_formulario($_POST);
     if(!empty($errores_formulario)){
         header('Location: registro_usuario.php' . $errores_formulario);
@@ -22,7 +22,7 @@ function alta_usuario_en_BD(){
 }
 
 function modificar_usuario_controller(){
-    require_once('../php/models/usuario_model.php');
+    require_once('php/models/usuario_model.php');
 
     if(!isset($_POST['submit_edit_passwd'])){
         $campos_en_blanco = boolean_check_empty_fields($_POST);
@@ -45,5 +45,20 @@ function modificar_usuario_controller(){
             }
         }
 
+}
+
+function mostrar_datos_edit_master(){
+    require_once('php/models/usuario_model.php');
+    if(isset($_SESSION['user-edit-master'])){
+        $usuario_edit = get_usuario($_SESSION['user-edit-master']);
+        user_edit_SESSION($usuario_edit);    
+    }
+    include('php/views/form_edicion_user_master.php');
+}
+
+function despliegue_usuarios(){
+    require_once('php/models/usuario_model.php');
+    $usuarios = get_array_todos_usuarios();
+    include('php/views/mantenimiento_permisos.php');
 }
 ?>

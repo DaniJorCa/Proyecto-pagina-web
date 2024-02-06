@@ -141,7 +141,7 @@ function checkLog($email, $passwd){
     $check;
     try{
         if(!isset($con)){
-            require_once '../php/conection/conectar_BD.php'; 
+            require_once 'php/conection/conectar_BD.php'; 
             $con = conexion_BD();
             $stmt = $con->prepare('SELECT * FROM usuarios WHERE  email = :email');
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -198,7 +198,7 @@ function checkLog($email, $passwd){
 function insertar_usuario_completo_en_BD($array){
 
         try{
-            require_once ('../php/conection/conectar_BD.php');
+            require_once ('php/conection/conectar_BD.php');
             $con = conexion_BD();
             $stmt = $con->prepare('INSERT INTO usuarios (dni, password, nombre, primer_apellido, segundo_apellido,  
             direccion, provincia, poblacion, cod_postal, telefono, email) VALUES (:dni, :password, :nombre, :primer_apellido, :segundo_apellido, :direccion, :provincia, :poblacion, :cod_postal, :telefono, :email)');
@@ -215,7 +215,7 @@ function insertar_usuario_completo_en_BD($array){
 
 
 function existe_usuario_con_dni($dni){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare('SELECT * FROM usuarios WHERE dni = :dni');
     $stmt->bindParam(':dni', $dni);
@@ -228,7 +228,7 @@ function existe_usuario_con_dni($dni){
 
 
 function get_array_datos_usuario_or_string_if_is_not($dni){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare('SELECT * FROM usuarios WHERE dni = :dni');
     $stmt->bindParam(':dni', $dni);
@@ -255,7 +255,7 @@ function modificar_datos_usuario_en_BD($array){
     try {
         $array_explode_apellidos = extraer_apellidos($array['apellidos_edit']);
 
-        require_once ('../php/conection/conectar_BD.php');
+        require_once ('php/conection/conectar_BD.php');
         $con = conexion_BD();
         $stmt = $con->prepare('UPDATE usuarios SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido,  
         direccion = :direccion, provincia = :provincia, poblacion = :poblacion, cod_postal = :cod_postal, telefono = :telefono, email = :email WHERE dni = :dni');
@@ -310,7 +310,7 @@ function check_edit_usuario($usuarioActual, $usuarioEditado){
     }
 
     if(($usuarioActual['primer_apellido'] . " " . $usuarioActual['segundo_apellido']) !== $usuarioEditado['apellidos_edit'] && $usuarioEditado['apellidos_edit'] !== ''){
-        $apellidos_explode = extraer_apellidos($usuarioEditado['nombre_edit']);
+        $apellidos_explode = extraer_apellidos($usuarioEditado['apellidos_edit']);
         $_SESSION['primer_apellido_log'] = $apellidos_explode[0];
         $_SESSION['segundo_apellido_log'] = $apellidos_explode[1];
         $_SESSION['apellidos_anteriores'] = $usuarioActual['primer_apellido'] . " " . $usuarioActual['segundo_apellido'];
@@ -383,7 +383,7 @@ function check_edit_usuario($usuarioActual, $usuarioEditado){
 function insertar_usuario_basico_en_BD($email, $password, $nombre, $direccion, $provincia, $poblacion, $telefono){
 
         try{
-            require_once ('../php/conection/conectar_BD.php');
+            require_once ('php/conection/conectar_BD.php');
             $con = conexion_BD();
             $stmt = $con->prepare('INSERT INTO usuarios (email, password, nombre, 
             direccion, provincia, poblacion, telefono) VALUES (:email, :password, :nombre, :direccion, :provincia, :poblacion, :telefono)');
@@ -404,12 +404,12 @@ function check_passwd_y_repasswd($array) {
 
 function modificar_passwd($array){
     try {
-        require_once ('../php/conection/conectar_BD.php');
+        require_once ('php/conection/conectar_BD.php');
         $con = conexion_BD();
         $stmt = $con->prepare('UPDATE usuarios SET password = :password WHERE email = :email');
         $rows = $stmt->execute(array(
             ':email' => $array['email_edit'],
-            ':password' => $array['passwd_edit']
+            ':password' => password_hash($array['passwd_edit'],PASSWORD_DEFAULT)
         ));
 
         if ($rows == 1)
@@ -418,4 +418,48 @@ function modificar_passwd($array){
         echo "Error:" . $e->getMessage();
     } 
 }
+
+function get_array_todos_usuarios(){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT * FROM usuarios");
+    $stmt->execute();
+    while($fila = $stmt->fetch()){
+        $usuarios[] = $fila;
+    }
+    if(empty($usuarios)) {
+        $usuarios[] = 'No hay usuarios';
+    }
+    return $usuarios;
+}
+
+
+function get_usuario($dni){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare('SELECT * FROM usuarios WHERE dni = :dni');
+    $stmt->bindParam(':dni', $dni);
+    $stmt->execute();
+    
+    $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $rows;
+}
+
+function user_edit_SESSION($usuario){
+    $_SESSION['user-edit-master-password'] = $usuario['password'] ;
+    $_SESSION['user-edit-master-nombre'] = $usuario['nombre'];
+    $_SESSION['user-edit-master-dni'] = $usuario['dni'];
+    $_SESSION['user-edit-master-primer_apellido'] = $usuario['primer_apellido'];
+    $_SESSION['user-edit-master-segundo_apellido'] = $usuario['segundo_apellido'];
+    $_SESSION['user-edit-master-direccion'] = $usuario['direccion'];
+    $_SESSION['user-edit-master-provincia'] =$usuario['provincia'];
+    $_SESSION['user-edit-master-poblacion'] = $usuario['poblacion'];
+    $_SESSION['user-edit-master-cod_postal'] = $usuario['cod_postal'];
+    $_SESSION['user-edit-master-telefono'] = $usuario['telefono'];
+    $_SESSION['user-edit-master-email'] = $usuario['email'];
+    $_SESSION['user-edit-master-perfil'] = $usuario['perfil'];
+    $_SESSION['user-edit-master-email'] = $usuario['email'];
+}
+
 ?>

@@ -1,0 +1,32 @@
+[
+    {
+        "id_articulo": "AAA000000",
+        "0": "AAA000000",
+        "nombre": "Camiseta L-Phant",
+        "1": "Camiseta L-Phant",
+        "img": "img\/t-shirt white-brown elephant logo.jpg",
+        "2": "img\/t-shirt white-brown elephant logo.jpg",
+        "descripcion": "Camiseta Elefante",
+        "3": "Camiseta Elefante",
+        "precio": "21",
+        "4": "21",
+        "genero": "Hombre",
+        "5": "Hombre",
+        "categoria": 59,
+        "6": 59,
+        "subcategoria": 59,
+        "7": 59,
+        "neto_compra": "12",
+        "8": "12",
+        "iva": "21",
+        "9": "21",
+        "stock": 12,
+        "10": 12,
+        "stock_minimo": 2,
+        "11": 2,
+        "total_ventas": null,
+        "12": null,
+        "esBaja": null,
+        "13": null
+    }
+]

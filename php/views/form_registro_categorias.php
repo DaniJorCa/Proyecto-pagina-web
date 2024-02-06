@@ -29,16 +29,20 @@
                     <option></option>
     <?php 
         $categorias = get_array_categorias();
-        $contador = 0;
-        foreach ($categorias as $categoria){
-            if($contador == 0){
-                echo "<option value=".$categoria .">" . $categoria . "</option>";
-                $contador++;
-            }else{
-                echo "<option value=". $categoria .">" . $categoria . "</option>";
+        if($categorias){
+            $contador = 0;
+            foreach ($categorias as $categoria){
+                if($contador == 0){
+                    echo "<option value=".$categoria['nombre'] .">" . $categoria['nombre'] . "</option>";
+                    $contador++;
+                }else{
+                    echo "<option value=". $categoria['nombre'] .">" . $categoria['nombre'] . "</option>";
+                }
             }
-            
+        }else{
+            echo "Sin Categorias";
         }
+        
     ?>  
         </select>
             </div class="col-md-12">

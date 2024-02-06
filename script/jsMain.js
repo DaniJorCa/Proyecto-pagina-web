@@ -71,6 +71,82 @@ capaBlur[0].addEventListener('click', (e) => {
 
 });
 
+function getDataFromAPI(url, callback) {
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            callback(this.response);
+        } else {
+            console.log("Se ha producido un error " + xhr.status + ": " + xhr.statusText);
+        }
+    };
+    xhr.onerror = function () {
+        console.log("Se ha producido un error " + xhr.status + ": " + xhr.statusText);
+    };
+    xhr.send();
+
+}
+
+function obtenerDatosArticuloAEditar(data, idArticulo){
+    let datos = JSON.parse(data);
+
+    for (let i in datos){
+        if(datos[i].id_articulo === idArticulo){
+            return datos[i];
+        }
+    }
+
+}
+
+
+
+
+//Capa blur edicion articulo
+
+let btnsEditarArticulo = document.getElementsByClassName("btn-edit-articulo");
+let ventanaEdicionArticulo = document.getElementById('div-form-edit-articulo');
+let idArticuloEdit = document.getElementById('id-edit');
+let imgArticuloEdit = document.getElementById('img-edit-articulo');
+let formulario_edicion_articulo = document.getElementById('formulario_edicion_articulo');
+
+console.log(btnsEditarArticulo);
+
+
+for (const btnEditarArticulo of btnsEditarArticulo){
+    btnEditarArticulo.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log("pulsado boton editar");
+        formularioRegistro.style.display = 'flex';
+        capaBlur[0].style.display = 'flex';
+        formularioRegistro.style.zIndex = '4';
+        idArticuloEdit.value = e.currentTarget.value;
+        console.log(idArticuloEdit.value);
+        let urlAPI = 'api/articulos.json' 
+        getDataFromAPI(urlAPI, function(response) {
+            let arrayArticulo = obtenerDatosArticuloAEditar(response, idArticuloEdit.value);
+            if (arrayArticulo) {
+                imgArticuloEdit.src = arrayArticulo.img;
+                console.log(arrayArticulo);
+            } else {
+                console.log("No se encontró el artículo con ID: " + idArticuloEdit.value);
+            }
+        });
+    });
+}
+
+capaBlur[0].addEventListener('click', (e) => {
+    let clickDentroCapaBlur = capaBlur[0].contains(e.target);
+
+    if(clickDentroCapaBlur){
+        formularioRegistro.style.zIndex = '3';
+        capaBlur[0].style.display = "none";
+        formularioRegistro.style.display = 'none';
+    }
+
+});
+
   
 /* Funciones Y Calculo de distancias de SlideShow*/  
 

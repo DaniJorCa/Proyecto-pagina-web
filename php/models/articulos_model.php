@@ -1,7 +1,66 @@
 <?php
 
+
+function getArrayArticulosPorCategoria($array){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT * FROM articulos WHERE LOWER(categoria) = :categoria");
+    $stmt->bindParam(':categoria', $array['select_cat'], PDO::PARAM_STR);
+    $stmt->execute();
+    $articulos = array();
+    while($fila = $stmt->fetch()){
+        $articulos[] = $fila;
+    }
+    if(empty($articulos)){
+        return "No hay articulos que mostrar";
+    }
+    return $articulos;
+}
+
+
+function getArrayArticulosPorSubcategoria($array) {
+    // Verifica si $array es un array y si contiene la clave 'select_subcat'
+        require_once 'php/conection/conectar_BD.php';
+        $con = conexion_BD();
+        $stmt = $con->prepare("SELECT * FROM articulos WHERE subcategoria = :subcategoria");
+        $stmt->bindParam(':subcategoria', $array['select_subcat'], PDO::PARAM_STR);
+        $stmt->execute();
+
+        $articulos = array();
+        while ($fila = $stmt->fetch()) {
+            $articulos[]  = $fila;
+        }
+
+        if (empty($articulos)) {
+            return "No hay artículos que mostrar";
+        }
+
+        return $articulos;
+    }
+
+
+/*function getArrayArticulosPorSubcategoria($array){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT * FROM articulos WHERE subcategoria = :subcategoria");
+    $stmt->bindParam(':subcategoria', $array['select_subcat'], PDO::PARAM_INT);
+    $stmt->execute();
+    $articulos = array();
+    while($fila = $stmt->fetch()){
+        $articulos[] = $fila;
+    }
+    if(empty($articulos)){
+        return "No hay articulos que mostrar";
+    }
+    return $articulos;
+}*/
+
+
+
+
+
 function getArrayTopVentasDesc(){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT * FROM articulos ORDER BY total_ventas DESC");
     $stmt->execute();
@@ -16,7 +75,7 @@ function getArrayTopVentasDesc(){
 }
 
 function getArrayArtsPorCategoriaAsc(){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT * FROM articulos ORDER BY categoria ASC");
     $stmt->execute();
@@ -27,21 +86,46 @@ function getArrayArtsPorCategoriaAsc(){
     return $articulos;
 }
 
+function array_datos_articulos_JSON() {
+    // Obtener datos actuales del archivo JSON
+    $fichero = 'api/articulos.json';
+    $datosJSON = file_get_contents($fichero);
+    
+    // Decodificar el JSON actual a un array PHP
+    $categorias = json_decode($datosJSON, true);
+
+    // Obtener nuevos datos mediante la función getArrayArtsPorCategoriaAsc
+    $nuevosDatos = getArrayArtsPorCategoriaAsc();
+    var_dump($nuevosDatos);
+
+    $categorias = $nuevosDatos;
+
+    // Convertir el array actualizado a formato JSON
+    $datosJSON = json_encode($categorias, JSON_PRETTY_PRINT);
+
+    // Guardar el JSON actualizado en el archivo
+    file_put_contents($fichero, $datosJSON);
+
+    echo "Json articulos actualizado correctamente al archivo JSON: $fichero";
+}
+
 function getArrayArtPorId($id){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT * FROM articulos WHERE id = :id");
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt = $con->prepare("SELECT * FROM articulos WHERE id_articulo = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     $stmt->execute();
-    $articulos = array();
+    $articulos_editar = array();
     while($fila = $stmt->fetch()){
-        $articulos[] = $fila;
+        $articulos_editar = $fila;
     }
-    if (empty($articulos)) {
+    if (empty($articulos_editar)) {
         return 'No hay artículos que mostrar';
     }
-    return $articulos;
+    return $articulos_editar;
 }
+
+
 
 
 function generar_codigo_art(){
@@ -53,7 +137,7 @@ function generar_codigo_art(){
     $parte_numerica_array_mayor_incrementada = '';
 
     $abecedario = range('A', 'Z');
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT id_articulo FROM articulos");
     $stmt->execute();
@@ -149,9 +233,9 @@ function incrementar_cadena_letras($cadena) {
 
 function subirImg($array){
     $temporal = $array["tmp_name"];
-    $destino = "../img/" . $array['name'];
+    $destino = "img/" . $array['name'];
     $checkImg = formato($array['name']);
-    $_SESSION['img'] = "../img/". $_FILES['img']['name'];
+    $_SESSION['img'] = "img/". $_FILES['img']['name'];
     if($checkImg){
        if (move_uploaded_file($temporal, $destino)){
         }else{
@@ -229,7 +313,7 @@ function comprobar_datos_registro($array){
 
 function insertar_articulo_en_BD($array){
     try {
-        require_once '../php/conection/conectar_BD.php';
+        require_once 'php/conection/conectar_BD.php';
         $con = conexion_BD();
         $stmt = $con->prepare('INSERT INTO articulos (id_articulo, nombre, img, descripcion, precio, genero, categoria, subcategoria, neto_compra, iva, stock, stock_minimo) 
             VALUES (:id_articulo, :nombre, :img, :descripcion, :precio, :genero, :categoria, :subcategoria, :neto_compra, :iva, :stock, :stock_minimo)');
@@ -258,6 +342,28 @@ function insertar_articulo_en_BD($array){
 
 function boolean_img_is_too_size($array){
     return ($array['img']['size'] > 2000000) ? true : false; 
+}
+
+
+function delete_art($id){
+    try {
+        require_once 'php/conection/conectar_BD.php';
+        $con = conexion_BD();
+        $stmt = $con->prepare('DELETE FROM articulos WHERE id_articulo = :id_articulo');
+        $stmt->bindParam(':id_articulo', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $rows = $stmt->rowCount();
+        
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+        return false; 
+    }
 }
 
 

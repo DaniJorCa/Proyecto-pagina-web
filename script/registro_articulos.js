@@ -38,7 +38,10 @@ function asignar_values_categorias(data) {
     } 
 
     for (let i in datos){
+        console.log(datos);
+        console.log(desplegable_categorias.value);
         if(datos[i].codigo === desplegable_categorias.value){
+            console.log('dato encontrado');
             cod_categoria_padre = datos[i].codigo;
             nombre_cat_padre = datos[i].nombre_categoria;
             console.log(cod_categoria_padre);
@@ -66,16 +69,13 @@ const desplegable_subcategoria = document.getElementById('input-subcategoria_art
 let contador = 0;
 let nombre_cat_padre;
 
-getDataFromAPI('../api/categorias.json', asignar_values_categorias);
+getDataFromAPI('api/categorias.json', asignar_values_categorias);
 
 desplegable_categorias.addEventListener('change',  () => {
-    getDataFromAPI('../api/categorias.json', asignar_values_categorias)  
+    getDataFromAPI('api/categorias.json', asignar_values_categorias)  
 });
 
 
-function obtener_codigo_cat_padre(){
-
-}
 
 
 });

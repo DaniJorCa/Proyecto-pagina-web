@@ -4,7 +4,7 @@ session_start();
 $_SESSION = array();
 session_destroy();
 
-require_once("../php/controllers/usuarios_controller.php");
+require_once("php/controllers/usuarios_controller.php");
 
 $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
 
@@ -25,24 +25,24 @@ switch ($mostrar){
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="../styles/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/header&footer.css">
-    <link rel="stylesheet" href="../styles/genericBody.css">
-    <link rel="stylesheet" href="../styles/bodyMain.css">
-    <link rel="stylesheet" href="../styles/slideshowArea.css">
-    <script type="text/javascript" src="../script/jsMain.js"></script>
+    <link href="styles/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/header&footer.css">
+    <link rel="stylesheet" href="styles/genericBody.css">
+    <link rel="stylesheet" href="styles/bodyMain.css">
+    <link rel="stylesheet" href="styles/slideshowArea.css">
+    <script type="text/javascript" src="script/jsMain.js"></script>
 </head>
 <div class="capaBlur" id="capaBlur"></div>
 <?php 
 
-include ('../php/views/header.html');
+include ('php/views/header.php');
 
 ?>
 
     <body>
         
         <div class="parallax">
-            <img class="logo-parallax" src="../logo/logoparallax.svg">
+            <img class="logo-parallax" src="logo/logoparallax.svg">
         </div>
         <div class="principal-objetivo">
             <p>Tu satisfacción, nuestro principal objetivo</p>
@@ -66,7 +66,7 @@ include ('../php/views/header.html');
         </div>    
 <?php 
 
-include('../php/views/slideshowArea.html'); 
+include('php/views/slideshowArea.html'); 
 
 ?>
 
@@ -84,11 +84,11 @@ include('../php/views/slideshowArea.html');
             <h3>¿Todavia no eres usuario?</h3>
             <h3><a href="registro_usuario.php">Date de Alta</a></h3>
         </div>
-        <script src="../styles/js/bootstrap.bundle.min.js"></script>
+        <script src="styles/js/bootstrap.bundle.min.js"></script>
     </body>
     
 
 <?php 
-include ('../php/views/footer.html') 
+include ('php/views/footer.html') 
 ?>
 </html>

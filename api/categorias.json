@@ -1,74 +1,44 @@
 [
     {
-        "codigo": "24",
-        "nombre_categoria": "dsfsdf",
-        "nombre_sub": "dfg",
-        "categoria_padre": "Montanya"
-    },
-    {
-        "codigo": "26",
-        "nombre_categoria": "Probandocosas",
-        "nombre_sub": "cositaswenas",
+        "codigo": "59",
+        "nombre_categoria": "Ropa",
+        "nombre_sub": "",
         "categoria_padre": ""
     },
     {
-        "codigo": "27",
-        "nombre_categoria": "Pruebadeform",
-        "nombre_sub": "formcategorias",
+        "codigo": "60",
+        "nombre_categoria": "Complementos",
+        "nombre_sub": "",
         "categoria_padre": ""
     },
     {
-        "codigo": "28",
+        "codigo": "61",
         "nombre_categoria": "",
-        "nombre_sub": "prueba999",
-        "categoria_padre": "Montanya"
+        "nombre_sub": "Camisetas",
+        "categoria_padre": "Ropa"
     },
     {
-        "codigo": "29",
-        "nombre_categoria": "categoria con cat padre",
-        "nombre_sub": "",
-        "categoria_padre": "sdf"
-    },
-    {
-        "codigo": "30",
-        "nombre_categoria": "Zapatos",
-        "nombre_sub": "",
-        "categoria_padre": ""
-    },
-    {
-        "codigo": "31",
-        "nombre_categoria": "Zapatos",
-        "nombre_sub": "",
-        "categoria_padre": ""
-    },
-    {
-        "codigo": "32",
-        "nombre_categoria": "Comida",
-        "nombre_sub": "Palomitas",
-        "categoria_padre": ""
-    },
-    {
-        "codigo": "33",
+        "codigo": "62",
         "nombre_categoria": "",
-        "nombre_sub": "Manzanas",
-        "categoria_padre": "Comida"
+        "nombre_sub": "Sudaderas",
+        "categoria_padre": "Ropa"
     },
     {
-        "codigo": "34",
-        "nombre_categoria": "Limpieza",
-        "nombre_sub": "Spray",
-        "categoria_padre": ""
-    },
-    {
-        "codigo": "35",
+        "codigo": "64",
         "nombre_categoria": "",
-        "nombre_sub": "Detergente",
-        "categoria_padre": "Limpieza"
+        "nombre_sub": "Calcetines",
+        "categoria_padre": "Ropa"
     },
     {
-        "codigo": "36",
-        "nombre_categoria": "Deportes",
-        "nombre_sub": "",
-        "categoria_padre": ""
+        "codigo": "65",
+        "nombre_categoria": "",
+        "nombre_sub": "Chaquetas",
+        "categoria_padre": "Ropa"
+    },
+    {
+        "codigo": "66",
+        "nombre_categoria": "",
+        "nombre_sub": "Vaqueros",
+        "categoria_padre": "Ropa"
     }
 ]

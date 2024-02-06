@@ -1,5 +1,5 @@
 <?php
-include('../php/models/usuario_model.php');
+include('php/models/usuario_model.php');
 
 $logueado = checkLog($_POST['email'], $_POST['passwd']); 
 

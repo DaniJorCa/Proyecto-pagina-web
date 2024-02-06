@@ -73,7 +73,13 @@ let boton_alta_categorias = document.getElementById('btn-alta_categorias');
 boton_alta_articulo.addEventListener('click', () => window.location.href = 'registro_articulo.php');
 boton_alta_categorias.addEventListener('click', () => window.location.href = 'registro_categorias.php');
 
+let botones_master_edit_user = document.getElementsByClassName('btn-edit-datos-user');
 
+for(botones_master_edit_user of boton_master){
+    boton_master.addEventListener('click', () => { 
+        boton_master.preventDefault();
 
+    });
+}
 
 });

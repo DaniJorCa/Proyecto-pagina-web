@@ -26,6 +26,7 @@ if(!is_array($articulos)){
 <th>Total Ventas</th>
 <th>Esta de Baja?</th>
 <th>Modificar Articulo</th>
+<th>Eliminar Articulo</th>
 </tr>
 <?php
 
@@ -45,10 +46,23 @@ if(!is_array($articulos)){
     echo "<td>{$fila["stock_minimo"]}</td>";
     echo "<td>{$fila["total_ventas"]}</td>";
     echo "<td>{$fila["esBaja"]}</td>";
-    echo "<td><a href=?view=_edicion-art&id={$fila["id_articulo"]}></a></td>";
+    echo "<td><a class='row align-items-center'><button class='btn btn-warning btn-edit-datos-articulo btn-edit-articulo align-items-center m-2' value='{$fila["id_articulo"]}'><i class='fa-solid fa-trash-can align-items-center' style='color: #114b5f;'></i><p class='text-center'>Editar</p></button></a></td>";
+    echo "<td><a class='row align-items-center btn-delete-articulo' href=?view=_delete-art&id={$fila["id_articulo"]}><button class='btn btn-danger btn-edit-datos-articulo align-items-center m-2'><i class='fa-solid fa-trash-can align-items-center' style='color: #114b5f;'><p class='text-center'>Eliminar</p></i></a></td>";
     echo "</tr>";
     }
 }
 ?>
+
+<div id="form-registro">
+            <h2>Modificar Artículo</h2>
+            <form class="row g-3 form-edit-article" id="formulario_edicion_articulo" action="index.php?view=_edicion-art" method="POST">
+                <img id="img-edit-articulo" style="height: 100px; width: 100px;"></img>
+                <input name="id" type="text" id="id-edit"></input>
+            <div class='row'>   
+            <button class='col-6' type='submit'>Editar Articulo</button>    
+            <a class='col-6' href="index.php?view=_mant-arts">Cancelar Edición</a>
+            <div>
+            </form>
+        </div>
 </div>
 </table>

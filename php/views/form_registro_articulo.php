@@ -66,7 +66,7 @@
     <div class="col-md-6">
     <label for="inputState" class="form-label">Subcategoria</label>
     <select id="input-subcategoria_articulo" name="subcategoria" class="form-select" required> 
-         
+
     </select>
   </div>
   <div class="col-md-3">

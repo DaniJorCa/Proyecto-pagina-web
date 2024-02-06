@@ -1,10 +1,10 @@
 <?php
 
-function nombre_categoria_is_exist($nombre){
-    require_once '../php/conection/conectar_BD.php';
+function nombre_categoria_is_exist($codigo){
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT * FROM categorias WHERE nombre = :nombre");
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt = $con->prepare("SELECT * FROM categorias WHERE codigo = :codigo");
+    $stmt->bindParam(':nombre', $codigo, PDO::PARAM_INT);
     $stmt->execute();
 
     if(!empty($stmt->fetch())){
@@ -45,12 +45,9 @@ function cadena_err_check_campos_formulario_categorias($array){
 
 function array_datos_categorias_JSON($array) {
     // Obtener datos actuales del archivo JSON
-    $fichero = '../api/categorias.json';
+    $fichero = 'api/categorias.json';
     $datosJSON = file_get_contents($fichero);
-    $categorias = json_decode($datosJSON, true);
-
-    // Añadir nueva categoría al array
-    $categorias[] = $array;
+    $categorias = get_array_categorias();
 
     // Convertir el array actualizado a formato JSON
     $datosJSON = json_encode($categorias, JSON_PRETTY_PRINT);
@@ -62,7 +59,7 @@ function array_datos_categorias_JSON($array) {
 }
 
 function get_last_cod_categorias_desc(){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT codigo FROM categorias ORDER BY codigo DESC LIMIT 1");
     $stmt->execute();
@@ -77,7 +74,7 @@ function get_last_cod_categorias_desc(){
 }
 
 function get_array_categorias(){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT * FROM categorias WHERE cod_cat_padre IS NULL");
     $stmt->execute();
@@ -85,34 +82,37 @@ function get_array_categorias(){
         $categorias[] = $fila;
     }
     if(empty($categorias)) {
-        $categorias[] = 'Sin Categorias';
+        return false;
+    }else{
+       return $categorias; 
     }
-    return $categorias;
+    
 }
 
 function get_array_subcategorias(){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT nombre FROM categorias WHERE cod_cat_padre IS NOT NULL");
+    $stmt = $con->prepare("SELECT * FROM categorias WHERE cod_cat_padre IS NOT NULL");
     $stmt->execute();
 
     $subcategorias = [];
 
     while($subcategoria = $stmt->fetch()){
-        $subcategorias[] = $subcategoria;
+        array_push($subcategorias, $subcategoria);
     }
 
     if (empty($subcategorias)) {
-        $subcategorias[] = 'Sin Subcategorias';
+        return false;
+    }else{
+        return $subcategorias;
     }
-
-    return $subcategorias;
+    
 }
 
 
 function insertar_categoria_en_BD($array){
     try {
-        require_once '../php/conection/conectar_BD.php';
+        require_once 'php/conection/conectar_BD.php';
         $con = conexion_BD();
         $stmt = $con->prepare('INSERT INTO categorias (nombre) VALUES (:nombre)');
         $rows = $stmt->execute(array(
@@ -129,7 +129,7 @@ function insertar_categoria_en_BD($array){
 
 
 function get_cod_categoria_padre($padre){
-    require_once '../php/conection/conectar_BD.php';
+    require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
     $stmt = $con->prepare("SELECT codigo FROM categorias WHERE nombre = :nombre_categoria");
     $stmt->bindParam(':nombre_categoria', $padre, PDO::PARAM_STR);
@@ -147,7 +147,7 @@ function get_cod_categoria_padre($padre){
 function insertar_subcategoria_y_cat_padre($array){
     $codigo_padre = get_cod_categoria_padre($array['categoria_padre']);
     try {
-        require_once '../php/conection/conectar_BD.php';
+        require_once 'php/conection/conectar_BD.php';
         $con = conexion_BD();
         $stmt = $con->prepare('INSERT INTO categorias (nombre, cod_cat_padre) VALUES (:nombre_categoria, :categoria_padre)');
         $stmt->bindValue(':nombre_categoria', $array['nombre_sub']);
