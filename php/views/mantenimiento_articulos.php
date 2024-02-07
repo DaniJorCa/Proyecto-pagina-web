@@ -46,23 +46,39 @@ if(!is_array($articulos)){
     echo "<td>{$fila["stock_minimo"]}</td>";
     echo "<td>{$fila["total_ventas"]}</td>";
     echo "<td>{$fila["esBaja"]}</td>";
-    echo "<td><a class='row align-items-center'><button class='btn btn-warning btn-edit-datos-articulo btn-edit-articulo align-items-center m-2' value='{$fila["id_articulo"]}'><i class='fa-solid fa-trash-can align-items-center' style='color: #114b5f;'></i><p class='text-center'>Editar</p></button></a></td>";
-    echo "<td><a class='row align-items-center btn-delete-articulo' href=?view=_delete-art&id={$fila["id_articulo"]}><button class='btn btn-danger btn-edit-datos-articulo align-items-center m-2'><i class='fa-solid fa-trash-can align-items-center' style='color: #114b5f;'><p class='text-center'>Eliminar</p></i></a></td>";
+    echo "<td><button class='btn btn-warning btn-edit-articulo align-items-center m-1' value='{$fila["id_articulo"]}'><i class='fa-solid fa-trash-can align-items-center' style='color: #114b5f;'></i><p class='text-center'>Editar</p></button></td>";
+    echo "<td><button class='btn btn-danger btn-delete-articulo align-items-center m-1' value='{$fila["id_articulo"]}'><i class='fa-solid fa-trash-can align-items-center' style='color: #114b5f;'></i><p class='text-center'>Eliminar</p></button></td>";
     echo "</tr>";
     }
 }
 ?>
-
-<div id="form-registro">
-            <h2>Modificar Artículo</h2>
-            <form class="row g-3 form-edit-article" id="formulario_edicion_articulo" action="index.php?view=_edicion-art" method="POST">
-                <img id="img-edit-articulo" style="height: 100px; width: 100px;"></img>
-                <input name="id" type="text" id="id-edit"></input>
-            <div class='row'>   
-            <button class='col-6' type='submit'>Editar Articulo</button>    
-            <a class='col-6' href="index.php?view=_mant-arts">Cancelar Edición</a>
-            <div>
-            </form>
-        </div>
-</div>
 </table>
+
+
+<div id="form-registro" class="row justify-content-center">
+    <h2 class="mb-4 text-center">Modificar Artículo</h2>
+    <form class="row g-3 form-edit-article justify-content-center" id="formulario_edicion_articulo" action="index.php?view=_edicion-art" method="POST">
+        <div class="col-5 justify-content-center">
+            <img id="img-edit-articulo" style="height: 200px; width: 200px;"></img>
+        </div>
+        <input class="my-4 form-control text-center" aria-label="Disabled input example" name="id" type="text" id="id-edit" readonly></input>
+        <div class='row'>   
+            <button class='col-6 btn btn-success' type='submit'>Editar Articulo</button>    
+            <a class='col-6' href="index.php?view=_mant-arts">Cancelar Edición</a>
+        </div>
+    </form>
+</div>
+
+<div id="form-eliminar" class="row justify-content-center">
+    <h2 class="mb-4 text-center">Eliminar Artículo</h2>
+    <form class="row g-3 form-delete-article justify-content-center" id="formulario_eliminar_articulo" action="index.php?view=_delete-art" method="POST">
+        <div class="col-5 justify-content-center">
+            <img id="img-delete-articulo" style="height: 200px; width: 200px;"></img>
+        </div>
+        <input class="my-4 form-control text-center" aria-label="Disabled input example" name="id" type="text" id="id-delete" readonly></input>
+        <div class='row'>   
+            <button class='col-6 btn btn-danger' type='submit'>Eliminar Articulo</button>    
+            <a class='col-6' href="index.php?view=_mant-arts">Cancelar Edición</a>
+        </div>
+    </form>
+</div>

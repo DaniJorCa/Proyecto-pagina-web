@@ -48,7 +48,7 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
                 <div class="row col-6 justify-content-center">
                 <div class="mb-3 col-8">
                     <label for="exampleInputPassword1" class="form-label" >Apellidos</label>
-                    <input name="apellidos_edit" type="text" class="editar_apellidos input-group-text" id="disabledTextInput" value= <?php echo $_SESSION['user-edit-master-primer_apellido'] . ' ' . $_SESSION['user-edit-master-segundo_apellido'] ?> readonly>
+                    <input name="apellidos_edit" type="text" class="editar_apellidos input-group-text" id="disabledTextInput" value= "<?php echo $_SESSION['user-edit-master-primer_apellido'] . ' ' . $_SESSION['user-edit-master-segundo_apellido']?>" readonly>
                 </div>
                 <div class="col-3 row align-items-center p-1">
                     <button class='editar_usuario btn btn-info' id="editar_apellidos"><i class="fa-solid fa-pen-to-square mx-2"></i>Editar</button>
@@ -112,8 +112,25 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
                     <button class='editar_usuario btn btn-info' id="editar_poblacion" ><i class="fa-solid fa-pen-to-square mx-2"></i>Editar</button>
                 </div>
                 </div>
+                <div class="row col-6 justify-content-center">
+                <div class="mb-3 col-8 m-0">
+                    <label for="exampleInputEmail1" class="form-label">Perfil</label>
+                    <select name="perfil_edit" type="text" class="perfil input-group-text" id="select_perfil" aria-describedby="emailHelp" disabled>
+                        <option selected></option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                        <option value="editor">Editor</option>
+                    </select>
+                </div>
+                <div class="col-3 row align-items-center p-1">
+                    <button class='editar_usuario btn btn-info' id="btn-edit-perfil" ><i class="fa-solid fa-pen-to-square mx-2"></i>Editar</button>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
+
+    
 
         <div class="row container-fluid justify-content-evenly my-4">
             <button type="submit" class="btn btn-dark col-12 col-md-4 m-2"><i class="fa-solid fa-check mx-2"></i>Validar Cambios</button>

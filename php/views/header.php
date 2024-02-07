@@ -51,7 +51,7 @@ $array_subcategorias = get_array_subcategorias();
     </div>
     <div class="header-right">
 <?php 
-if(!isset($_SESSION['dni-log'])){ 
+if(!isset($_SESSION['dni_log'])){ 
 ?>
         <div class="acceso">
             <!-- <div class="registro reg-left">

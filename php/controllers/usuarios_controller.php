@@ -31,8 +31,12 @@ function modificar_usuario_controller(){
             exit;
         }
         $arrayUsuario = get_array_datos_usuario_or_string_if_is_not($_POST['dni_edit']);
-        if(is_array($arrayUsuario)){
+        if(is_array($arrayUsuario) && $_SESSION['dni_log'] === $_POST['dni_edit']){
             check_edit_usuario($arrayUsuario, $_POST);
+            modificar_datos_usuario_en_BD($_POST);
+            header('Location: index.php');
+            exit;
+        }else{
             modificar_datos_usuario_en_BD($_POST);
             header('Location: index.php');
             exit;

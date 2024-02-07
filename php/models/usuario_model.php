@@ -257,9 +257,27 @@ function modificar_datos_usuario_en_BD($array){
 
         require_once ('php/conection/conectar_BD.php');
         $con = conexion_BD();
-        $stmt = $con->prepare('UPDATE usuarios SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido,  
-        direccion = :direccion, provincia = :provincia, poblacion = :poblacion, cod_postal = :cod_postal, telefono = :telefono, email = :email WHERE dni = :dni');
-        $rows = $stmt->execute(array(
+
+        if($array['perfil_edit'] !== null){
+            $stmt = $con->prepare('UPDATE usuarios SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido,  
+            direccion = :direccion, provincia = :provincia, poblacion = :poblacion, cod_postal = :cod_postal, telefono = :telefono, email = :email, perfil = :perfil WHERE dni = :dni');
+            $rows = $stmt->execute(array(
+            ':nombre' => $array['nombre_edit'],
+            ':primer_apellido' => $array_explode_apellidos[0],
+            ':segundo_apellido' => $array_explode_apellidos[1],
+            ':direccion' => $array['direccion_edit'],
+            ':provincia' => $array['provincia_edit'],
+            ':poblacion' => $array['poblacion_edit'],
+            ':cod_postal' => $array['cod_postal_edit'],
+            ':telefono' => $array['telefono_edit'],
+            ':email' => $array['email_edit'],
+            ':dni' => $array['dni_edit'],
+            ':perfil' => strtolower($array['perfil_edit'])
+            ));
+        }else{
+           $stmt = $con->prepare('UPDATE usuarios SET nombre = :nombre, primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido,  
+                                direccion = :direccion, provincia = :provincia, poblacion = :poblacion, cod_postal = :cod_postal, telefono = :telefono, email = :email WHERE dni = :dni');
+            $rows = $stmt->execute(array(
             ':nombre' => $array['nombre_edit'],
             ':primer_apellido' => $array_explode_apellidos[0],
             ':segundo_apellido' => $array_explode_apellidos[1],
@@ -270,7 +288,9 @@ function modificar_datos_usuario_en_BD($array){
             ':telefono' => $array['telefono_edit'],
             ':email' => $array['email_edit'],
             ':dni' => $array['dni_edit']
-        ));
+        )); 
+        }
+        
 
         if ($rows == 1)
             return 'Actualización correcta';
@@ -284,7 +304,6 @@ function boolean_check_empty_fields($array){
 
     if (is_array($array) || is_object($array)) {
         foreach ($array as $clave => $valor) {
-            var_dump($valor);
             if($valor === "" || empty(trim($valor))){
                 $campo_vacio = true;
             }   
@@ -373,6 +392,13 @@ function check_edit_usuario($usuarioActual, $usuarioEditado){
         $_SESSION['cod_postal_nuevo'] = $usuarioEditado['cod_postal_edit'];
         array_push($array_string_diferencias,$usuarioActual['cod_postal']);
         array_push($array_string_diferencias,$usuarioEditado['cod_postal_edit']);
+    }
+
+    if(isset($usuarioActual['perfil']) && $usuarioActual['perfil'] !== $usuarioEditado['perfil_edit']){
+        $_SESSION['perfil_anterior'] = $usuarioActual['perfil'];
+        $_SESSION['perfil_nuevo'] = $usuarioEditado['perfil_edit'];
+        array_push($array_string_diferencias,$usuarioActual['perfil']);
+        array_push($array_string_diferencias,$usuarioEditado['perfil_edit']);
     }
 
     return $array_string_diferencias;

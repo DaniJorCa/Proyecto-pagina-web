@@ -30,7 +30,7 @@
   </div>
   <div class="col-md-3">
     <label for="inputZip" class="form-label">Precio de Compra</label>
-    <input type="text" name="precio_compra" class="form-control" id="inputZip" placeholder="€" required>
+    <input type="text" name="neto_compra" class="form-control" id="inputZip" placeholder="€" required>
   </div>
   <div class="col-md-2">
     <label for="inputZip" class="form-label">Iva</label>

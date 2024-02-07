@@ -87,26 +87,14 @@ function getArrayArtsPorCategoriaAsc(){
 }
 
 function array_datos_articulos_JSON() {
-    // Obtener datos actuales del archivo JSON
     $fichero = 'api/articulos.json';
     $datosJSON = file_get_contents($fichero);
-    
     // Decodificar el JSON actual a un array PHP
     $categorias = json_decode($datosJSON, true);
-
-    // Obtener nuevos datos mediante la función getArrayArtsPorCategoriaAsc
     $nuevosDatos = getArrayArtsPorCategoriaAsc();
-    var_dump($nuevosDatos);
-
     $categorias = $nuevosDatos;
-
-    // Convertir el array actualizado a formato JSON
     $datosJSON = json_encode($categorias, JSON_PRETTY_PRINT);
-
-    // Guardar el JSON actualizado en el archivo
     file_put_contents($fichero, $datosJSON);
-
-    echo "Json articulos actualizado correctamente al archivo JSON: $fichero";
 }
 
 function getArrayArtPorId($id){
@@ -433,7 +421,7 @@ function insertar_articulo_en_BD($array){
             ':genero' => $array['genero'],
             ':categoria' => $array['categoria'],
             ':subcategoria' => $array['subcategoria'],
-            ':neto_compra' => $array['precio_compra'],
+            ':neto_compra' => $array['neto_compra'],
             ':iva' => $array['iva'],
             ':stock' => $array['stock'],
             ':stock_minimo' => $array['stock_minimo']

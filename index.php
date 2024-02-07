@@ -12,10 +12,10 @@
         <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
         <script type="text/javascript" src="script/registro_articulos.js"></script>
-        
     </head>
 <div class="capaBlur" id="capaBlur"></div>    
 <?php
+
 ob_start();
 session_start();
 include_once('php/security/security.php');
@@ -53,7 +53,7 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                     check_and_edit_good($_POST);
                     break;
                 case '_delete-art':
-                    eliminar_articulo($_GET['id']);
+                    eliminar_articulo($_POST['id']);
                     break; 
                 case '_alta-articulo':
                     formulario_alta();
@@ -65,16 +65,19 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                 case '_alta-categoria':
                     formulario_alta_categorias();
                     break;
-                case '_mod_datos_usuario';
+                case '_mod_datos_usuario':
                     modificar_usuario_controller();           
                     break;
-                case '_mod_datos_user_master';
+                case '_mod_datos_user_master':
                     mostrar_datos_edit_master();           
                     break;    
-                case '_mostrar_art_por_categoria';
+                case '_mostrar_art_por_categoria':
                     busqueda_selectiva_por_categoria();
                     break;
-                case '_mant-perm';
+                case '_mostrar_art_por_subcategoria':
+                    busqueda_selectiva_por_subcategoria();
+                    break;
+                case '_mant-perm':
                     despliegue_usuarios();
                     break;
             

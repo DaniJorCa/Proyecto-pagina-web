@@ -106,13 +106,8 @@ function obtenerDatosArticuloAEditar(data, idArticulo){
 //Capa blur edicion articulo
 
 let btnsEditarArticulo = document.getElementsByClassName("btn-edit-articulo");
-let ventanaEdicionArticulo = document.getElementById('div-form-edit-articulo');
 let idArticuloEdit = document.getElementById('id-edit');
 let imgArticuloEdit = document.getElementById('img-edit-articulo');
-let formulario_edicion_articulo = document.getElementById('formulario_edicion_articulo');
-
-console.log(btnsEditarArticulo);
-
 
 for (const btnEditarArticulo of btnsEditarArticulo){
     btnEditarArticulo.addEventListener('click', (e) => {
@@ -148,6 +143,47 @@ capaBlur[0].addEventListener('click', (e) => {
 
 });
 
+//Capa blur delete articulo
+
+let btnsDeleteArticulo = document.getElementsByClassName("btn-delete-articulo");
+let formularioEliminar = document.getElementById('form-eliminar');
+let imgArticuloDelete = document.getElementById('img-delete-articulo');
+let idArticuloDelete = document.getElementById('id-delete');
+
+
+for (const btnDeleteArticulo of btnsDeleteArticulo){
+    btnDeleteArticulo.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log("pulsado boton eliminar");
+        formularioEliminar.style.display = 'flex';
+        capaBlur[0].style.display = 'flex';
+        formularioEliminar.style.zIndex = '4';
+        idArticuloDelete.value = e.currentTarget.value;
+        console.log(idArticuloEdit.value);
+        let urlAPI = 'api/articulos.json' 
+        getDataFromAPI(urlAPI, function(response) {
+            let arrayArticuloEliminar = obtenerDatosArticuloAEditar(response, idArticuloDelete.value);
+            if (arrayArticuloEliminar) {
+                console.log('entra aqui');
+                imgArticuloDelete.src = arrayArticuloEliminar.img;
+                console.log(arrayArticuloEliminar.img);
+            } else {
+                console.log("No se encontró el artículo con ID: " + idArticuloDelete.value);
+            }
+        });
+    });
+}
+
+capaBlur[0].addEventListener('click', (e) => {
+    let clickDentroCapaBlur = capaBlur[0].contains(e.target);
+
+    if(clickDentroCapaBlur){
+        formularioEliminar.style.zIndex = '3';
+        capaBlur[0].style.display = "none";
+        formularioEliminar.style.display = 'none';
+    }
+
+});
   
 /* Funciones Y Calculo de distancias de SlideShow*/  
 

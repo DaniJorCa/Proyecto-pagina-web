@@ -26,6 +26,7 @@ function valores_input_form_cat(){
     console.log(value_subcategoria);
 
     if(value_categoria !== '' && value_subcategoria !== ''){
+        input_oculto.disabled = false;
         input_oculto.style.display = 'block';
         input_cat_padre.style.display = 'none';
         input_oculto.readOnly = true;

@@ -4,7 +4,6 @@ let botones = document.getElementsByClassName('editar_usuario');
 let inputs = document.getElementsByClassName('input-group-text');
 
 for(let boton of botones){
-    console.log("1");
     boton.addEventListener('click' , (event) => {
         event.preventDefault();
         let valor_enlace = boton.id;
@@ -17,6 +16,14 @@ for(let boton of botones){
 
     });
 }
+
+let select_perfil = document.getElementById('select_perfil');
+let boton_edit_perfil = document.getElementById('btn-edit-perfil');
+console.log("Script cargado");
+boton_edit_perfil.addEventListener('click', () =>{
+    console.log("click en btn edit perfil");
+    select_perfil.disabled = false;
+});
 
 
 console.log(inputs);

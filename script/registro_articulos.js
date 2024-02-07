@@ -38,27 +38,27 @@ function asignar_values_categorias(data) {
     }
         
     
-
-    for (let i in datos){
-        console.log(datos);
-        console.log(desplegable_categorias.value);
-        if(datos[i].codigo === desplegable_categorias.value){
-            console.log('dato encontrado');
-            cod_categoria_padre = datos[i].codigo;
-            nombre_cat_padre = datos[i].nombre_categoria;
-            console.log(cod_categoria_padre);
-            console.log(nombre_cat_padre);
-        }
+    if(desplegable_categorias.value > 0){
+      for (let i in datos){
+            if(datos[i].codigo.toString() === desplegable_categorias.value){
+                cod_categoria_padre = datos[i].codigo;
+                nombre_cat_padre = datos[i].nombre;  
+            }
+        }  
     }
-
-    for(let j in datos){
-        if(datos[j].categoria_padre === nombre_cat_padre){
+    
+    for (let j in datos){
+        console.log(cod_categoria_padre);
+        console.log(nombre_cat_padre);
+        console.log(datos[j].cod_cat_padre);
+        console.log(cod_categoria_padre);
+        if(datos[j].cod_cat_padre !== null && datos[j].cod_cat_padre === cod_categoria_padre){
             // Crear un nuevo elemento option
             var nueva_option = document.createElement('option');
 
             // Asignar un valor y texto a la nueva opción
             nueva_option.value = datos[j].codigo;
-            nueva_option.innerText = datos[j].nombre_sub;
+            nueva_option.innerText = datos[j].nombre;
 
             // Agregar la nueva opción al final del select
             desplegable_subcategoria.appendChild(nueva_option);
@@ -74,7 +74,7 @@ let nombre_cat_padre;
 getDataFromAPI('api/categorias.json', asignar_values_categorias);
 
 desplegable_categorias.addEventListener('change',  () => {
-    getDataFromAPI('api/categorias.json', asignar_values_categorias)  
+        getDataFromAPI('api/categorias.json', asignar_values_categorias);
 });
 
 
