@@ -80,6 +80,9 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                 case '_mant-perm':
                     despliegue_usuarios();
                     break;
+                case '_add_cart':
+                    insertar_articulos_carrito();
+                    break;    
             
                 default:
                     consultar_art_mas_vendidos();

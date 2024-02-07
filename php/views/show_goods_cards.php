@@ -15,7 +15,7 @@ if(!is_array($articulos)){
     echo '<div class="card-body">';
     echo '<h5 class="card-title text-center">' . $fila["nombre"] . '</h5>';
     echo  '<p class="card-text">' . $fila["descripcion"] . "</p>";
-    echo  '<a href="#" class="btn btn-primary">Comprar</a>';
+    echo '<a href="index.php?view=_add_cart&id=' . $fila['id_articulo'] . '" class="btn btn-primary">Comprar</a>';
     echo  '</div>';
     echo  '</div>';
     }
