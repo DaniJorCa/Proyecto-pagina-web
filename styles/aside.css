@@ -14,14 +14,18 @@
 }
 
 .aside--main > aside{
-    width: 20%;
+    width: 300px;
     text-wrap: wrap;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: left;
     background-color: var(--moka-light);
-    padding: 20px;
+    padding: 5px;
+}
+
+.aside-options ul{
+    padding-left: 1rem;
 }
 
 .aside--welcome{
@@ -36,7 +40,7 @@
 
 .aside--main > main{
     padding: 20px;
-    width: 80%;
+    width: calc(100% - 250px);
 }
 
 .aside-options{
@@ -50,7 +54,8 @@
 aside li a{
     color: var(--midnight-green);
     font-size: 1em;
-    border-radius: 5px;;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 aside li a:hover{
@@ -59,11 +64,11 @@ aside li a:hover{
 
 aside ul li a i{
     margin: 10px 10px 10px 10px;
-    font-size: 0.7em;
+    font-size: 1.2em;
 }
 
 aside ul li a .fa-heart{
-    font-size: 0.7em;
+    font-size: 1.2em;
 }
 
 .btn-exit{

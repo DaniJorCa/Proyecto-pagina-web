@@ -1,6 +1,6 @@
 <aside>
     <div class="aside--welcome">
-        <h3>BIENVENIDO!!</h3>
+        <h3>BIENVENID@!!</h3>
         <h3>
 <?php 
 echo(isset($_SESSION['nombre_log']) ? $_SESSION['nombre_log'] : '' )

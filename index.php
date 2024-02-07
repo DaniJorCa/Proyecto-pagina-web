@@ -25,6 +25,7 @@ require "php/controllers/articulos_controller.php";
 require "php/controllers/usuarios_controller.php";
 require "php/controllers/categorias_controller.php";
 require "php/controllers/generic_controller.php";
+require "php/controllers/pedidos_controller.php";
 
 //mandar esto a algun aside
 echo "<body>";

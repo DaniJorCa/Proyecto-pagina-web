@@ -19,12 +19,25 @@
 <?php
     include_once('php/security/security.php');        
      include ('php/views/header.php');
-     include ('php/views/aside.php'); 
+     include ('php/views/aside.php');
+     include ('php/controllers/pedidos_controller.php');  
 ?>    
 
 <main class="row">
-<?php    
-    include ('php/views/pedidos.php');
+<?php 
+
+$mostrar = isset($_GET['view']) ? $_GET['view'] : '_mis-pedidos';
+
+            switch ($mostrar){
+
+                case '_linped':
+                    consultar_lineas_pedido();
+                    break;
+                default:
+                    consultar_mis_pedidos();
+                    break;
+            }
+
 ?>
     </main>
 <?php include ('php/views/footer.html') ?>

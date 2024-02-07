@@ -16,12 +16,6 @@ function busqueda_selectiva_por_subcategoria(){
     include 'php/views/show_goods_cards.php';
 }
 
-function insertar_articulos_carrito(){
-    require_once 'php/models/articulos_model.php';
-    creacion_de_pedido($_GET);
-    include 'php/views/show_goods_cards.php';
-}
-
 
 function consultar_art_mas_vendidos(){
     require_once 'php/models/articulos_model.php';
