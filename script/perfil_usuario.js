@@ -32,7 +32,7 @@ for (let input of inputs) {
     input.addEventListener('input', function () {
         let valorActual = this.value;
         console.log('Se está escribiendo en el campo de entrada. Nuevo valor:', valorActual);
-        input.value = valorActual; // Modificar la propiedad 'value' directamente
+        input.value = valorActual;
     });
 }
 

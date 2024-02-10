@@ -1,22 +1,26 @@
 <div class="showGood">
     <div class="card-title-good">
-      <h2>Hoodie Padel</h2>  
+      <h2><?php echo $articulo[0]['nombre']?></h2>  
     </div>
     <div class="card-img-descriptionpay">
         <div class="img-good-background">
-            <img class="img--good" src="img/Productos/Ropa/Hoodies/sudaderapadel.svg"> 
+            <img class="img--good" src="<?php echo $articulo[0]['img'];?>"> 
         </div>
         <div class="description--pay">
             <div class="good-description">
                 <h3>Descripcion Artículo</h3>
-                <p class="description">Sudadera 100% algodon varios colores....etc</p>
+                <p class="description"><?php echo $articulo[0]['descripcion'];?></p>
             </div>
             <div class="good-pay">
-                    <button id="button-cart">
-                        <div class="card-good-button-cart">
-                            <i class="fa-solid fa-cart-shopping fa-cart"></i>
-                            <p>Comprar</p>
-                        </div>
+                <button id="button-heart">
+                <a href="index.php?view=_add_cart&id=<?php echo $articulo[0]['id_articulo']; ?>">
+                    <div class="card-good-button-cart">
+                        <i class="fa-solid fa-cart-shopping fa-cart"></i>
+                        <p>Comprar</p>
+                        <p class="h4"><?php echo $articulo[0]['precio'] . " €"?></p>
+                    </div>
+                </a>
+
                     </button>
                     <button id="button-heart">
                         <div class="card-good-button-heart">

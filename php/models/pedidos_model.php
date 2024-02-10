@@ -63,7 +63,7 @@ function creacion_de_pedido($array){
                          ':num_linea' => $num_linea,
                          ':cod_articulo' => $array['id'],
                          ':cantidad' => $cantidad_articulo,
-                         ':precio' => $articulo['precio'],
+                         ':precio' => $articulo[0]['precio'],
                          ':descuento' => $dto
                     ));
          
@@ -183,8 +183,37 @@ function get_array_todas_lineas_de_un_pedido_concreto($id_pedido){
 }
 
 
+function get_count_lineas_pedido($dni){
+    $id_pedido_pdte = buscar_id_pedidos_pendientes_de_pago_para_usuario_log($dni);
 
+    if($id_pedido_pdte){
+        require_once 'php/conection/conectar_BD.php';
+        $con = conexion_BD();
+        $stmt = $con->prepare("SELECT num_pedido, COUNT(*) as total_lineas FROM lineapedido WHERE num_pedido = :num_pedido GROUP BY num_pedido");
+        $stmt->bindParam(':num_pedido', $id_pedido_pdte, PDO::PARAM_INT);
+        $stmt->execute();
 
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if (!$resultado) {
+            return false;
+        }
+        return $resultado['total_lineas'];
+    }
+}
+
+function delete_linped($id_articulo){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("DELETE FROM lineapedido WHERE cod_articulo = :cod_articulo LIMIT 1");
+    $stmt->bindParam(':cod_articulo', $id_articulo, PDO::PARAM_STR);
+    $stmt->execute();
+    
+    if($stmt->rowCount()){
+        echo "Borrado con exito";
+    }else{
+        echo "Ninguna fila ha sido borrada";
+    }
+}
 
 ?>

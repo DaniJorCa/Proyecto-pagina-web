@@ -2,6 +2,7 @@
 <?php
 
 require_once 'php/models/categorias_model.php';
+require_once 'php/models/pedidos_model.php';
 $array_categorias = get_array_categorias();
 $array_subcategorias = get_array_subcategorias();
 
@@ -64,12 +65,31 @@ if(!isset($_SESSION['dni_log'])){
             <a class="login" href="login.php"><p>Login | Registro</p></a>
 <?php
 } 
-?>          
-        </div>
-        <div class="box--carrito">
-            <a class="icon-carrito carrito" href="carrito.php"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i></a>
-            <a class="icon-carrito carrito-plus" href="carrito.php"><i class="fa-solid fa-cart-plus fa-cart" style="color: #f3e9d2;"></i></a>
-            <a class="icon-carrito carrito-inside" href="carrito.php"><i class="fa-solid fa-cart-arrow-down fa-cart" style="color: #f3e9d2;"></i></a>
+if(isset($_SESSION['dni_log'])){
+    $pedido_pdte = buscar_id_pedidos_pendientes_de_pago_para_usuario_log($_SESSION['dni_log']);
+    $lineas_pedido = get_count_lineas_pedido($_SESSION['dni_log']);
+    if($lineas_pedido > 0){
+?> 
+    </div>
+        <div class="box--carrito row mx-4">
+            <a class="icon-carrito carrito" href="mis_pedidos.php?view=_linped&ped=<?php echo $pedido_pdte?>">
+                <button type="button" class="btn btn-primary"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i>
+                Articulos <span class="badge bg-secondary"><?php  echo $lineas_pedido ?></span>
+                </button>
+            </a>
         </div>
     </div>
+<?php
+}else{
+?>
+    </div>
+        <div class="box--carrito row">
+            <a class="icon-carrito carrito" href="carrito.php"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></a>
+        </div>
+    </div>
+
+<?php
+    }
+}
+?>
 </header>

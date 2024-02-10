@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="styles/aside.css">
         <link rel="stylesheet" href="styles/body_index.css">
         <link rel="stylesheet" href="styles/slideshowArea.css">
+        <link rel="stylesheet" href="styles/showGoods.css">
         <script type="text/javascript" src="script/jsMain.js"></script>
         <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
@@ -83,8 +84,10 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                     break;
                 case '_add_cart':
                     insertar_articulos_carrito();
-                    break;    
-            
+                    break;
+                case '_good-card':
+                    show_good_card();
+                    break;
                 default:
                     consultar_art_mas_vendidos();
                     break;

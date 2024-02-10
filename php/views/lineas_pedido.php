@@ -50,7 +50,7 @@
         echo $subtotal = $linea['precio'] - ($linea['precio'] * ($linea['descuento']/100)). " €";
         echo "</td>";
         echo "<td>";
-        echo "<a href=mis_pedidos.php?view=_linped&del-linped=".$linea['num_linea'] .">Eliminar</a>";
+        echo "<button class='btn_del_linped btn btn-danger col-12 col-md-4 m-2' value='" . $articulo[0]['id_articulo'] . "'>Eliminar</button>";
         echo "</td>";
         echo "</tr>";
     }

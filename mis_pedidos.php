@@ -12,15 +12,17 @@
         
         <script type="text/javascript" src="script/jsMain.js"></script>
         <script type="text/javascript" src="script/index.js"></script>
+        <script type="text/javascript" src="script/linped.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
     </head>
     <div class="capaBlur" id="capaBlur"></div>
     <body>
 <?php
     include_once('php/security/security.php');        
-     include ('php/views/header.php');
-     include ('php/views/aside.php');
-     include ('php/controllers/pedidos_controller.php');  
+    include ('php/views/header.php');
+    include ('php/views/aside.php');   
+    include ('php/controllers/pedidos_controller.php');
+ 
 ?>    
 
 <main class="row">
@@ -33,14 +35,19 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mis-pedidos';
                 case '_linped':
                     consultar_lineas_pedido();
                     break;
+                case '_del_linped':
+                    eliminar_lineas_pedido();
+                    break;
                 default:
                     consultar_mis_pedidos();
                     break;
             }
+            
 
+include ('php/views/validate_del_linped.php');
 ?>
     </main>
-<?php include ('php/views/footer.html') ?>
+<?php include ('php/views/footer.html'); ?>
 
         <script src="styles/js/bootstrap.bundle.min.js"></script>
     </body>

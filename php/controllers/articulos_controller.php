@@ -19,8 +19,11 @@ function busqueda_selectiva_por_subcategoria(){
 
 function consultar_art_mas_vendidos(){
     require_once 'php/models/articulos_model.php';
-    $articulos = getArrayTopVentasDesc();
+    include 'php/pagination/artsXpag.php';
+    $articulos = getArrayTopVentasDesc($inicio, $artXpag);
     include 'php/views/show_goods_cards.php';
+    include 'php/pagination/pagination_control.php';
+    
 }
 
 function consultar_mantenimiento_articulos(){
@@ -85,6 +88,12 @@ function eliminar_articulo(){
         header('Location index.php?info=del_art_err');
     }
     
+}
+
+function show_good_card(){
+    require_once 'php/models/articulos_model.php';
+    $articulo = get_articulo_por_id($_GET['id']);
+    include 'php/views/showGoods.php';
 }
 
 ?>

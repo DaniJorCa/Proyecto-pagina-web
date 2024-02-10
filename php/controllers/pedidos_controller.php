@@ -18,6 +18,15 @@ function consultar_lineas_pedido(){
     require_once 'php/models/pedidos_model.php';
     require_once 'php/models/articulos_model.php';
     $lineas_pedido = get_array_todas_lineas_de_un_pedido_concreto($_GET['ped']);
+    $_SESSION['ped_consultado'] = $_GET['ped'];
+    include 'php/views/lineas_pedido.php';
+}
+
+function eliminar_lineas_pedido(){
+    require_once 'php/models/pedidos_model.php';
+    require_once 'php/models/articulos_model.php';
+    delete_linped($_GET['delLinped']);
+    $lineas_pedido = get_array_todas_lineas_de_un_pedido_concreto($_SESSION['ped_consultado']);
     include 'php/views/lineas_pedido.php';
 }
 

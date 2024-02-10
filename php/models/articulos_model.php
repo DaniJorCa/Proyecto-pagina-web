@@ -86,15 +86,21 @@ function getArrayArticulosPorSubcategoria($array) {
 }*/
 
 
-
-
-
-function getArrayTopVentasDesc(){
+function getArrayTopVentasDesc($inicio, $artXpag){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT * FROM articulos ORDER BY total_ventas DESC");
+
+    //calculo del total de articulos
+    $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM articulos");
+    $stmtCount->execute();
+    $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+    $_SESSION['total_paginas'] = ceil($num_total_registros / $artXpag);
+    
+    //consulta limitada 
+    $stmt = $con->prepare("SELECT * FROM articulos ORDER BY total_ventas DESC LIMIT $inicio , $artXpag");
     $stmt->execute();
     $articulos = array();
+
     while($fila = $stmt->fetch()){
         $articulos[] = $fila;
     }
@@ -135,7 +141,7 @@ function getArrayArtPorId($id){
     $stmt->execute();
     $articulos_editar = array();
     while($fila = $stmt->fetch()){
-        $articulos_editar = $fila;
+        $articulos_editar[] = $fila;
     }
     if (empty($articulos_editar)) {
         return 'No hay artículos que mostrar';
