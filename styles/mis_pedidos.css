@@ -1,0 +1,40 @@
+:root{
+    --midnight-green: #114B5F;
+    --sea-green: #1A936F;
+    --celadon: #88D498;
+    --tea-green: #C6DABF;
+    --moka-light: #F3E9D2;
+
+}
+
+.btn-acceso-tienda{
+    background-color: white;
+    border: 2px solid var(--midnight-green);
+    padding: 5px;
+    width: auto;
+    height: 60px;
+}
+
+.btn-acceso-tienda > a{
+    color: var(--midnight-green);
+    text-decoration: none;
+    padding: 5px;
+
+}
+
+.btn-acceso-tienda:hover{
+    background-color: var(--moka-light)
+}
+
+.btn_del_linped{
+    padding: 10px;
+    width: auto;
+}
+
+.btn_del_linped > i{
+    margin: 7px;
+}
+
+.fa-dumpster-fire{
+    margin: 0 10px;
+}

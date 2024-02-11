@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="styles/slideshowArea.css">
         <link rel="stylesheet" href="styles/showGoods.css">
         <link rel="stylesheet" href="styles/perfil_usuario.css">
+        <link rel="stylesheet" href="styles/mis_pedidos.css">
         
         <script type="text/javascript" src="script/jsMain.js"></script>
         <script type="text/javascript" src="script/index.js"></script>
@@ -25,7 +26,7 @@
  
 ?>    
 
-<main class="row">
+<main class="container-fluid row">
 <?php 
 
 $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mis-pedidos';

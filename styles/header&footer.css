@@ -63,6 +63,7 @@ nav{
 
 
 .menu-dropdown{
+    padding: 0;
     display: none;
     background-color: var(--midnight-green);
     opacity: 0%;
@@ -71,7 +72,12 @@ nav{
     z-index: 1;
 }
 
+.menu-dropdown a{
+    text-align: center;
+}
+
 .recubre{
+    padding: 0;
     top: 10px;
     background-color: var(--midnight-green);
     position: relative;
@@ -97,10 +103,11 @@ nav{
 
 .menu-inside a{
     line-height: 50px;
+    padding: 10px;
 }
 
 .menu-inside{
-    height: 50px;;
+    height: 50px;
     width: 100%;
 }
 
@@ -231,6 +238,13 @@ footer{
     bottom: 0px;
     height: 100px;
     background-color: var(--midnight-green);
+}
+
+.badge{
+    padding: 10px;
+    background-color: var(--sea-green);
+    color: var(--moka-light);
+    font-size: 1em;
 }
 
 

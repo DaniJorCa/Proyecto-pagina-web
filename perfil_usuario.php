@@ -13,6 +13,7 @@
         <script type="text/javascript" src="script/jsMain.js"></script>
         <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
+        <script type="text/javascript" src="script/edit_mi_perfil.js"></script>
     </head>
     <div class="capaBlur" id="capaBlur"></div>
     <body>

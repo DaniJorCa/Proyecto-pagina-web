@@ -51,13 +51,14 @@ if(!empty($lineas_pedido)){
         echo $subtotal = $linea['precio'] - ($linea['precio'] * ($linea['descuento']/100)). " €";
         echo "</td>";
         echo "<td>";
-        echo "<button class='btn_del_linped btn btn-danger col-12 col-md-4 m-2' value='" . $articulo[0]['id_articulo'] . "'>Eliminar</button>";
+        echo "<button class='btn_del_linped btn btn-danger col-12 col-md-4 m-2' value='" . $articulo[0]['id_articulo'] . "'><i class='fa-solid fa-trash'></i>Eliminar</button>";
         echo "</td>";
         echo "</tr>";
     }
 
     echo "<tr>";
-    echo "<td colspan='9'>Total Pedido  ".$total_pedido." €</td>";
+    echo "<td colspan='8'>Total Pedido  ".$total_pedido." €</td>";
+    echo "<td colspan='1'><button class='btn btn-success' <a href='index.php?view=_procesar_pago?id_pedido='".$_GET['ped']."'>Finalizar Pedido " .$total_pedido. "€</a></button></td>";
     echo "</tr>";
 ?>    
     </tbody>
@@ -68,7 +69,7 @@ if(!empty($lineas_pedido)){
     echo "<div class='d-flex justify-content-center'>";
     echo "<img style='height: 220px; width: 250px;'src='img/emptycart.png'></img>";
     echo "</div>";
-    echo "<button class='btn btn-success'><a href='index.php'>Acceder a tienda</a></button>";
+    echo "<button class='btn btn-success btn-acceso-tienda'><a href='index.php'>Acceder a tienda</a></button>";
 }
 ?>
 </div>

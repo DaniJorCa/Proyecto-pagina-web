@@ -64,7 +64,7 @@ if(!is_array($articulos)){
         <input class="my-4 form-control text-center" aria-label="Disabled input example" name="id" type="text" id="id-edit" readonly></input>
         <div class='row'>   
             <button class='col-6 btn btn-success' type='submit'>Editar Articulo</button>    
-            <a class='col-6' href="index.php?view=_mant-arts">Cancelar Edición</a>
+            <a class='col-6 text-center' href="index.php?view=_mant-arts">Cancelar Edición</a>
         </div>
     </form>
 </div>
@@ -78,7 +78,7 @@ if(!is_array($articulos)){
         <input class="my-4 form-control text-center" aria-label="Disabled input example" name="id" type="text" id="id-delete" readonly></input>
         <div class='row'>   
             <button class='col-6 btn btn-danger' type='submit'>Eliminar Articulo</button>    
-            <a class='col-6' href="index.php?view=_mant-arts">Cancelar Edición</a>
+            <a class='col-6 text-center' href="index.php?view=_mant-arts">Cancelar</a>
         </div>
     </form>
 </div>

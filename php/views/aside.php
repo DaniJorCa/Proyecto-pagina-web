@@ -11,7 +11,7 @@ echo(isset($_SESSION['nombre_log']) ? $_SESSION['nombre_log'] : '' )
     <ul>
         <li><a href="mis_pedidos.php"><i class="fa-solid fa-gifts" style="color: #114B5F;"></i>Mis pedidos</a></li>
         <li><a href="perfil_usuario.php"><i class="fa-solid fa-address-card" style="color: #114B5F;"></i>Mi perfil</a></li>
-        <li><a href="#"><i class="fa-solid fa-heart" style="color: #114B5F;"></i>Lista de deseos</a></li>
+        <li><a href="index.php?view=_show-wishlist"><i class="fa-solid fa-heart" style="color: #114B5F;"></i>Lista de deseos</a></li>
     </ul>
 <?php 
 

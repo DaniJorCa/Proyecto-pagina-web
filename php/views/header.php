@@ -73,8 +73,8 @@ if(isset($_SESSION['dni_log'])){
     </div>
         <div class="box--carrito row mx-4">
             <a class="icon-carrito carrito" href="mis_pedidos.php?view=_linped&ped=<?php echo $pedido_pdte?>">
-                <button type="button" class="btn btn-primary"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i>
-                Articulos <span class="badge bg-secondary"><?php  echo $lineas_pedido ?></span>
+                <button type="button" class="btn-icon-carrito btn"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i>
+                <span class="badge">Articulos <?php  echo $lineas_pedido ?></span>
                 </button>
             </a>
         </div>

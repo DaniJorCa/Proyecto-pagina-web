@@ -45,3 +45,27 @@ tr:nth-child(even) {
     max-height: 200px;
     max-width: 200px;
 }
+
+.card-title h5{
+    font-size: 0.9rem;
+    
+}
+
+.btn-show-good-card{
+    color: var(--midnight-green);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.btn-add-cart{
+    background-color: var(--sea-green);
+    font-size: 1.1rem;
+    color: var(--moka-light);
+}
+
+.btn-add-cart:hover{
+    background-color: #136c51;
+    color: var(--moka-light);
+}
+
+

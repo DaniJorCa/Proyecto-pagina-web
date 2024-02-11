@@ -243,7 +243,7 @@ function extraer_apellidos($cadena){
     $arrayApellidos = [];
     $posicion_espacio = strpos($cadena, ' ');
     $primer_apellido = substr($cadena, 0, $posicion_espacio);
-    $segundo_apellido = substr($cadena, $posicion_espacio, strlen($cadena));
+    $segundo_apellido = substr($cadena, $posicion_espacio + 1, strlen($cadena));
 
     array_push($arrayApellidos, $primer_apellido);
     array_push($arrayApellidos, $segundo_apellido);

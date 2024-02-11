@@ -107,7 +107,7 @@ function creacion_de_pedido($array){
                     ':num_linea' => $num_linea,
                     ':cod_articulo' => $array['id'],
                     ':cantidad' => $cantidad_articulo,
-                    ':precio' => $articulo['precio'],
+                    ':precio' => $articulo[0]['precio'],
                     ':descuento' => $dto
                 ));
     

@@ -4,8 +4,8 @@ function insertar_articulos_carrito(){
     require_once 'php/models/articulos_model.php';
     require_once 'php/models/pedidos_model.php';
     creacion_de_pedido($_GET);
-    $articulos = getArrayArticulosPorSubCategoria($_GET);
-    include 'php/views/show_goods_cards.php';
+    $articulo = get_articulo_por_id($_GET['id']);
+    include 'php/views/showGoods.php';
 }
 
 function consultar_mis_pedidos(){

@@ -1,16 +1,22 @@
 <?php
-if(isset($array_pedidos)){
+if(isset($array_pedidos_cliente) && is_array($array_pedidos_cliente)){
 ?>
-<h3 class="display-4 text-center">Mis Pedidos</h3>
-<h4 class="display-6 text-center">Aquí puedes consultar tus pedidos</h4>
-<div class="table-responsive-sm">
-<table class="table table-striped table-bordered table-hover ">
+<div class='title row'>
+<h3 class="display-4 text-center col-12">Mis Pedidos</h3>
+</div>
+<div class='title row'>
+<h4 class="display-6 text-center col-12">Aquí puedes consultar tus pedidos</h4>
+</div>
+<div class="table-responsive-sm col-6 tabla-pedidos">
+<table class="table table-striped table-bordered table-hover">
     <caption>Mis pedidos</caption>
     <thead class="thead-dark">
         <tr>
             <th>Id Pedido</th>
             <th>Fecha Pedido</th>
-            <th>Estado Pedido</th>  
+            <th>Estado Pedido</th>
+            <th>Valor Pedido</th>
+            <th>Pago</th> 
         <tr>
     </thead>
     <tbody>
@@ -24,7 +30,13 @@ if(isset($array_pedidos)){
         echo "</th>";
         echo "<th>";
         echo $pedido['estado_ped'];
+        echo "</th>";echo "<th>";
+        echo $pedido['valor_pedido'] - ($pedido['valor_pedido'] * 0.1) . "€";
         echo "</th>";
+        echo "</th>";echo "<th>";
+        echo "<a href='index.php?view=_procesar_pago?id_pedido='".$pedido['id_pedido']."'>Finalizar Pedido " . $pedido['valor_pedido'] - ($pedido['valor_pedido'] * 0.1) . "€</a>";
+        echo "</th>";
+        
     }
 ?>    
     </tbody>
@@ -38,7 +50,7 @@ if(isset($array_pedidos)){
     echo "</div>";
     echo "<h4 class='fs-4 text-center'>OOOOOpppss!!!</h4>";
     echo "<div class='d-flex justify-content-center'>";
-    echo "<button class='btn btn-success col-2'><a href='index.php'>Acceder a tienda</a></button>";
+    echo "<button class='btn btn-success col-2 btn-acceso-tienda'><a href='index.php'>Acceder a tienda</a></button>";
     echo "</div>";
 }
 ?>

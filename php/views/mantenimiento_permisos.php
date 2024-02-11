@@ -35,23 +35,25 @@ if(isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'admin'){
 <?php
 
     foreach ($usuarios as $fila) {
-    echo "<tr>";
-    echo "<td>{$fila["dni"]}</td>"; 
-    echo "<td>{$fila["nombre"]}</td>";
-    echo "<td class='td-wrap'>{$fila["primer_apellido"]}</td>";
-    echo "<td>{$fila["segundo_apellido"]}</td>";
-    echo "<td>{$fila["direccion"]}</td>";
-    echo "<td>{$fila["provincia"]}</td>";
-    echo "<td>{$fila["poblacion"]}</td>";
-    echo "<td>{$fila["cod_postal"]}</td>";
-    echo "<td>{$fila["telefono"]}</td>"; 
-    echo "<td>{$fila["email"]}</td>";
-    if(isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'admin'){
-        echo "<td>{$fila["perfil"]}</td>";
-        echo "<td>{$fila["esBaja"]}</td>";
-    }
-    echo "<td><a href='edicion_usuarios_master.php?user={$fila['dni']}'><button class='btn btn-warning btn-edit-datos-user'><i class='fa-solid fa-pen-to-square'></i></button></a></td>";
-    echo "</tr>";
+    if($fila['dni'] !== $_SESSION['dni_log']){
+        echo "<tr>";
+        echo "<td>{$fila["dni"]}</td>"; 
+        echo "<td>{$fila["nombre"]}</td>";
+        echo "<td class='td-wrap'>{$fila["primer_apellido"]}</td>";
+        echo "<td>{$fila["segundo_apellido"]}</td>";
+        echo "<td>{$fila["direccion"]}</td>";
+        echo "<td>{$fila["provincia"]}</td>";
+        echo "<td>{$fila["poblacion"]}</td>";
+        echo "<td>{$fila["cod_postal"]}</td>";
+        echo "<td>{$fila["telefono"]}</td>"; 
+        echo "<td>{$fila["email"]}</td>";
+        if(isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'admin'){
+            echo "<td>{$fila["perfil"]}</td>";
+            echo "<td>{$fila["esBaja"]}</td>";
+        }
+        echo "<td><a href='edicion_usuarios_master.php?user={$fila['dni']}'><button class='btn btn-warning btn-edit-datos-user'><i class='fa-solid fa-pen-to-square'></i></button></a></td>";
+        echo "</tr>";
+        }
     }
 }
 ?>

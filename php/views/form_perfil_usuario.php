@@ -46,7 +46,7 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
                 <div class="row col-6 justify-content-center">
                 <div class="mb-3 col-8">
                     <label for="exampleInputPassword1" class="form-label" >Apellidos</label>
-                    <input name="apellidos_edit" type="text" class="editar_apellidos input-group-text" id="disabledTextInput" value=" <?php echo $_SESSION['primer_apellido_log'].' '.$_SESSION['segundo_apellido_log']?>" readonly>
+                    <input name="apellidos_edit" type="text" class="editar_apellidos input-group-text" id="disabledTextInput" value="<?php echo $_SESSION['primer_apellido_log'].' '.$_SESSION['segundo_apellido_log']?>" readonly>
                 </div>
                 <div class="col-3 row align-items-center p-1">
                     <button class='editar_usuario btn btn-info' id="editar_apellidos"><i class="fa-solid fa-pen-to-square mx-2"></i>Editar</button>
@@ -115,7 +115,7 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
 
         <div class="row container-fluid justify-content-evenly my-4">
             <button type="submit" class="btn btn-dark col-12 col-md-4 m-2"><i class="fa-solid fa-check mx-2"></i>Validar Cambios</button>
-            <button id="edit_passwd" type="submit" class="btn btn-danger col-12 col-md-4 m-2"><i class="fa-solid fa-key mx-2"></i>Modificar contraseña</button>
+            <button class="btn btn-danger col-12 col-md-4 m-2 modify_passwd"><i class="fa-solid fa-key mx-2"></i>Modificar contraseña</button>
         </div>
     </div>
 </form>
@@ -131,7 +131,7 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
                 <input name="passwd_edit" class="passwd input-group-text text-dark" type="password" placeholder="Contraseña" autofocus required>
                 <label for="re-passwd_edit">Reescribe la contraseña</label>
                 <input name="re-passwd_edit" class="passwd input-group-text text-dark" type="password" placeholder="Contraseña" required>
-                <button name="submit_edit_passwd" id="edit_passwd" type="submit" class="btn btn-danger col-11 m-2"><i class="fa-solid fa-key mx-2"></i>Aplicar</button>
+                <button name="submit_edit_passwd" type="submit" class="btn btn-danger col-11 m-2"><i class="fa-solid fa-key mx-2"></i>Aplicar</button>
                 </div>
             </form>
         </div>
