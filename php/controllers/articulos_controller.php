@@ -18,6 +18,7 @@ function busqueda_selectiva_por_subcategoria(){
 
 
 function consultar_art_mas_vendidos(){
+    $_SESSION['header'] = 'index.php?';
     require_once 'php/models/articulos_model.php';
     include 'php/pagination/artsXpag.php';
     $articulos = getArrayTopVentasDesc($inicio, $artXpag);
@@ -27,9 +28,12 @@ function consultar_art_mas_vendidos(){
 }
 
 function consultar_mantenimiento_articulos(){
+    $_SESSION['header'] = 'index.php?view=_mant-arts&';
     require_once 'php/models/articulos_model.php';
-    $articulos = getArrayArtsPorCategoriaAsc();
+    include 'php/pagination/artsXpag_mant_articulos.php';
+    $articulos = getArrayArtsPorCategoriaAsc($inicio, $artXpag);
     include 'php/views/mantenimiento_articulos.php';
+    include 'php/pagination/pagination_control.php';
 }
 
 function edicion_informacion_articulo($id){
@@ -40,6 +44,7 @@ function edicion_informacion_articulo($id){
 
 function check_and_edit_good(){
     require_once 'php/models/articulos_model.php';
+    require_once 'php/models/categorias_model.php';
     $array_articulo_a_editar = getArrayArtPorId($_POST['id_articulo']);
     $headerCotejarCampos = cotejar_campos_editados($array_articulo_a_editar, $_POST);
     $cadena_campos_vacios = comprobar_datos_registro($_POST);
@@ -50,7 +55,7 @@ function check_and_edit_good(){
             array_datos_articulos_JSON();
             header('Location: index.php'. $headerCotejarCampos);
         }else{
-            header('Location: index.php?same-edit-fields');
+            header('Location: index.php?info-mod=same-edit-fields');
         }  
     }else{
         echo "Campos vacios en el formulario de edicion";
@@ -74,9 +79,12 @@ function formulario_alta(){
 }
 
 function mostrar_articulos(){
+    $_SESSION['header'] = 'index.php?view=_mant-arts&';
+    include 'php/pagination/artsXpag_mant_articulos.php';
     require_once 'php/models/articulos_model.php';
-    $articulos = getArrayArtsPorCategoriaAsc();
+    $articulos = getArrayArtsPorCategoriaAsc($inicio, $artXpag);
     include 'php/views/mantenimiento_articulos.php';
+    include 'php/pagination/pagination_control.php';
 }
 
 function eliminar_articulo(){

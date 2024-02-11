@@ -13,6 +13,7 @@
         <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
         <script type="text/javascript" src="script/registro_articulos.js"></script>
+        <script type="text/javascript" src="script/edicion_articulos.js"></script>
     </head>
 <div class="capaBlur" id="capaBlur"></div>    
 <?php
@@ -30,9 +31,9 @@ require "php/controllers/pedidos_controller.php";
 
 //mandar esto a algun aside
 echo "<body>";
-echo "<main>";
+echo "<main class='row'>";
 
-if(isset($_GET['info'])){
+if(isset($_GET['info']) || isset($_GET['info-mod'])){
     show_messages($_GET);
 }
 

@@ -1,5 +1,7 @@
 <?php
+if(!empty($lineas_pedido)){
 ?>
+
 <h3 class="display-4 text-center">Detalle pedido</h3>
 <div class="table-responsive-sm">
 <table class="table table-striped table-bordered table-hover ">
@@ -20,7 +22,6 @@
     <tbody>
 <?php
     $total_pedido = 0;
-    
     foreach($lineas_pedido as $linea){
         $total_pedido += $linea['precio'] - ($linea['precio'] * ($linea['descuento'] / 100));
         $articulo = get_articulo_por_id($linea['cod_articulo']);
@@ -61,4 +62,13 @@
 ?>    
     </tbody>
 </table>
+<?php
+}else{
+    echo "<h4 class='fs-2 text-center'>Tu cesta esta vacia</h4>";
+    echo "<div class='d-flex justify-content-center'>";
+    echo "<img style='height: 220px; width: 250px;'src='img/emptycart.png'></img>";
+    echo "</div>";
+    echo "<button class='btn btn-success'><a href='index.php'>Acceder a tienda</a></button>";
+}
+?>
 </div>

@@ -167,6 +167,15 @@ function get_last_contador_pedidos() {
     return $contador;
 }
 
+function delete_pedido($id){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("DELETE FROM pedidos WHERE id_pedido = :id_pedido");
+    $stmt->bindParam(':id_pedido', $id, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
+
 function get_array_todas_lineas_de_un_pedido_concreto($id_pedido){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
@@ -203,16 +212,39 @@ function get_count_lineas_pedido($dni){
 }
 
 function delete_linped($id_articulo){
+    $id_pedido = buscar_id_pedidos_pendientes_de_pago_para_usuario_log($_SESSION['dni_log']);
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
+
+    $stmt = $con->prepare("SELECT COUNT(*) FROM lineapedido WHERE num_pedido = :num_pedido");
+    $stmt->bindParam(':num_pedido', $id_pedido, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $fila = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $numero_de_filas = $fila['COUNT(*)'];
+
+    
     $stmt = $con->prepare("DELETE FROM lineapedido WHERE cod_articulo = :cod_articulo LIMIT 1");
     $stmt->bindParam(':cod_articulo', $id_articulo, PDO::PARAM_STR);
     $stmt->execute();
-    
-    if($stmt->rowCount()){
-        echo "Borrado con exito";
+
+    if($numero_de_filas === 1){
+        delete_pedido($id_pedido);
     }else{
-        echo "Ninguna fila ha sido borrada";
+        if($stmt->rowCount()){
+            echo "Borrado con exito";
+            
+            $valor_actual_pedido = valor_pedido_actual($id_pedido);
+            $valor_articulo = getArrayArtPorId($id_articulo);
+            $valor_actualizado_pedido = $valor_actual_pedido - $valor_articulo[0]['precio'];
+            $stmt = $con->prepare("UPDATE pedidos SET valor_pedido = :valor_pedido WHERE id_pedido = :id_pedido");
+            $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+            $stmt->bindValue(':valor_pedido', $valor_actualizado_pedido, PDO::PARAM_INT);
+            $stmt->execute();
+        }else{
+            echo "Ninguna fila ha sido borrada";
+        }
     }
 }
 

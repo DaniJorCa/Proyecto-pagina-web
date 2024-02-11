@@ -1,5 +1,18 @@
 <?php
-
+function get_array_articulos(){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT * FROM articulos");
+    $stmt->execute();
+    $articulos = array();
+    while($fila = $stmt->fetch()){
+        $articulos[] = $fila;
+    }
+    if(empty($articulos)){
+        return "No hay articulos que mostrar";
+    }
+    return $articulos;
+}
 
 function getArrayArticulosPorCategoria($array){
     require_once 'php/conection/conectar_BD.php';
@@ -110,10 +123,17 @@ function getArrayTopVentasDesc($inicio, $artXpag){
     return $articulos;
 }
 
-function getArrayArtsPorCategoriaAsc(){
+function getArrayArtsPorCategoriaAsc($inicio, $artXpag){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT * FROM articulos ORDER BY categoria ASC");
+
+    //calculo del total de articulos
+    $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM articulos");
+    $stmtCount->execute();
+    $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+    $_SESSION['total_paginas'] = ceil($num_total_registros / $artXpag);
+
+    $stmt = $con->prepare("SELECT * FROM articulos ORDER BY categoria ASC LIMIT $inicio, $artXpag");
     $stmt->execute();
     $articulos = array();
     while($fila = $stmt->fetch()){
@@ -127,7 +147,7 @@ function array_datos_articulos_JSON() {
     $datosJSON = file_get_contents($fichero);
     // Decodificar el JSON actual a un array PHP
     $categorias = json_decode($datosJSON, true);
-    $nuevosDatos = getArrayArtsPorCategoriaAsc();
+    $nuevosDatos = get_array_articulos();
     $categorias = $nuevosDatos;
     $datosJSON = json_encode($categorias, JSON_PRETTY_PRINT);
     file_put_contents($fichero, $datosJSON);
@@ -153,102 +173,130 @@ function cotejar_campos_editados($array_antiguos_datos, $array_nuevos_datos){
     $string_datos_modificados = '';
     $contador_diferencias = 0;
 
-    if($array_antiguos_datos['nombre'] !== $array_nuevos_datos['nombre']){
-        $_SESSION['nombre-before-edit'] .= $array_antiguos_datos['nombre'];
-        $_SESSION['nombre-after-edit'] .= $array_nuevos_datos['nombre'];
-        $string_datos_modificados = '?name-art-edit';
+    if($array_antiguos_datos[0]['nombre'] !== $array_nuevos_datos['nombre']){
+        $_SESSION['nombre-before-edit'] = $array_antiguos_datos[0]['nombre'];
+        $_SESSION['nombre-after-edit'] = $array_nuevos_datos['nombre'];
+        $string_datos_modificados = '?info-mod[]=name-art-edit';
+        $contador_diferencias++;
     }
-    if($array_antiguos_datos['img'] !== $_FILES['img'] || $_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE){
-        $_SESSION['img-before-edit'] = $array_antiguos_datos['img'];
-        $_SESSION['img-after-edit'] = $_FILES['img'];
+    if($array_antiguos_datos[0]['img'] !== ('img/'.$_FILES['img']['name']) && $_FILES['img']['error'] !== UPLOAD_ERR_NO_FILE){
+        $_SESSION['img-before-edit'] = $array_antiguos_datos[0]['img'];
+        $_SESSION['img-after-edit'] = $_FILES['img']['name'];
         if($contador_diferencias === 0){
-            $string_datos_modificados .= '?img-art-edit'; 
+            $string_datos_modificados .= '?info-mod[]=img-art-edit'; 
         }else{
-            $string_datos_modificados .= 'img-art-edit';
+            $string_datos_modificados .= '&info-mod[]=img-art-edit';
         }  
+        $contador_diferencias++;
     }
-    if($array_antiguos_datos['descripcion'] !== $array_nuevos_datos['descripcion']){
-        $_SESSION['descripcion-before-edit'] = $array_antiguos_datos['descripcion'];
+    if($array_antiguos_datos[0]['descripcion'] !== $array_nuevos_datos['descripcion']){
+        $_SESSION['descripcion-before-edit'] = $array_antiguos_datos[0]['descripcion'];
         $_SESSION['descripcion-after-edit'] = $array_nuevos_datos['descripcion'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?desc-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=desc-art-edit'; 
         }else{
-            $string_datos_modificados .= 'desc-art-edit';
+            $string_datos_modificados .= '&info-mod[]=desc-art-edit';
         }  
+        $contador_diferencias++;
     }
-    if($array_antiguos_datos['precio'] !== $array_nuevos_datos['precio']){
-        $_SESSION['precio-before-edit'] = $array_antiguos_datos['precio'];
+    if($array_antiguos_datos[0]['precio'] !== $array_nuevos_datos['precio']){
+        $_SESSION['precio-before-edit'] = $array_antiguos_datos[0]['precio'];
         $_SESSION['precio-after-edit'] = $array_nuevos_datos['precio'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?precio-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=precio-art-edit'; 
         }else{
-            $string_datos_modificados .= 'precio-art-edit';
-        }  
+            $string_datos_modificados .= '&info-mod[]=precio-art-edit';
+        } 
+        $contador_diferencias++; 
     }
-    if($array_antiguos_datos['neto_compra'] !== $array_nuevos_datos['neto_compra']){
-        $_SESSION['compra-before-edit'] = $array_antiguos_datos['neto_compra'];
+    if($array_antiguos_datos[0]['neto_compra'] !== $array_nuevos_datos['neto_compra']){
+        $_SESSION['compra-before-edit'] = $array_antiguos_datos[0]['neto_compra'];
         $_SESSION['compra-after-edit'] = $array_nuevos_datos['neto_compra'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?compra-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=compra-art-edit'; 
         }else{
-            $string_datos_modificados .= 'compra-art-edit';
-        }  
+            $string_datos_modificados .= '&info-mod[]=compra-art-edit';
+        } 
+        $contador_diferencias++; 
     }
-    if($array_antiguos_datos['iva'] !== $array_nuevos_datos['iva']){
-        $_SESSION['iva-before-edit'] = $array_antiguos_datos['iva'];
+    if($array_antiguos_datos[0]['iva'] !== $array_nuevos_datos['iva']){
+        $_SESSION['iva-before-edit'] = $array_antiguos_datos[0]['iva'];
         $_SESSION['iva-after-edit'] = $array_nuevos_datos['iva'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?iva-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=iva-art-edit'; 
         }else{
-            $string_datos_modificados .= 'iva-art-edit';
-        }  
+            $string_datos_modificados .= '&info-mod[]=iva-art-edit';
+        }
+        $contador_diferencias++;  
     }
-    if($array_antiguos_datos['genero'] !== $array_nuevos_datos['genero']){
-        $_SESSION['genero-before-edit'] = $array_antiguos_datos['genero'];
+    if($array_antiguos_datos[0]['genero'] !== $array_nuevos_datos['genero']){
+        $_SESSION['genero-before-edit'] = $array_antiguos_datos[0]['genero'];
         $_SESSION['genero-after-edit'] = $array_nuevos_datos['genero'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?genero-art-edit'; 
+           $string_datos_modificados .= '?info-mod=genero-art-edit'; 
         }else{
-            $string_datos_modificados .= 'genero-art-edit';
+            $string_datos_modificados .= '&info-mod[]=genero-art-edit';
         }  
+        $contador_diferencias++;
     }
-    if($array_antiguos_datos['categoria'] !== $array_nuevos_datos['categoria']){
-        $_SESSION['categoria-before-edit'] = $array_antiguos_datos['categoria'];
-        $_SESSION['categoria-after-edit'] = $array_nuevos_datos['categoria'];
+    if(strval($array_antiguos_datos[0]['categoria']) !== $array_nuevos_datos['categoria']){
+        $categoria_antigua_string = get_nombre_cat_por_numCat($array_antiguos_datos[0]['categoria']);
+        $nueva_categoria_string = get_nombre_cat_por_numCat($array_nuevos_datos['categoria']);
+        $_SESSION['categoria-before-edit'] = $categoria_antigua_string;
+        $_SESSION['categoria-after-edit'] = $nueva_categoria_string;
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?categoria-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=categoria-art-edit'; 
         }else{
-            $string_datos_modificados .= 'categoria-art-edit';
+            $string_datos_modificados .= '&info-mod[]=categoria-art-edit';
         }  
+        $contador_diferencias++;
     }
-    if($array_antiguos_datos['subcategoria'] !== $array_nuevos_datos['subcategoria']){
-        $_SESSION['sub-before-edit'] = $array_antiguos_datos['subcategoria'];
-        $_SESSION['sub-after-edit'] = $array_nuevos_datos['subcategoria'];
+    if(strval($array_antiguos_datos[0]['subcategoria']) !== $array_nuevos_datos['subcategoria']){
+        $subcategoria_antigua_string = get_nombre_subcat_por_numCat($array_antiguos_datos[0]['subcategoria']);
+        $nueva_subcategoria_string = get_nombre_subcat_por_numCat($array_nuevos_datos['subcategoria']);
+        $_SESSION['sub-before-edit'] = $subcategoria_antigua_string;
+        $_SESSION['sub-after-edit'] = $nueva_subcategoria_string;
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?sub-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=sub-art-edit'; 
         }else{
-            $string_datos_modificados .= 'sub-art-edit';
+            $string_datos_modificados .= '&info-mod[]=sub-art-edit';
         }  
+        $contador_diferencias++;
     }
-    if($array_antiguos_datos['stock'] !== $array_nuevos_datos['stock']){
-        $_SESSION['stock-before-edit'] = $array_antiguos_datos['stock'];
+    if(strval($array_antiguos_datos[0]['stock']) !== $array_nuevos_datos['stock']){
+        $_SESSION['stock-before-edit'] = $array_antiguos_datos[0]['stock'];
         $_SESSION['stock-after-edit'] = $array_nuevos_datos['stock'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?stock-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=stock-art-edit'; 
         }else{
-            $string_datos_modificados .= 'stock-art-edit';
-        }  
+            $string_datos_modificados .= '&info-mod[]=stock-art-edit';
+        }
+        $contador_diferencias++;  
     }
-    if($array_antiguos_datos['stock_minimo'] !== $array_nuevos_datos['stock_minimo']){
-        $_SESSION['stock_minimo-before-edit'] = $array_antiguos_datos['stock_minimo'];
+    if(strval($array_antiguos_datos[0]['stock_minimo']) !== $array_nuevos_datos['stock_minimo']){
+        $_SESSION['stock_minimo-before-edit'] = $array_antiguos_datos[0]['stock_minimo'];
         $_SESSION['stock_minimo-after-edit'] = $array_nuevos_datos['stock_minimo'];
         if($contador_diferencias === 0){
-           $string_datos_modificados .= '?min-art-edit'; 
+           $string_datos_modificados .= '?info-mod[]=min-art-edit'; 
         }else{
-            $string_datos_modificados .= 'min-art-edit';
-        }  
+            $string_datos_modificados .= '&info-mod[]=min-art-edit';
+        }
+        $contador_diferencias++;  
     }
+    if($array_antiguos_datos[0]['esBaja'] === NULL && $array_nuevos_datos['esBaja'] === 'null'){
 
+    }else{
+        if($array_antiguos_datos[0]['esBaja'] !== $array_nuevos_datos['esBaja']){ 
+            $_SESSION['esBaja-before-edit'] = $array_antiguos_datos[0]['esBaja'];
+            $_SESSION['esBaja-after-edit'] = $array_nuevos_datos['esBaja'];
+            if($contador_diferencias === 0){
+                $string_datos_modificados .= '?info-mod[]=esBaja-art-edit'; 
+            }else{
+                $string_datos_modificados .= '&info-mod[]=esBaja-art-edit';
+            }
+            $contador_diferencias++;
+        }
+    }
     return $string_datos_modificados;
 
 }
@@ -438,6 +486,7 @@ function comprobar_datos_registro($array){
         if($contador_errores != 0 ? $cadena_errores .= '&empty=stock_minimo' : $cadena_errores .= '?empty=stock_minimo');
     }
 
+
     return $cadena_errores;
 }
 
@@ -501,9 +550,14 @@ function modificar_articulo($array){
       
     try{
         require_once 'php/conection/conectar_BD.php';
-        if($_FILES['img']['error'] == UPLOAD_ERR_NO_FILE){
+        if($array['esBaja'] === "null"){
+            $esBaja = NULL;
+        }else{
+            $esBaja = $array['esBaja'];
+        }
+        if($_FILES['img']['error'] === UPLOAD_ERR_NO_FILE){
             $con = conexion_BD();
-            $stmt = $con->prepare('UPDATE articulos SET nombre = :nombre, descripcion = :descripcion, precio = :precio, neto_compra = :neto_compra, iva = :iva, genero = :genero, categoria = :categoria, subcategoria = :subcategoria, stock = :stock, stock_minimo = :stock_minimo WHERE id_articulo = :id' );
+            $stmt = $con->prepare('UPDATE articulos SET nombre = :nombre, descripcion = :descripcion, precio = :precio, neto_compra = :neto_compra, iva = :iva, genero = :genero, categoria = :categoria, subcategoria = :subcategoria, stock = :stock, stock_minimo = :stock_minimo , esBaja = :esBaja WHERE id_articulo = :id' );
             $rows = $stmt->execute(array(
             ':id' => $array['id_articulo'],
             ':nombre' => $array['nombre'], 
@@ -515,7 +569,9 @@ function modificar_articulo($array){
             ':categoria' => $array['categoria'],
             ':subcategoria' => $array['subcategoria'],
             ':stock' => $array['stock'],
-            ':stock_minimo' => $array['stock_minimo']));
+            ':stock_minimo' => $array['stock_minimo'],
+            ':esBaja' => $esBaja
+        ));
 
         if($rows > 0){
             echo "<p>Actualizacion realizada con exito! </p><br>";
@@ -523,7 +579,7 @@ function modificar_articulo($array){
     
         }else{
             $con = conexion_BD();
-            $stmt = $con->prepare('UPDATE articulos SET nombre = :nombre, img = :img, descripcion = :descripcion, precio = :precio, neto_compra = :neto_compra, iva = :iva, genero = :genero, categoria = :categoria, subcategoria = :subcategoria, stock = :stock, stock_minimo = :stock_minimo WHERE id_articulo = :id' );
+            $stmt = $con->prepare('UPDATE articulos SET nombre = :nombre, img = :img, descripcion = :descripcion, precio = :precio, neto_compra = :neto_compra, iva = :iva, genero = :genero, categoria = :categoria, subcategoria = :subcategoria, stock = :stock, stock_minimo = :stock_minimo, esBaja = :esBaja WHERE id_articulo = :id' );
             $rows = $stmt->execute(array(
             ':id' => $array['id_articulo'],
             ':nombre' => $array['nombre'], 
@@ -536,7 +592,9 @@ function modificar_articulo($array){
             ':categoria' => $array['categoria'],
             ':subcategoria' => $array['subcategoria'],
             ':stock' => $array['stock'],
-            ':stock_minimo' => $array['stock_minimo']));
+            ':stock_minimo' => $array['stock_minimo'],
+            ':esBaja' => $array['esBaja']
+        ));
         if($rows > 0){
             echo "<p>Actualizacion realizada con exito! </p><br>";
         }

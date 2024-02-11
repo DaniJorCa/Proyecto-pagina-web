@@ -84,7 +84,7 @@ if(isset($_SESSION['dni_log'])){
 ?>
     </div>
         <div class="box--carrito row">
-            <a class="icon-carrito carrito" href="carrito.php"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></a>
+            <a class="icon-carrito carrito" href="carrito.php"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i></a>
         </div>
     </div>
 

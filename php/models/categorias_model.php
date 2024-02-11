@@ -1,5 +1,27 @@
 <?php
 
+function get_nombre_cat_por_numCat($codigo){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT nombre FROM categorias WHERE codigo = :codigo LIMIT 1");
+    $stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $nombre = $stmt->fetchColumn();
+        return $nombre;
+}
+
+function get_nombre_subcat_por_numCat($codigo){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT nombre FROM categorias WHERE codigo = :codigo LIMIT 1");
+    $stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $nombresub = $stmt->fetchColumn();
+        return $nombresub;
+}
+
 function nombre_categoria_is_exist($codigo){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();

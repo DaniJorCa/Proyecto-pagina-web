@@ -1,4 +1,5 @@
 <?php
+if(isset($array_pedidos)){
 ?>
 <h3 class="display-4 text-center">Mis Pedidos</h3>
 <h4 class="display-6 text-center">Aquí puedes consultar tus pedidos</h4>
@@ -29,5 +30,17 @@
     </tbody>
 </table>
 </div>
+<?php
+}else{
+    echo "<h4 class='fs-2 text-center'>Actualmente no hay pedidos</h4>";
+    echo "<div class='d-flex justify-content-center'>";
+    echo "<img style='height: 300px; width: 340px;'src='img/emptyorders.png'></img>";
+    echo "</div>";
+    echo "<h4 class='fs-4 text-center'>OOOOOpppss!!!</h4>";
+    echo "<div class='d-flex justify-content-center'>";
+    echo "<button class='btn btn-success col-2'><a href='index.php'>Acceder a tienda</a></button>";
+    echo "</div>";
+}
+?>
 
 
