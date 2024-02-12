@@ -36,6 +36,27 @@ function add_good_to_wishlist($id_articulo){
     }
 }
 
+function borrar_linea_lista_deseos($id){
+    try {
+        require_once 'php/conection/conectar_BD.php';
+        $con = conexion_BD();
+        $stmt = $con->prepare('DELETE FROM lista_deseos WHERE id_articulo = :id_articulo');
+        $stmt->bindParam(':id_articulo', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $rows = $stmt->rowCount();
+        
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+        return false; 
+    }
+}
+
 
 
 

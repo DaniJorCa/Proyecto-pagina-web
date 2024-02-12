@@ -5,6 +5,7 @@ $_SESSION = array();
 session_destroy();
 
 require_once("php/controllers/usuarios_controller.php");
+require_once("php/controllers/registro_controller.php");
 
 $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
 
@@ -13,11 +14,11 @@ switch ($mostrar){
     case '_registro':
         alta_usuario_en_BD();
         break;    
-
-    default:
-        
+    case '_registro_min':
+        alta_min_usuario_en_BD();
         break;
-
+    default:
+        break;
 }
 
 ?>
@@ -28,15 +29,15 @@ switch ($mostrar){
     <link href="styles/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/header&footer.css">
     <link rel="stylesheet" href="styles/genericBody.css">
-    <link rel="stylesheet" href="styles/bodyMain.css">
     <link rel="stylesheet" href="styles/slideshowArea.css">
+    <link rel="stylesheet" href="styles/bodyMain.css">
     <script type="text/javascript" src="script/jsMain.js"></script>
 </head>
 <div class="capaBlur" id="capaBlur"></div>
 <?php 
 
 include ('php/views/header.php');
-
+include ('php/models/articulos_model.php');
 ?>
 
     <body>
@@ -66,7 +67,7 @@ include ('php/views/header.php');
         </div>    
 <?php 
 
-include('php/views/slideshowArea.html'); 
+include('php/views/slideshowArea.php'); 
 
 ?>
 

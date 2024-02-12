@@ -79,64 +79,6 @@ function boolean_comprobar_dni($dni){
     return $cadenaResultado;
 }
 
-
-function array_registros_formulario(){
-    $array = [];
-    
-    if(count($_POST) === 11){
-     
-        $array['dni'] =  $_POST['dni'];
-        $array['password'] = $_POST['password'];
-        $array['nombre'] =  $_POST['nombre'];
-        $array['primer_apellido'] =  $_POST['primer_apellido'];
-        $array['segundo_apellido'] =  $_POST['segundo_apellido'];
-        $array['direccion'] =  $_POST['direccion'];
-        $array['provincia'] =  $_POST['provincia'];
-        $array['poblacion'] =  $_POST['poblacion'];
-        $array['cod_postal'] =  $_POST['cod_postal'];
-        $array['telefono'] =  $_POST['telefono'];
-        $array['email'] =  $_POST['email'];
-    
-        
-    } 
-    return $array;
-}
-
-function comprobar_errores_formulario($array){
-        $errores = '';
-
-        if(!boolean_comprobar_email($array['email'])){
-            if(empty($errores)){
-                $errores .= '?email=incorrect';
-            }else{
-                $errores .= '&email=incorrect';
-            }
-        }
-        
-
-        if(!boolean_comprobar_dni($array['dni'])){
-            if(empty($errores)){
-                $errores .= '?dni=incorrect';
-            }else{
-                $errores .= '&dni=incorrect';
-            }
-        }
-
-   
-        foreach($array as $clave => $valor){
-            if(empty($valor)){
-                if(empty($errores)){
-                    $errores .= '?' . $clave . '=err';
-                }else{
-                    $errores .= '&' . $clave . '=err';
-                }   
-            }   
-        }
-        if(!empty($errores)){
-            return $errores;
-        }
-}   
-
 function checkLog($email, $passwd){
     $check;
     try{
@@ -211,6 +153,21 @@ function insertar_usuario_completo_en_BD($array){
         }catch(PDOException $e){
             echo "Error:" . $e->getMessage();
         } 
+}
+
+function insertar_usuario_min_en_BD($array){
+    try{
+        require_once ('php/conection/conectar_BD.php');
+        $con = conexion_BD();
+        $stmt = $con->prepare('INSERT INTO usuarios (dni, password, nombre, email) VALUES (:dni, :password, :nombre, :email)');
+        $rows = $stmt->execute(array(':dni' => $array['dni'], ':password' => password_hash($array['password'],PASSWORD_DEFAULT), ':nombre' => $array['nombre'],  
+        ':email' => $array['email']));
+
+    if($rows == 1)
+        return 'Insercion correcta';
+    }catch(PDOException $e){
+        echo "Error:" . $e->getMessage();
+    } 
 }
 
 

@@ -14,6 +14,12 @@ function mostrar_mensajes($array){
             case 'del_art_err':
                 echo "Error al eliminar el articulo";
                 break;
+            case 'del_wltrue':
+                echo "Eliminado articulo de la lista de deseos";
+                break;
+            case 'art-wl-exist':
+                echo "Articulo ya existe en tu WishList";
+                break;    
             default:
                 echo "";
                 break;

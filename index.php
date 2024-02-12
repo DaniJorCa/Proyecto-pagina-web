@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="styles/slideshowArea.css">
         <link rel="stylesheet" href="styles/showGoods.css">
         <link rel="stylesheet" href="styles/genericBody.css">
+        <link rel="stylesheet" href="styles/mis_pedidos.css">
         <script type="text/javascript" src="script/jsMain.js"></script>
         <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
@@ -95,7 +96,11 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                     break;
                 case '_show-wishlist':
                     mostrar_lista_deseos();
-                    break;    
+                    break;
+                case '_del-line-wishlist':
+                    delete_line_wishtlist();
+                    break;
+                        
                 default:
                     consultar_art_mas_vendidos();
                     break;

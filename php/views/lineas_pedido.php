@@ -58,7 +58,7 @@ if(!empty($lineas_pedido)){
 
     echo "<tr>";
     echo "<td colspan='8'>Total Pedido  ".$total_pedido." €</td>";
-    echo "<td colspan='1'><button class='btn btn-success' <a href='index.php?view=_procesar_pago?id_pedido='".$_GET['ped']."'>Finalizar Pedido " .$total_pedido. "€</a></button></td>";
+    echo "<td colspan='1'><button class='btn btn-success' <a href='index.php?view=_procesar_pago?id_pedido='".$_SESSION['ped_consultado']."'>Finalizar Pedido " .$total_pedido. "€</a></button></td>";
     echo "</tr>";
 ?>    
     </tbody>

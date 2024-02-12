@@ -1,4 +1,24 @@
 <?php
+
+function get_array_top_ventas_slideshow(){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+
+    //consulta limitada 
+    $stmt = $con->prepare("SELECT * FROM articulos ORDER BY total_ventas DESC LIMIT 9");
+    $stmt->execute();
+    $articulos = array();
+
+    while($fila = $stmt->fetch()){
+        $articulos[] = $fila;
+    }
+    if(empty($articulos)){
+        return "No hay articulos que mostrar";
+    }
+    return $articulos;
+}
+
+
 function get_array_articulos(){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
