@@ -56,6 +56,29 @@ function array_registros_formulario(){
     return $array;
 }
 
+function array_registros_faltantes_formulario(){
+    $array = [];
+    
+    if(count($_POST) === 10){
+     
+        $array['dni'] =  $_POST['dni'];
+        $array['nombre'] =  $_POST['nombre'];
+        $array['primer_apellido'] =  $_POST['primer_apellido'];
+        $array['segundo_apellido'] =  $_POST['segundo_apellido'];
+        $array['direccion'] =  $_POST['direccion'];
+        $array['provincia'] =  $_POST['provincia'];
+        $array['poblacion'] =  $_POST['poblacion'];
+        $array['cod_postal'] =  $_POST['cod_postal'];
+        $array['telefono'] =  $_POST['telefono'];
+        $array['email'] =  $_POST['email'];
+    
+        
+    } 
+    return $array;
+}
+
+
+
 function array_registros_min_formulario(){
     $array = [];
     

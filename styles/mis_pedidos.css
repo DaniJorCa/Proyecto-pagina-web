@@ -38,3 +38,14 @@
 .fa-dumpster-fire{
     margin: 0 10px;
 }
+
+#div-pay_order{
+    display: none;
+    animation-name: desplazamiento_lateral;
+    animation-duration: 1s;
+}
+
+@keyframes desplazamiento_lateral{
+    from { transform: translateX(100%); }
+    to{ transform: translateX(0%); }
+}

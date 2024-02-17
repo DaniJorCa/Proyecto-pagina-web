@@ -25,10 +25,9 @@
         <input name="email" type="text" class="form-control form-control-sm" id="input-email" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">No compartimos correos a terceros.</div>
       </div>
-        
     <div class="mb-3 form-check col-12 justify-content-center">
       <input type="checkbox" class="form-check-input" id="check-terminos">
-      <label class="form-check-label" for="exampleCheck1">Acepto los terminos y condiciones</label>
+      <label class="form-check-label text-center" for="exampleCheck1">Acepto los terminos y condiciones</label>
     </div>
     <button type="submit" class="btn btn-primary col-5">Submit</button>
   </form>

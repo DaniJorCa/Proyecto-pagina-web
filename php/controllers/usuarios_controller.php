@@ -22,11 +22,15 @@ function modificar_usuario_controller(){
         }
         
     }else{
-        check_passwd_y_repasswd($_POST);
+        if(check_passwd_y_repasswd($_POST)){
             if(modificar_passwd($_POST)){
                 header('Location: index.php?info=update_passwd');
             }
+        }else{
+            header('Location: index.php?info=not_same_passwd');
         }
+            
+    }
 
 }
 
@@ -40,8 +44,11 @@ function mostrar_datos_edit_master(){
 }
 
 function despliegue_usuarios(){
+    $_SESSION['header'] = 'index.php?view=_mant-perm&';
     require_once('php/models/usuario_model.php');
-    $usuarios = get_array_todos_usuarios();
+    include 'php/pagination/artsXpag.php';
+    $usuarios = get_array_todos_usuarios($inicio, $artXpag);
     include('php/views/mantenimiento_permisos.php');
+    include 'php/pagination/pagination_control.php';
 }
 ?>

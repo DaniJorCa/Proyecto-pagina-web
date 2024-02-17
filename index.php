@@ -20,7 +20,9 @@
 <?php
 
 ob_start();
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 include_once('php/security/security.php');
 include_once('php/views/header.php'); 
 include_once('php/views/aside.php');
@@ -38,7 +40,6 @@ echo "<main class='row'>";
 if(isset($_GET['info']) || isset($_GET['info-mod'])){
     show_messages($_GET);
 }
-
 
 
 $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
@@ -99,8 +100,7 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                     break;
                 case '_del-line-wishlist':
                     delete_line_wishtlist();
-                    break;
-                        
+                    break;       
                 default:
                     consultar_art_mas_vendidos();
                     break;

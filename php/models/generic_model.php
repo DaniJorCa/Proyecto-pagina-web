@@ -6,7 +6,7 @@ function mostrar_mensajes($array){
         
         switch ($mostrar){
             case 'update_passwd':
-                echo "<h5 class='display-6 text-danger text-center'>Contraseña actualizada con éxito </h5>";
+                echo "<h5 class='fs-4 text-danger text-center'>Contraseña actualizada con éxito </h5>";
                 break;
             case 'del-art':
                 echo "Articulo Borrado de la base de datos";
@@ -19,7 +19,11 @@ function mostrar_mensajes($array){
                 break;
             case 'art-wl-exist':
                 echo "Articulo ya existe en tu WishList";
+                break;
+            case 'not_same_passwd':
+                echo "<p class='text-danger text-center'>Tarea Abortada, Password y Re-Password deben de ser iguales</p>";
                 break;    
+                    
             default:
                 echo "";
                 break;

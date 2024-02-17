@@ -10,7 +10,9 @@ function get_array_top_ventas_slideshow(){
     $articulos = array();
 
     while($fila = $stmt->fetch()){
-        $articulos[] = $fila;
+        if($fila['esBaja'] !== 'SI'){
+            $articulos[] = $fila;
+        }
     }
     if(empty($articulos)){
         return "No hay articulos que mostrar";
@@ -42,7 +44,9 @@ function getArrayArticulosPorCategoria($array){
     $stmt->execute();
     $articulos = array();
     while($fila = $stmt->fetch()){
-        $articulos[] = $fila;
+        if($fila['esBaja'] !== 'SI'){
+            $articulos[] = $fila;
+        }
     }
     if(empty($articulos)){
         return "No hay articulos que mostrar";
@@ -91,7 +95,9 @@ function getArrayArticulosPorSubcategoria($array) {
 
         $articulos = array();
         while ($fila = $stmt->fetch()) {
-            $articulos[]  = $fila;
+            if($fila['esBaja'] !== 'SI'){
+                $articulos[] = $fila;
+            }
         }
 
         if (empty($articulos)) {
@@ -135,7 +141,9 @@ function getArrayTopVentasDesc($inicio, $artXpag){
     $articulos = array();
 
     while($fila = $stmt->fetch()){
-        $articulos[] = $fila;
+        if($fila['esBaja'] !== 'SI'){
+            $articulos[] = $fila;
+        }
     }
     if(empty($articulos)){
         return "No hay articulos que mostrar";

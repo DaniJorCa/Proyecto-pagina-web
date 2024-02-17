@@ -3,7 +3,11 @@
         <h3>BIENVENID@!!</h3>
         <h3>
 <?php 
-echo(isset($_SESSION['nombre_log']) ? $_SESSION['nombre_log'] : '' )
+echo(isset($_SESSION['nombre_log']) ? $_SESSION['nombre_log'] : '' );
+if($_SESSION['perfil_log'] === 'admin' || $_SESSION['perfil_log'] === 'editor'){
+    echo "<p class='fs-4 my-3'>Eres pefil " . $_SESSION['perfil_log']. "</p>";
+}
+
 ?>
 </h3>
     </div>
@@ -15,10 +19,17 @@ echo(isset($_SESSION['nombre_log']) ? $_SESSION['nombre_log'] : '' )
     </ul>
 <?php 
 
-    if(isset($_SESSION['logueado']) && isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'admin')  { 
+if(isset($_SESSION['logueado']) && isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'admin')  { 
 
     include('menu_aside_master.html');
-}?>
+}
+
+if(isset($_SESSION['logueado']) && isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'editor')  { 
+
+    include('menu_aside_editor.html');
+}
+
+?>
 
 </div>
     

@@ -155,6 +155,31 @@ function insertar_usuario_completo_en_BD($array){
         } 
 }
 
+function insertar_usuario_faltante_en_BD($array){
+
+    try{
+        require_once ('php/conection/conectar_BD.php');
+        $con = conexion_BD();
+        $stmt = $con->prepare('UPDATE usuarios SET primer_apellido = :primer_apellido, segundo_apellido = :segundo_apellido,  
+            direccion = :direccion, provincia = :provincia, poblacion = :poblacion, cod_postal = :cod_postal, telefono = :telefono WHERE dni = :dni');
+            $rows = $stmt->execute(array(
+            ':dni' => $_POST['dni'],  
+            ':primer_apellido' => $_POST['primer_apellido'],
+            ':segundo_apellido' => $_POST['segundo_apellido'],
+            ':direccion' => $_POST['direccion'],
+            ':provincia' => $_POST['provincia'],
+            ':poblacion' => $_POST['poblacion'],
+            ':cod_postal' => $_POST['cod_postal'],
+            ':telefono' => $_POST['telefono']
+            ));
+
+    if($rows == 1)
+        return 'Insercion correcta';
+    }catch(PDOException $e){
+        echo "Error:" . $e->getMessage();
+    } 
+}
+
 function insertar_usuario_min_en_BD($array){
     try{
         require_once ('php/conection/conectar_BD.php');
@@ -402,10 +427,16 @@ function modificar_passwd($array){
     } 
 }
 
-function get_array_todos_usuarios(){
+function get_array_todos_usuarios($inicio, $artXpag){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT * FROM usuarios");
+    //calculo del total de articulos
+    $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM usuarios");
+    $stmtCount->execute();
+    $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+    $_SESSION['total_usuarios'] = ceil($num_total_registros / $artXpag);
+
+    $stmt = $con->prepare("SELECT * FROM usuarios LIMIT $inicio , $artXpag");
     $stmt->execute();
     while($fila = $stmt->fetch()){
         $usuarios[] = $fila;

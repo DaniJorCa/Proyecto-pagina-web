@@ -1,22 +1,36 @@
-<form method="POST" class="row form-control-sm justify-content-center" action="main.php?view=_registro">
-    <h2 class="display-4 text-center">Date de alta</h2>
-    <h2 class="display-6 text-center">Y obtén tu dto de nuevo usuario</h2>
+<form method="POST" class="row form-control-sm justify-content-center" <?php echo (isset($_SESSION['dni_log'])) ? "action='registro_usuario.php?view=_registro_faltante'" : 'action="main.php?view=_registro"'; ?>>
+    <?php
+    if(isset($_SESSION['dni_log']) && $_SESSION['dni_log'] !== ''){
+      echo '<h2 class="display-4 text-center">Rellena los campos que faltan</h2>';
+      echo '<h2 class="display-6 text-center">Y realizaremos tu envio cuanto antes</h2>';
+    }else{
+      echo '<h2 class="display-4 text-center">Date de alta</h2>';
+      echo '<h2 class="display-6 text-center">Y obten tu DTO de nuevo usuario</h2>';
+    }
+    ?>
+    
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'already-exist') ? "El DNI ya esta registrado" : ''; ?></p>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['dni']) && $_GET['dni'] == 'incorrect') ? "El DNI debe de ser formato 8 números y 1 letra" : ''; ?></p>
     <div class="mb-3 col-5 ">
       <label for="input-dni" class="form-label">DNI</label>
-      <input name="dni" type="text" class="form-control form-control-sm" id="input-dni">
+      <input name="dni" type="text" class="form-control form-control-sm"  id="input-dni" required <?php echo (isset($_SESSION['dni_log']) ? "value='".$_SESSION['dni_log']."' readonly placeholder='".$_SESSION['dni_log']."'" : ""); ?>>
     </div>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['password']) && $_GET['password'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
+<?php 
+if(!isset($_SESSION['dni_log'])){
+?>
     <div class="mb-3 col-5">
       <label for="input-password" class="form-label">Password</label>
       <input name="password" type="password" class="form-control form-control-sm" id="input-password">
     </div>
+<?php
+}
+?>
     <p class="text-center text-danger m-0"><?php echo (isset($_GET['nombre']) && $_GET['nombre'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
     <div class="mb-3 col-5">
         <label for="input-nombre" class="form-label">Nombre</label>
-        <input name="nombre" type="text" class="form-control form-control-sm" id="input-nombre">
+        <input name="nombre" type="text" class="form-control form-control-sm" id="input-nombre" required <?php echo (isset($_SESSION['nombre_log']) ? "value='".$_SESSION['nombre_log']."' readonly placeholder='".$_SESSION['nombre_log']."'" : ""); ?>>
       </div>
       <p class="text-center text-danger m-0"><?php echo (isset($_GET['primer_apellido']) && $_GET['primer_apellido'] == 'err') ? "Campo Obligatorio" : ''; ?></p>
       <div class="mb-3 col-5">
@@ -57,7 +71,7 @@
       <p class="text-center text-danger m-0"><?php echo (isset($_GET['email']) && $_GET['email'] == 'incorrect') ? "Campo Obligatorio" : ''; ?></p>
       <div class="mb-3 col-5">
         <label for="input-email" class="form-label">Email</label>
-        <input name="email" type="text" class="form-control form-control-sm" id="input-email" aria-describedby="emailHelp">
+        <input name="email" type="text" class="form-control form-control-sm" id="input-email" aria-describedby="emailHelp" required <?php echo (isset($_SESSION['email_log']) ? "value='".$_SESSION['email_log']."' readonly placeholder='".$_SESSION['email_log']."'" : ""); ?>>
         <div id="emailHelp" class="form-text">No compartimos correos a terceros.</div>
       </div>
 

@@ -15,6 +15,7 @@
         <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/linped.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
+        <script type="text/javascript" src="script/pedidos.js"></script>
     </head>
     <div class="capaBlur" id="capaBlur"></div>
     <body>
@@ -23,7 +24,6 @@
     include ('php/views/header.php');
     include ('php/views/aside.php');   
     include ('php/controllers/pedidos_controller.php');
- 
 ?>    
 
 <main class="container-fluid row">
@@ -39,6 +39,9 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mis-pedidos';
                 case '_del_linped':
                     eliminar_lineas_pedido();
                     break;
+                case '_end_order':
+                    finalizar_compra();
+                    break;    
                 default:
                     consultar_mis_pedidos();
                     break;

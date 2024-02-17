@@ -1,5 +1,4 @@
 <?php
-
 function get_array_pedidos_por_id($dni){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
@@ -17,6 +16,22 @@ function get_array_pedidos_por_id($dni){
     }
 
     return $articulos;
+}
+
+function estado_pedido_pagado($id_pedido){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("UPDATE pedidos SET estado_ped = :estado_ped WHERE id_pedido = :id_pedido");
+            $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+            $stmt->bindValue(':estado_ped', 'Pendiente de envío', PDO::PARAM_STR);
+            $rows = $stmt->execute();
+    
+            if ($rows == 1) {
+                echo "Estado pedido Actualizado";
+            }else{
+                echo "Error al actualizar el pedido";
+            } 
+
 }
 
 function get_num_linea_pedido($num_pedido){
@@ -77,7 +92,7 @@ function creacion_de_pedido($array){
                 echo "Error:" . $e->getMessage();
         }
     }else{
-       $contador = get_last_contador_pedidos(); 
+       $contador = get_last_contador_pedidos() + 1; 
        $valor_articulo_introducido = get_precio_articulo($array['id']);
        $valor_final = $valor_articulo_introducido;
        $num_linea = 1;
@@ -187,7 +202,6 @@ function get_array_todas_lineas_de_un_pedido_concreto($id_pedido){
     while ($fila = $stmt->fetch()) {
         $lineas_pedido[] = $fila;
     }
-
     return $lineas_pedido;
 }
 
@@ -246,6 +260,22 @@ function delete_linped($id_articulo){
             echo "Ninguna fila ha sido borrada";
         }
     }
+}
+
+function get_estado_pedido($id_pedido) {
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT estado_ped FROM pedidos WHERE id_pedido = :id_pedido");
+    $stmt->bindParam(':id_pedido', $id_pedido, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $estado_ped = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if(!empty($estado_ped)){
+       return $estado_ped['estado_ped']; 
+    }else{
+        echo "No hay pedido que mostrar";
+    } 
 }
 
 ?>

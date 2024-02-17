@@ -16,9 +16,14 @@ session_destroy();
     <script type="text/javascript" src="script/jsMain.js"></script>
 </head>
 <div class="capaBlur" id="capaBlur"></div>
-<?php include ('php/views/header.php') ?>
+<?php 
+    include ('php/views/header.php'); 
+    require_once("php/controllers/usuarios_controller.php");
+    require_once("php/controllers/registro_controller.php");
+    include ('php/models/articulos_model.php');
+?>
 
-    <h2 class="display-3">Hasta Pronto!!</h2>
+    <h2 class="display-3 text-center">Hasta Pronto!!</h2>
     <body>
         
         <div class="parallax">
@@ -46,7 +51,7 @@ session_destroy();
         </div>    
 <?php 
 
-include('php/views/slideshowArea.html'); 
+include('php/views/slideshowArea.php'); 
 
 ?>
 

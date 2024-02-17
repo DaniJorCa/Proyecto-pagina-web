@@ -1,9 +1,10 @@
 <?php
-if(!empty($lineas_pedido)){
+if(!empty($lineas_pedido) && !empty($estado_pedido)){
 ?>
 
 <h3 class="display-4 text-center">Detalle pedido</h3>
-<div class="table-responsive-sm">
+<div id='table-aside_right' class='row container-fluid justify-content-center'>
+<div class="table-responsive-sm col-8">
 <table class="table table-striped table-bordered table-hover ">
     <caption>Pedido <?php isset($lineas_pedido['num_pedido']) ? $lineas_pedido['num_pedido'] : ' ' ; ?></caption>
     <thead class="thead-dark">
@@ -16,7 +17,11 @@ if(!empty($lineas_pedido)){
             <th>Precio</th> 
             <th>Dto</th>
             <th>Subtotal</th>
-            <th>Eliminar</th>
+<?php
+    if($estado_pedido === 'Pendiente de pago'){
+        echo '<th>Eliminar</th>';
+    }
+?>
         </tr>
     </thead>
     <tbody>
@@ -50,19 +55,41 @@ if(!empty($lineas_pedido)){
         echo "<td>";
         echo $subtotal = $linea['precio'] - ($linea['precio'] * ($linea['descuento']/100)). " €";
         echo "</td>";
-        echo "<td>";
-        echo "<button class='btn_del_linped btn btn-danger col-12 col-md-4 m-2' value='" . $articulo[0]['id_articulo'] . "'><i class='fa-solid fa-trash'></i>Eliminar</button>";
-        echo "</td>";
+        if($estado_pedido === 'Pendiente de pago'){
+            echo "<td>";
+            echo "<button class='btn_del_linped btn btn-danger col-12 col-md-4 m-2' value='" . $articulo[0]['id_articulo'] . "'><i class='fa-solid fa-trash'></i>Eliminar</button>";
+            echo "</td>"; 
+        }
+        
         echo "</tr>";
     }
 
     echo "<tr>";
-    echo "<td colspan='8'>Total Pedido  ".$total_pedido." €</td>";
-    echo "<td colspan='1'><button class='btn btn-success' <a href='index.php?view=_procesar_pago?id_pedido='".$_SESSION['ped_consultado']."'>Finalizar Pedido " .$total_pedido. "€</a></button></td>";
+    if($estado_pedido === 'Pendiente de pago'){
+      echo "<td colspan='8'>Total Pedido  ".$total_pedido." €</td>";
+      echo "<td colspan='1'>
+        <button class='btn btn-success' id='end_order'>
+            Finalizar Pedido " .$total_pedido. "€
+        </button>
+      </td>";  
+    }elseif($estado_pedido === 'Pendiente de envío') {
+        echo "<td colspan='7'>Total Pedido  ".$total_pedido." €</td>";
+        echo "<td colspan='1'>";
+        echo "<div class='bg-warning rounded text-center'>Pendiente de envío</div>";
+        echo "</td>"; 
+    }else{
+        echo "<td colspan='7'>Total Pedido  ".$total_pedido." €</td>";
+        echo "<td colspan='1'>";
+        echo "<div class='bg-success rounded text-center'>Pedido recibido</div>";
+        echo "</td>"; 
+    }
+    
+    
     echo "</tr>";
 ?>    
     </tbody>
 </table>
+</div>
 <?php
 }else{
     echo "<h4 class='fs-2 text-center'>Tu cesta esta vacia</h4>";
@@ -71,5 +98,47 @@ if(!empty($lineas_pedido)){
     echo "</div>";
     echo "<button class='btn btn-success btn-acceso-tienda'><a href='index.php'>Acceder a tienda</a></button>";
 }
+
+if(isset($_SESSION['direccion_log']) && isset($_SESSION['poblacion_log']) 
+    && isset($_SESSION['provincia_log']) && isset($_SESSION['telefono_log']) 
+    && isset($_SESSION['cod_postal_log'])){
+
+    echo "<aside id='div-pay_order' class='aside_right col-3'>";
+    echo "<h4 class='fs-5 text-center'>Datos de envío</h4>";
+    echo "<ul class='my-2'>";
+    echo "<li class='my-2'>";
+    echo "Nombre y apellidos: " . $_SESSION['nombre_log'] . " " . $_SESSION['primer_apellido_log'] . " " . $_SESSION['segundo_apellido_log'];
+    echo "</li>";
+    echo "<li class='my-2'>";
+    echo "Dirección de envío: " . $_SESSION['direccion_log'] ;
+    echo "</li >";
+    echo "<li class='my-2'>";
+    echo "Localidad " . $_SESSION['poblacion_log'];
+    echo "</li>";
+    echo "<li class='my-2'>";
+    echo "Provincia / Cod. Postal " . $_SESSION['provincia_log'] . " " . $_SESSION['cod_postal_log'];
+    echo "</li>";
+    echo "<li class='my-2'>";
+    echo "Teléfono: " . $_SESSION['telefono_log'];
+    echo "</li>";
+    echo "<li class='my-2'>";
+    echo "<a href='perfil_usuario.php'><button class='btn btn-warning'>Modificar mis datos de envío</button></a>";
+    echo "</li>";
+    echo "<li class='my-2'>";
+    echo "<li class='my-2 text-center'>";
+    echo "<p class='fs-5'>Elegir método de pago</p>";
+    echo "</li>";
+    echo "<div class='row justify-content-evenly'>";
+    echo "<a href='mis_pedidos.php?view=_end_order&id_pedido=".$_SESSION['ped_consultado']."' class='btn btn-primary col-3 mx-1' id='end_order'><i class='fa-regular fa-credit-card'></i>" .$total_pedido. "€</a>";
+    echo "<a href='mis_pedidos.php?view=_end_order&id_pedido=".$_SESSION['ped_consultado']."' class='btn btn-primary col-3 mx-1' id='end_order'><i class='fa-brands fa-paypal'></i>" .$total_pedido. "€</a>";
+    echo "<a href='mis_pedidos.php?view=_end_order&id_pedido=".$_SESSION['ped_consultado']."' class='btn btn-primary col-3 mx-1' id='end_order'><i class='fa-solid fa-money-bill-1-wave'></i>" .$total_pedido. "€</a>";
+    echo "</div>";
+    echo "</li>";
+    echo "</ul>";
+    echo "<aside>";
+    }
 ?>
 </div>
+
+
+

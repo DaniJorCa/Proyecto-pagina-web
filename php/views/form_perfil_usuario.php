@@ -54,9 +54,6 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
             </div>
         </div>
 
-
-        
-
         <div class="row text-dark m-0 justify-content-center">
             <div class="row col-6 justify-content-center">
                 <div class="mb-3 col-8 ">

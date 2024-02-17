@@ -13,8 +13,8 @@ $articulos = get_array_top_ventas_slideshow();
 <?php
     foreach($articulos as $articulo){
         echo '<div class="articulo">';
-        echo '<a href="articulo***************">'; 
-        echo '<a href="articulo.php">';
+        echo '<a class="login" href="main.php">'; 
+        echo '<a class="login" href="main.php">';
         echo '<p>'.$articulo["nombre"].'</p>';
         echo '<img class="rounded" src="'.$articulo['img'].'">';
         echo '<p>'.$articulo['precio'].'€</p>';
@@ -24,7 +24,7 @@ $articulos = get_array_top_ventas_slideshow();
         echo '<a href="registro_usuario.php?view=_add_cart&id='.$articulo['id_articulo'].'" class="btn btn-add-cart"><button><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i></button></a>';
         echo '</div>';
         echo '<div class="heart-item-div action-butt-articulo">';
-        echo '<button><i class="fa-solid fa-heart-circle-plus fa-heart" style="color: #f3e9d2;"></i></button>';
+        echo '<a href="registro_usuario.php?view=_add_cart&wl='.$articulo['id_articulo'].'" class="btn btn-add-cart"><button><i class="fa-solid fa-heart-circle-plus fa-heart" style="color: #f3e9d2;"></i></button></a>';
         echo '</div>';
         echo '</div>';
         echo '</a>';

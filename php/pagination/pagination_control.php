@@ -2,7 +2,7 @@
 if(isset($pagina) && $pagina > 1){
     $previousPage = $pagina -1;
 }
-echo "<div class='row'>";
+echo "<div class='row my-4'>";
 echo "<div class='paginacion row'>";
 echo "<nav aria-label='Page navigation example'>";
 echo '<ul class="pagination">';
