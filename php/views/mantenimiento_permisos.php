@@ -1,3 +1,18 @@
+<div class='row container-fluid justify-content-end align-middle mb-4'>
+<div class= 'col-12 align-middle d-flex justify-content-end'>
+    <select class="custom-select custom-select-sm col-2">
+        <option value='dni' selected>DNI</option>
+        <option value='nombre'>Nombre</option>
+        <option value='primer_apellido'>Primer Apellido</option>
+        <option value='telefono'>Teléfono</option>
+        <option value='email'>Email</option>
+    </select>
+    <input class='col-2 mx-2 bg-white border border-success align-middle' id='search' placeholder='¿Buscas algo en concreto?'>
+    <a id='btn_search' class='btn btn-primary col-2 align-middle mx-1'>Búsqueda Selectiva</a>
+    <a id='btn_search' class='btn btn-primary col-2 align-middle mx-1s' href='index.php?view=_mant-arts'>Mostrar Todos</a>
+</div>
+</div>
+
 <?php
 if(empty($usuarios)){
     echo '<p>No hay Usuarios que mostrar</p>';

@@ -26,8 +26,8 @@
         "11": 5,
         "total_ventas": null,
         "12": null,
-        "esBaja": "SI",
-        "13": "SI"
+        "esBaja": null,
+        "13": null
     },
     {
         "id_articulo": "AAA000001",
@@ -54,8 +54,8 @@
         "10": 34,
         "stock_minimo": 23,
         "11": 23,
-        "total_ventas": null,
-        "12": null,
+        "total_ventas": 4,
+        "12": 4,
         "esBaja": null,
         "13": null
     },

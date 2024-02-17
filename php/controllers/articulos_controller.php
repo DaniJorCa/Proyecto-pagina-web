@@ -31,7 +31,7 @@ function consultar_mantenimiento_articulos(){
     $_SESSION['header'] = 'index.php?view=_mant-arts&';
     require_once 'php/models/articulos_model.php';
     include 'php/pagination/artsXpag_mant_articulos.php';
-    $articulos = getArrayArtsPorCategoriaAsc($inicio, $artXpag);
+    $articulos = getArrayArtsPorCategoriaAsc($inicio, $artXpag);  
     include 'php/views/mantenimiento_articulos.php';
     include 'php/pagination/pagination_control.php';
 }
@@ -82,7 +82,11 @@ function mostrar_articulos(){
     $_SESSION['header'] = 'index.php?view=_mant-arts&';
     include 'php/pagination/artsXpag_mant_articulos.php';
     require_once 'php/models/articulos_model.php';
-    $articulos = getArrayArtsPorCategoriaAsc($inicio, $artXpag);
+    if(isset($_GET['search']) && $_GET['search'] !== ""){
+        $articulos = get_array_articulos_filtrados_por_texto($inicio, $artXpag, $_GET['search']);
+    }else{
+        $articulos = getArrayArtsPorCategoriaAsc($inicio, $artXpag);  
+    }
     include 'php/views/mantenimiento_articulos.php';
     include 'php/pagination/pagination_control.php';
 }

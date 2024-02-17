@@ -354,5 +354,7 @@ function espacioPorRecorrer(articulos , articulo, desplazamientoTotalLateralMaxi
   botonDesplazamientoDer.addEventListener('mouseleave', pausarAnimacionDer);
 
 
+
+
 }); 
 

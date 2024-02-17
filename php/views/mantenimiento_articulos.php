@@ -1,13 +1,20 @@
+<div class='row container-fluid justify-content-between align-middle'>
+<div class="my-4 col-4 align-middle">
+    <button id="btn-alta_articulo" class="btn btn-success col-5 align-middle">Alta Articulos</button>
+    <button id="btn-alta_categorias" class="btn btn-warning col-5 align-middle">Alta Categorias</button>
+</div>
+<div class= 'col-5 align-middle'>
+    <input class='col-4 mx-2 bg-white border border-success align-middle' id='search' placeholder='¿Buscas algo en concreto?'>
+    <a id='btn_search' class='btn btn-primary col-3 align-middle'>Búsqueda Selectiva</a>
+    <a id='btn_search' class='btn btn-primary col-3 align-middle' href='index.php?view=_mant-arts'>Mostrar Todos</a>
+</div>
+</div>
 <?php
 if(!is_array($articulos)){
     echo '<p>No hay articulos que mostrar</p>';
 }else{   
 ?>  
 
-<div class="my-4">
-    <button id="btn-alta_articulo" class="btn btn-success">Alta Articulos</button>
-    <button id="btn-alta_categorias" class="btn btn-warning">Alta Categorias</button>
-</div>
 <div>
 <table class="table-hover table-striped">
 <tr>
@@ -82,3 +89,19 @@ if(!is_array($articulos)){
         </div>
     </form>
 </div>
+
+<script>
+//busqueda selectiva
+
+let campo_busqueda = document.getElementById('search');
+let boton_busqueda = document.getElementById('btn_search');
+let busqueda = 'index.php?view=_mant-arts&search=';
+console.log(campo_busqueda);
+
+
+campo_busqueda.addEventListener('input',  () => {
+    boton_busqueda.href = busqueda + campo_busqueda.value;
+});
+
+</script>
+

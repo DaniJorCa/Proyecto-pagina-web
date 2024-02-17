@@ -430,11 +430,11 @@ function modificar_passwd($array){
 function get_array_todos_usuarios($inicio, $artXpag){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    //calculo del total de articulos
+    //calculo del total de usuarios
     $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM usuarios");
     $stmtCount->execute();
     $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
-    $_SESSION['total_usuarios'] = ceil($num_total_registros / $artXpag);
+    $_SESSION['total_usuarios'] = ceil(($num_total_registros) - 1/ $artXpag);
 
     $stmt = $con->prepare("SELECT * FROM usuarios LIMIT $inicio , $artXpag");
     $stmt->execute();

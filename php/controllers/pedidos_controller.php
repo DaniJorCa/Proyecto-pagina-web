@@ -38,7 +38,9 @@ function eliminar_lineas_pedido(){
 
 function finalizar_compra(){
     require_once 'php/models/pedidos_model.php';
+    require_once 'php/models/articulos_model.php';
     require_once 'php/models/usuario_model.php';
+    $lineas_pedido = get_array_todas_lineas_de_un_pedido_concreto($_GET['id_pedido']);
     $usuario = get_usuario($_SESSION['dni_log']);
     if($usuario['primer_apellido'] === "" || $usuario['direccion'] === "" ||
     $usuario['provincia'] === "" || $usuario['poblacion'] === "" ||
@@ -46,6 +48,7 @@ function finalizar_compra(){
         header('Location: registro_usuario.php');
     }else{
         estado_pedido_pagado($_GET['id_pedido']);
+        actualizar_cantidad_ventas_articulo($lineas_pedido);
         include 'php/views/finalizar_compra.php'; 
     }
         

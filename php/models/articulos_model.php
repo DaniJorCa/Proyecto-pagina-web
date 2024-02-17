@@ -633,7 +633,66 @@ function modificar_articulo($array){
     } 
 }
 
+function actualizar_cantidad_ventas_articulo($lineas_pedido){
+    require_once 'php/conection/conectar_BD.php';
+    
+    foreach($lineas_pedido as $linea_pedido){
+        try{  
+            //recuperamos la cantidad del articulo
+            $con = conexion_BD(); 
+            $stmt = $con->prepare("SELECT total_ventas FROM articulos WHERE id_articulo = :id");
+            $stmt->bindParam(':id', $linea_pedido['cod_articulo'], PDO::PARAM_STR);
+            $stmt->execute();
+            $num_ventas_art = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($num_ventas_art['total_ventas'] === null){
+                $num_ventas_art['total_ventas'] = 0;
+            }
+
+            //sumamos la cantidad encontrada de la BBDD con la cantidad de la linea del pedido para ese articulo
+            $num_total_ventas_set = $num_ventas_art['total_ventas'] + $linea_pedido['cantidad'];
         
+            $con = conexion_BD();
+            $stmt = $con->prepare('UPDATE articulos SET total_ventas = :total_ventas WHERE id_articulo = :id' );
+                $rows = $stmt->execute(array(
+                ':id' => $linea_pedido['cod_articulo'],
+                'total_ventas' => $num_total_ventas_set 
+            ));  
+        }catch(PDOException $e){
+            echo 'Error: ' . $e->getMessage();
+        } 
+    } 
+}
+
+
+function get_array_articulos_filtrados_por_texto($inicio, $artXpag, $palabra){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+
+
+    //calculo del total de articulos
+    $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM articulos WHERE descripcion LIKE :palabra");
+    $stmtCount->bindValue(':palabra', '%' . $palabra . '%', PDO::PARAM_STR);
+    $stmtCount->execute();
+    $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+    $_SESSION['total_paginas'] = ceil($num_total_registros / $artXpag);
+
+
+    //consulta filtrada 
+    $stmt = $con->prepare("SELECT * FROM articulos WHERE descripcion LIKE :palabra LIMIT $inicio, $artXpag");
+    $stmt->bindValue(':palabra', '%' . $palabra . '%', PDO::PARAM_STR);
+    $stmt->execute();
+    $articulos = array();
+
+    while($fila = $stmt->fetch()){
+        if($fila['esBaja'] !== 'SI'){
+            $articulos[] = $fila;
+        }
+    }
+    if(empty($articulos)){
+        return "No hay articulos que mostrar";
+    }
+    return $articulos;
+}
 
 
 
