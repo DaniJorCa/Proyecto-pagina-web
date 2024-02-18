@@ -5,7 +5,7 @@ include_once('php/models/categorias_model.php');
 include_once('php/models/usuario_model.php');
 include_once('php/models/pedidos_model.php');
 
-$nombre_cat = get_estado_pedido('3');
+$articulos = get_array_usuarios_filtrados_por_texto(0, 9, 'da', 'nombre');
 
-var_dump($nombre_cat);
+var_dump($articulos);
 ?>

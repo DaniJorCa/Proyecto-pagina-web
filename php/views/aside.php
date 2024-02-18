@@ -11,6 +11,7 @@ if($_SESSION['perfil_log'] === 'admin' || $_SESSION['perfil_log'] === 'editor'){
 ?>
 </h3>
     </div>
+    <div id='aside-options-exit'>
     <div class="aside-options">
     <ul>
         <li><a href="mis_pedidos.php"><i class="fa-solid fa-gifts" style="color: #114B5F;"></i>Mis pedidos</a></li>
@@ -38,4 +39,5 @@ if(isset($_SESSION['logueado']) && isset($_SESSION['perfil_log']) && $_SESSION['
     <div class="aside-exit">
         <a href="exit.php" class="badge p-3 btn-exit"><i class="fa-solid fa-door-open" style="color: #114b5f;"></i>Salir</a>
     </div>
+</div>
 </aside>

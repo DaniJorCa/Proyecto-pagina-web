@@ -47,7 +47,12 @@ function despliegue_usuarios(){
     $_SESSION['header'] = 'index.php?view=_mant-perm&';
     require_once('php/models/usuario_model.php');
     include 'php/pagination/artsXpag.php';
-    $usuarios = get_array_todos_usuarios($inicio, $artXpag);
+    if(isset($_GET['search']) && $_GET['search'] !== ""){
+        $usuarios = get_array_usuarios_filtrados_por_texto($inicio, $artXpag, $_GET['search'], $_GET['type']);
+    }else{
+        $usuarios = get_array_todos_usuarios($inicio, $artXpag);
+    }
+
     include('php/views/mantenimiento_permisos.php');
     include 'php/pagination/pagination_control.php';
 }

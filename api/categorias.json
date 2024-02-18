@@ -58,5 +58,15 @@
         "2": null,
         "cod_cat_padre": 6,
         "3": 6
+    },
+    {
+        "codigo": 8,
+        "0": 8,
+        "nombre": "Chaquetas",
+        "1": "Chaquetas",
+        "esBaja": null,
+        "2": null,
+        "cod_cat_padre": 2,
+        "3": 2
     }
 ]

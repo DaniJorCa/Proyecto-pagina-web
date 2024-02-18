@@ -2,18 +2,22 @@
 
 function busqueda_selectiva_por_categoria(){
     require_once 'php/models/articulos_model.php';
+    include 'php/pagination/artsXpag.php';
     if(isset($_GET['select_cat'])){
-        $articulos = getArrayArticulosPorCategoria($_GET);
+        $articulos = getArrayArticulosPorCategoria($_GET, $inicio, $artXpag);
     }
     include 'php/views/show_goods_cards.php';
+    include 'php/pagination/pagination_control.php';
 }
 
 function busqueda_selectiva_por_subcategoria(){
     require_once 'php/models/articulos_model.php';
+    include 'php/pagination/artsXpag.php';
     if(isset($_GET['select_subcat'])){
-        $articulos = getArrayArticulosPorSubCategoria($_GET);
+        $articulos = getArrayArticulosPorSubCategoria($_GET, $inicio, $artXpag);
     }
     include 'php/views/show_goods_cards.php';
+    include 'php/pagination/pagination_control.php';
 }
 
 

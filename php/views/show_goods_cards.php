@@ -11,7 +11,7 @@ if(!is_array($articulos)){
 <?php
 
 foreach ($articulos as $fila) {
-    echo "<div class='card col-md-6 my-4 justify-content-around' style='width: 18rem;'>";
+    echo "<div class='card col-3 my-4 mx-3 justify-content-around'>";
     echo "<a class='btn-show-good-card' href='index.php?view=_good-card&id=".$fila['id_articulo']."'>";
     echo '<img src="' . $fila['img'] . '" class="card-img-top" alt="...">';
     echo '<div class="card-body">';

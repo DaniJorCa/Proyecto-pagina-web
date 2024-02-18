@@ -48,10 +48,8 @@ function asignar_values_categorias(data) {
     }
     
     for (let j in datos){
-        console.log(cod_categoria_padre);
-        console.log(nombre_cat_padre);
-        console.log(datos[j].cod_cat_padre);
-        console.log(cod_categoria_padre);
+        console.log(datos[j].codigo);
+        
         if(datos[j].cod_cat_padre !== null && datos[j].cod_cat_padre === cod_categoria_padre){
             // Crear un nuevo elemento option
             var nueva_option = document.createElement('option');

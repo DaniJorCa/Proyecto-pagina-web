@@ -36,10 +36,16 @@ function get_array_articulos(){
     return $articulos;
 }
 
-function getArrayArticulosPorCategoria($array){
+function getArrayArticulosPorCategoria($array,$inicio, $artXpag){
     require_once 'php/conection/conectar_BD.php';
     $con = conexion_BD();
-    $stmt = $con->prepare("SELECT * FROM articulos WHERE LOWER(categoria) = :categoria");
+    
+    $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM articulos");
+    $stmtCount->execute();
+    $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+    $_SESSION['total_paginas'] = ceil($num_total_registros / $artXpag);
+    
+    $stmt = $con->prepare("SELECT * FROM articulos WHERE LOWER(categoria) = :categoria LIMIT $inicio, $artXpag");
     $stmt->bindParam(':categoria', $array['select_cat'], PDO::PARAM_STR);
     $stmt->execute();
     $articulos = array();
@@ -85,11 +91,17 @@ function get_precio_articulo($id){
         return false;
 }
 
-function getArrayArticulosPorSubcategoria($array) {
+function getArrayArticulosPorSubcategoria($array, $inicio, $artXpag) {
     // Verifica si $array es un array y si contiene la clave 'select_subcat'
         require_once 'php/conection/conectar_BD.php';
         $con = conexion_BD();
-        $stmt = $con->prepare("SELECT * FROM articulos WHERE subcategoria = :subcategoria");
+        
+        $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM articulos");
+        $stmtCount->execute();
+        $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+        $_SESSION['total_paginas'] = ceil($num_total_registros / $artXpag);
+        
+        $stmt = $con->prepare("SELECT * FROM articulos WHERE subcategoria = :subcategoria LIMIT $inicio, $artXpag");
         $stmt->bindParam(':subcategoria', $array['select_subcat'], PDO::PARAM_STR);
         $stmt->execute();
 

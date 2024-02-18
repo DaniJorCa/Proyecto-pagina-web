@@ -1,6 +1,6 @@
 <div class='row container-fluid justify-content-end align-middle mb-4'>
 <div class= 'col-12 align-middle d-flex justify-content-end'>
-    <select class="custom-select custom-select-sm col-2">
+    <select id='type-select' class="custom-select custom-select-sm col-2">
         <option value='dni' selected>DNI</option>
         <option value='nombre'>Nombre</option>
         <option value='primer_apellido'>Primer Apellido</option>
@@ -9,14 +9,15 @@
     </select>
     <input class='col-2 mx-2 bg-white border border-success align-middle' id='search' placeholder='¿Buscas algo en concreto?'>
     <a id='btn_search' class='btn btn-primary col-2 align-middle mx-1'>Búsqueda Selectiva</a>
-    <a id='btn_search' class='btn btn-primary col-2 align-middle mx-1s' href='index.php?view=_mant-arts'>Mostrar Todos</a>
+    <a id='btn_search' class='btn btn-primary col-2 align-middle mx-1s' href='index.php?view=_mant-perm'>Mostrar Todos</a>
 </div>
 </div>
 
 <?php
-if(empty($usuarios)){
+if(empty($usuarios) || $usuarios[0] === 'No hay usuarios'){
     echo '<p>No hay Usuarios que mostrar</p>';
-}else{   
+}else{
+ 
 ?>  
 
 <div>
@@ -68,5 +69,40 @@ if(isset($_SESSION['perfil_log']) && $_SESSION['perfil_log'] === 'admin'){
     }
 }
 ?>
+
+
+
+<script>
+//busqueda selectiva
+
+let campo_busqueda = document.getElementById('search');
+let boton_busqueda = document.getElementById('btn_search');
+let desplegable_type = document.getElementById('type-select');
+let selectedIndex = desplegable_type.selectedIndex;
+let selectedOption = desplegable_type.options[selectedIndex];
+let tipo = selectedOption.value;
+let type = '&type=dni&';
+let busqueda = 'index.php?view=_mant-perm'+ type + 'search=';
+
+
+desplegable_type.addEventListener('change', () => {
+    let selectedIndex = desplegable_type.selectedIndex;
+    let selectedOption = desplegable_type.options[selectedIndex];
+    let tipo = selectedOption.value;
+    type = '&type=' + tipo + '&search=';
+    busqueda = 'index.php?view=_mant-perm'+ type;
+    console.log(busqueda);
+});
+
+
+
+campo_busqueda.addEventListener('input',  () => {
+    boton_busqueda.href = busqueda + campo_busqueda.value;
+});
+
+</script>
+
+
+
 </div>
 </table>

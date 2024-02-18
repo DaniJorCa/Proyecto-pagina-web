@@ -1,6 +1,6 @@
 <?php
 
-    $artXpag = 2; //modificar este dato para limite de articulos por pagina
+    $artXpag = 9; //modificar este dato para limite de articulos por pagina
     $pagina = 1;
     $inicio = 0;
     //examino la página a mostrar y la muestro si existe 

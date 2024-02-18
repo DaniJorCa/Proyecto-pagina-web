@@ -476,4 +476,46 @@ function user_edit_SESSION($usuario){
     $_SESSION['user-edit-master-email'] = $usuario['email'];
 }
 
+function get_array_usuarios_filtrados_por_texto($inicio, $artXpag, $palabra, $dato_busqueda){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+
+
+    //calculo del total de articulos
+    $stmtCount = $con->prepare("SELECT COUNT(*) as total FROM usuarios WHERE $dato_busqueda LIKE :palabra");
+    $stmtCount->bindValue(':palabra', '%' . $palabra . '%', PDO::PARAM_STR);
+    $stmtCount->execute();
+    $num_total_registros = $stmtCount->fetch(PDO::FETCH_ASSOC)['total'];
+    $_SESSION['total_paginas'] = ceil($num_total_registros / $artXpag);
+
+    //consulta filtrada 
+    $sql = "SELECT * FROM usuarios WHERE $dato_busqueda LIKE :palabra LIMIT $inicio , $artXpag";
+    $stmt = $con->prepare($sql);
+    $stmt->bindValue(':palabra', '%' . $palabra . '%', PDO::PARAM_STR);
+    $stmt->execute();
+    
+    while($fila = $stmt->fetch()){
+        $usuarios[] = $fila;
+    }
+    if(empty($usuarios)) {
+        $usuarios[] = 'No hay usuarios';
+    }
+    return $usuarios;
+}
+
+function prueba($palabra, $dato_busqueda){
+    require_once 'php/conection/conectar_BD.php';
+    $con = conexion_BD();
+    $stmt = $con->prepare("SELECT * FROM usuarios WHERE $dato_busqueda LIKE :palabra");
+    $stmt->bindValue(':palabra', '%' . $palabra . '%', PDO::PARAM_STR);
+    $stmt->execute();
+    $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    if(empty($usuarios)){
+        return "No hay usuarios que mostrar";
+    }
+    return $usuarios;
+}
+
 ?>

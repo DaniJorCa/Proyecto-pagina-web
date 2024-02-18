@@ -7,8 +7,11 @@ function formulario_alta_categorias(){
     if($err_log_form_registro_categoria === '' && isset($_POST)){
         introducir_categorias_principal($_POST);
         array_datos_categorias_JSON();
+        header('Location: index.php?view=_mant-arts'); 
+        exit(); 
     }else{
         header('Location: registro_categorias.php?' .  $err_log_form_registro_categoria);  
+        exit();
     }
 }
 
