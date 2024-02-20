@@ -30,36 +30,6 @@
         "3": 2
     },
     {
-        "codigo": 5,
-        "0": 5,
-        "nombre": "Pantalones",
-        "1": "Pantalones",
-        "esBaja": null,
-        "2": null,
-        "cod_cat_padre": 2,
-        "3": 2
-    },
-    {
-        "codigo": 6,
-        "0": 6,
-        "nombre": "Mascotas",
-        "1": "Mascotas",
-        "esBaja": null,
-        "2": null,
-        "cod_cat_padre": null,
-        "3": null
-    },
-    {
-        "codigo": 7,
-        "0": 7,
-        "nombre": "Gatos",
-        "1": "Gatos",
-        "esBaja": null,
-        "2": null,
-        "cod_cat_padre": 6,
-        "3": 6
-    },
-    {
         "codigo": 8,
         "0": 8,
         "nombre": "Chaquetas",

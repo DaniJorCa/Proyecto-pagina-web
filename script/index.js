@@ -82,6 +82,32 @@ for(botones_master_edit_user of boton_master){
     });
 }
 
+//capa blur delete subcat
+let btnsEliminarSubcategoria = document.getElementsByClassName("del-subcat-btn");
+let divDelSubcat = document.getElementById('del-subcat');
+let capaBlur = document.getElementsByClassName('capaBlur');
 
+
+for (const btnEliminarSubcategoria of btnsEliminarSubcategoria){
+    btnEliminarSubcategoria.addEventListener('click', (e) => {
+        console.log('pulsado boton');
+        e.preventDefault();
+        divDelSubcat.style.display = 'flex';
+        capaBlur[0].style.display = 'flex';
+        divDelSubcat.style.zIndex = '4';
+    });
+
+}
+
+capaBlur[0].addEventListener('click', (e) => {
+    let clickDentroCapaBlur = capaBlur[0].contains(e.target);
+
+    if(clickDentroCapaBlur){
+        divDelSubcat.style.zIndex = '3';
+        capaBlur[0].style.display = "none";
+        divDelSubcat.style.display = 'none';
+    }
+
+});
 
 });

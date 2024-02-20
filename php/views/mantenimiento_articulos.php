@@ -1,7 +1,8 @@
 <div class='row container-fluid justify-content-between align-middle'>
-<div class="my-4 col-4 align-middle">
-    <button id="btn-alta_articulo" class="btn btn-success col-5 align-middle">Alta Articulos</button>
-    <button id="btn-alta_categorias" class="btn btn-warning col-5 align-middle">Alta Categorias</button>
+<div class="my-4 col-7 align-middle">
+    <button id="btn-alta_articulo" class="btn btn-success col-3  align-middle">Alta Articulos</button>
+    <button id="btn-alta_categorias" class="btn btn-warning col-3 align-middle">Alta Categorias</button>
+    <a href="index.php?view=_edit_cat"><button id="btn-edit_categorias" class="btn btn-dark col-3 align-middle">Editar Categorias</button></a>
 </div>
 <div class= 'col-5 align-middle'>
     <input class='col-4 mx-2 bg-white border border-success align-middle' id='search' placeholder='¿Buscas algo en concreto?'>

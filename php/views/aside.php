@@ -5,7 +5,7 @@
 <?php 
 echo(isset($_SESSION['nombre_log']) ? $_SESSION['nombre_log'] : '' );
 if($_SESSION['perfil_log'] === 'admin' || $_SESSION['perfil_log'] === 'editor'){
-    echo "<p class='fs-4 my-3'>Eres pefil " . $_SESSION['perfil_log']. "</p>";
+    echo "<p class='fs-4 my-3'>Eres perfil " . $_SESSION['perfil_log']. "</p>";
 }
 
 ?>

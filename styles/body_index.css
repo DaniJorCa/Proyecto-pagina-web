@@ -68,4 +68,30 @@ tr:nth-child(even) {
     color: var(--moka-light);
 }
 
+#search{
+    color: var(--midnight-green);
+}
 
+::placeholder {
+    color: var(--midnight-green); 
+}
+
+#del-subcat{
+    margin: 10px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-width:450px;
+    border: 2px solid var(--midnight-green);
+    background-color: white;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: entradaSuave;
+    animation-duration: 1s;
+}

@@ -15,4 +15,28 @@ function formulario_alta_categorias(){
     }
 }
 
+function despliegue_categorias(){
+    require_once 'php/models/categorias_model.php';
+    require_once 'php/models/articulos_model.php';
+    $categorias = get_array_categorias();
+    $subcategorias = get_array_subcategorias();
+    $articulos = get_array_articulos();
+    include ('php/views/mantenimiento_categorias.php');
+}
+
+function eliminar_subcategoria(){
+    require_once 'php/models/categorias_model.php';
+    require_once 'php/models/articulos_model.php';
+    if(delete_subcategoria($_GET)){
+       array_datos_categorias_JSON(); 
+    }else{
+        echo "Datos no eliminados";
+    }
+    $categorias = get_array_categorias();
+    $subcategorias = get_array_subcategorias();
+    $articulos = get_array_articulos();
+    include('php/views/mantenimiento_categorias.php');
+    
+}
+
 ?>

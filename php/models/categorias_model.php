@@ -69,7 +69,6 @@ function array_datos_categorias_JSON() {
     // Obtener datos actuales del archivo JSON
     $fichero = 'api/categorias.json';
     $categorias_y_subcategorias = get_array_categorias_y_subcategorias();
-    var_dump($categorias_y_subcategorias);
     if($categorias_y_subcategorias){
     $datosJSON = json_encode($categorias_y_subcategorias, JSON_PRETTY_PRINT);
 
@@ -221,6 +220,27 @@ function insertar_subcategoria_y_cat_padre($array){
         }
     } catch (PDOException $e) {
         echo "Error:" . $e->getMessage();
+    }
+}
+
+function delete_subcategoria($array){
+    try {
+        require_once 'php/conection/conectar_BD.php';
+        $con = conexion_BD();
+        $stmt = $con->prepare('DELETE FROM categorias WHERE codigo = :codigo');
+        $stmt->bindParam(':codigo', $array['cod_subcat'], PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $rows = $stmt->rowCount();
+        
+        if ($rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+        return false; 
     }
 }
 

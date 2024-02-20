@@ -48,16 +48,16 @@ include ('php/models/articulos_model.php');
         <div class="principal-objetivo">
             <p>Tu satisfacción, nuestro principal objetivo</p>
             <div class="cards">
-                <div class="card">
-                    <a class="icon-carrito carrito" href="carrito.php"><i class="fa-solid fa-cart-shopping fa-cart" style="color: #f3e9d2;"></i></a>
+                <div class="card-main">
+                    <i class="fa-solid fa-cart-shopping fa-cart" style=" color:#114b5f;"></i>
                     <p>Introduce productos en su carrito y realiza la compra</p>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-truck-fast" style="color: #f3e9d2;"></i>
+                <div class="card-main">
+                    <i class="fa-solid fa-truck-fast" style=" color:#114b5f;"></i>
                     <p>Nosotros se lo haremos llegar</p>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-gift" style="color: #f3e9d2;"></i>
+                <div class="card-main" >
+                    <i class="fa-solid fa-gift" style=" color:#114b5f;"></i>
                     <div>
                         <p>Le haremos entrega de aquello que tanto desea en</p>
                         <p>24/48Hrs</p>

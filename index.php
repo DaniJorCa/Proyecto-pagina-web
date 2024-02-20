@@ -11,10 +11,10 @@
         <link rel="stylesheet" href="styles/genericBody.css">
         <link rel="stylesheet" href="styles/mis_pedidos.css">
         <script type="text/javascript" src="script/jsMain.js"></script>
-        <script type="text/javascript" src="script/index.js"></script>
         <script type="text/javascript" src="script/perfil_usuario.js"></script>
         <script type="text/javascript" src="script/registro_articulos.js"></script>
         <script type="text/javascript" src="script/edicion_articulos.js"></script>
+        <script type="text/javascript" src="script/index.js"></script>
     </head>
 <div class="capaBlur" id="capaBlur"></div>    
 <?php
@@ -100,6 +100,12 @@ $mostrar = isset($_GET['view']) ? $_GET['view'] : '_mas-vendidos';
                     break;
                 case '_del-line-wishlist':
                     delete_line_wishtlist();
+                    break;
+                case '_edit_cat':
+                    despliegue_categorias();
+                    break;
+                case '_del_subcat':
+                    eliminar_subcategoria();
                     break;       
                 default:
                     consultar_art_mas_vendidos();
@@ -117,5 +123,40 @@ include ('php/views/footer.html');
 
 ?>
 <script src="styles/js/bootstrap.bundle.min.js"></script>
+<script>
+    //capa blur delete subcat
+let btnsEliminarSubcategoria = document.getElementsByClassName("del-subcat-btn");
+let divDelSubcat = document.getElementById('del-subcat');
+let capaBlur = document.getElementsByClassName('capaBlur');
+let btnConfirmDelSubcat = document.getElementById('confirm-del-subcat');
+
+
+for (const btnEliminarSubcategoria of btnsEliminarSubcategoria){
+    btnEliminarSubcategoria.addEventListener('click', (e) => {
+        console.log('pulsado boton');
+        e.preventDefault();
+        divDelSubcat.style.display = 'flex';
+        capaBlur[0].style.display = 'flex';
+        divDelSubcat.style.zIndex = '4';
+        let codSubcat = e.target.getAttribute('cod_subcat');
+        let url = 'index.php?view=_del_subcat&cod_subcat=' + codSubcat;
+        btnConfirmDelSubcat.href = url;
+    });
+
+}
+
+capaBlur[0].addEventListener('click', (e) => {
+    let clickDentroCapaBlur = capaBlur[0].contains(e.target);
+
+    if(clickDentroCapaBlur){
+        divDelSubcat.style.zIndex = '3';
+        capaBlur[0].style.display = "none";
+        divDelSubcat.style.display = 'none';
+    }
+
+});
+
+
+</script>
     </body>
 </html>

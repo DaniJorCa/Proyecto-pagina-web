@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300&family=Satisfy&display=swap');
 
 :root{
-    --midnight-green: #114B5F;
+    --midnight-green: #114b5f;
     --sea-green: #1A936F;
     --celadon: #88D498;
     --tea-green: #C6DABF;
@@ -87,7 +87,7 @@ main{
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     
     
 }
@@ -108,17 +108,30 @@ main{
     border: 2px solid var(--midnight-green);
 }
 
-.card p{
+.card-main p{
     font-size: 1.2em;
 }
 
-.card i{
+.card-main > i{
+    color: var(--midnight-green);
     font-size: 1.8em;
     margin: 0 10px;
 }
 
-.card:last-child > div:last-child p{
+.card-main:last-child > div:last-child p{
     font-size: 1.3em;
+}
+
+.card-main{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 20%;
+    height: 300px;
+    border: 2px solid #114b5f;
+    border-radius: 10px;
+    margin: 0 10px 0 10px;
 }
 
 
