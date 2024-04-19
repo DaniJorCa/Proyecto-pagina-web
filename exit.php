@@ -6,8 +6,9 @@ session_destroy();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
     <link href="styles/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/header&footer.css">
     <link rel="stylesheet" href="styles/genericBody.css">

@@ -117,6 +117,31 @@ function checkLog($email, $passwd){
     }
 }
 
+function checkLogMin($dni){
+    try{
+        require_once 'php/conection/conectar_BD.php'; 
+        $con = conexion_BD();
+        $stmt = $con->prepare('SELECT * FROM usuarios WHERE  dni = :dni');
+        $stmt->bindParam(':dni', $dni, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $_SESSION['primer_apellido_log'] = $usuario['primer_apellido'];
+        $_SESSION['segundo_apellido_log'] = $usuario['segundo_apellido'];
+        $_SESSION['direccion_log'] = $usuario['direccion'];
+        $_SESSION['provincia_log'] =$usuario['provincia'];
+        $_SESSION['poblacion_log'] = $usuario['poblacion'];
+        $_SESSION['cod_postal_log'] = $usuario['cod_postal'];
+        $_SESSION['telefono_log'] = $usuario['telefono'];
+        $_SESSION['perfil_log'] = $usuario['perfil'];
+        $_SESSION['email_log'] = $usuario['email'];
+
+    }catch(PDOException $e){
+        echo 'Error: ' . $e ->getMessage();
+    }
+}
+
 
 //Borrar
 /*function check_log($array){

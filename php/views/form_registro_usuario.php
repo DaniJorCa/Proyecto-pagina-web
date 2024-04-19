@@ -1,4 +1,4 @@
-<form method="POST" class="row form-control-sm justify-content-center" <?php echo (isset($_SESSION['dni_log'])) ? "action='registro_usuario.php?view=_registro_faltante'" : 'action="main.php?view=_registro"'; ?>>
+<form method="POST" class="row form-control-sm d-flex justify-content-center" <?php echo (isset($_SESSION['dni_log'])) ? "action='registro_usuario.php?view=_registro_faltante'" : 'action="main.php?view=_registro"'; ?>>
     <?php
     if(isset($_SESSION['dni_log']) && $_SESSION['dni_log'] !== ''){
       echo '<h2 class="display-4 text-center">Rellena los campos que faltan</h2>';
@@ -86,7 +86,7 @@ if(!isset($_SESSION['dni_log'])){
 }
 ?>
         
-    <div class="mb-3 form-check col-12 justify-content-center">
+    <div class="mb-3 form-check col-12 d-flex justify-content-center">
       <input type="checkbox" class="form-check-input" id="check-terminos">
       <label class="form-check-label" for="exampleCheck1">Acepto los terminos y condiciones</label>
     </div>

@@ -14,7 +14,9 @@ function registro_faltante(){
     }
     $arrayDatosUsuarioRegistrado = array_registros_faltantes_formulario();
     insertar_usuario_faltante_en_BD($arrayDatosUsuarioRegistrado);
-    checkLog($_POST['dni'], $_POST['email']);
+    checkLogMin($_POST['dni']);
+    header('Location: mis_pedidos.php');
+    exit();
 }
 
 function registro_completo(){

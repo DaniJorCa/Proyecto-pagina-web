@@ -39,17 +39,18 @@ function asignar_values_categorias(data) {
         
     
     if(desplegable_categorias.value > 0){
+        console.log(desplegable_categorias.value);
       for (let i in datos){
             if(datos[i].codigo.toString() === desplegable_categorias.value){
                 cod_categoria_padre = datos[i].codigo;
-                nombre_cat_padre = datos[i].nombre;  
+                nombre_cat_padre = datos[i].nombre;
+                console.log(cod_categoria_padre + ' codigo cat padre');  
             }
         }  
     }
     
     for (let j in datos){
-        console.log(datos[j].codigo);
-        
+        console.log(cod_categoria_padre + ' codigo cat padre');
         if(datos[j].cod_cat_padre !== null && datos[j].cod_cat_padre === cod_categoria_padre){
             // Crear un nuevo elemento option
             var nueva_option = document.createElement('option');

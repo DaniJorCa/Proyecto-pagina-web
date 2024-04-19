@@ -1,7 +1,7 @@
 [
     {
-        "codigo": 2,
-        "0": 2,
+        "codigo": 11,
+        "0": 11,
         "nombre": "Ropa",
         "1": "Ropa",
         "esBaja": null,
@@ -10,33 +10,33 @@
         "3": null
     },
     {
-        "codigo": 3,
-        "0": 3,
-        "nombre": "Camisetas",
-        "1": "Camisetas",
-        "esBaja": null,
-        "2": null,
-        "cod_cat_padre": 2,
-        "3": 2
-    },
-    {
-        "codigo": 4,
-        "0": 4,
-        "nombre": "Sudaderas",
-        "1": "Sudaderas",
-        "esBaja": null,
-        "2": null,
-        "cod_cat_padre": 2,
-        "3": 2
-    },
-    {
-        "codigo": 8,
-        "0": 8,
+        "codigo": 12,
+        "0": 12,
         "nombre": "Chaquetas",
         "1": "Chaquetas",
         "esBaja": null,
         "2": null,
-        "cod_cat_padre": 2,
-        "3": 2
+        "cod_cat_padre": 11,
+        "3": 11
+    },
+    {
+        "codigo": 13,
+        "0": 13,
+        "nombre": "Sudaderas",
+        "1": "Sudaderas",
+        "esBaja": null,
+        "2": null,
+        "cod_cat_padre": 11,
+        "3": 11
+    },
+    {
+        "codigo": 14,
+        "0": 14,
+        "nombre": "Camisetas",
+        "1": "Camisetas",
+        "esBaja": null,
+        "2": null,
+        "cod_cat_padre": 11,
+        "3": 11
     }
 ]

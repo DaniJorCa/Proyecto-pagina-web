@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" href="styles/header&footer.css">
         <link rel="stylesheet" href="styles/genericBody.css">
         <link rel="stylesheet" href="styles/bodyMain.css">

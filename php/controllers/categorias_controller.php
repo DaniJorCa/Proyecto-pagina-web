@@ -39,4 +39,18 @@ function eliminar_subcategoria(){
     
 }
 
+function eliminar_categoria(){
+    require_once 'php/models/categorias_model.php';
+    require_once 'php/models/articulos_model.php';
+    if(delete_categoria($_GET)){
+       array_datos_categorias_JSON(); 
+    }else{
+        echo "Datos no eliminados";
+    }
+    $categorias = get_array_categorias();
+    $subcategorias = get_array_subcategorias();
+    $articulos = get_array_articulos();
+    include('php/views/mantenimiento_categorias.php');
+}
+
 ?>

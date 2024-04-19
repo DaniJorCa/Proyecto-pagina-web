@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
+        <meta charset="UTF-8">
         <title>Registrate</title>
         <link href="styles/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="styles/header&footer.css">

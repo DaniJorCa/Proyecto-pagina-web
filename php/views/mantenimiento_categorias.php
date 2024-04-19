@@ -1,4 +1,5 @@
 <?php
+
 foreach($categorias as $categoria){
     echo "<caption>Subcategorias de la categoria ".$categoria['nombre']."</caption>";
     echo "<table class='my-4 table'>";
@@ -6,15 +7,15 @@ foreach($categorias as $categoria){
     echo "<td>";
     echo "Subcategorias";
     echo "</td>";
+    $contador_subcat = 0;
     foreach($subcategorias as $subcategoria){
-        $contador_subcat = 0;
        if($categoria['codigo'] === $subcategoria['cod_cat_padre']){
         $contador_subcat++;
         echo "<td>".$subcategoria['nombre']."</td>";
        }
     }
     if($contador_subcat === 0){
-        echo "<a class='btn btn-danger mx-1 del-subcat-btn' cod_subcat=".$categoria['codigo']."><i class='fa-solid fa-trash mx-0'></i></a></td>";
+        echo "<a class='btn btn-danger mx-1 del-cat-btn' cod_cat=".$categoria['codigo']."><i class='fa-solid fa-trash mx-2'></i>Eliminar". $categoria ['nombre']."</a></td>";
     }
     echo "</tr>";
     echo "<tr>";
@@ -24,11 +25,14 @@ foreach($categorias as $categoria){
     foreach ($subcategorias as $subcategoria){
         $contador = 0;
         if($categoria['codigo'] === $subcategoria['cod_cat_padre']){
-            foreach($articulos as $articulo){
+            if(is_array($articulos)){
+                foreach($articulos as $articulo){
                 if($subcategoria['codigo'] === $articulo['subcategoria']){
                     $contador++;
-                }
+                    }
+                } 
             }
+            
             echo "<td>" . $contador . " Arts"; 
 
             if ($contador === 0) {

@@ -19,7 +19,7 @@ if(isset($_GET['info']) && $_GET['info'] === 'empty_fields'){
                     <input name="dni_edit" type="text" class="editar_dni input-group-text" id="disabledTextInput" value= '<?php echo $_SESSION['user-edit-master-dni']?>' readonly>
                 </div>
                 <div class="col-3 row align-items-center p-1">
-                    <button class='editar_usuario btn btn-info' id="editar_dni"><i class="fa-solid fa-pen-to-square mx-2"></i>Editar</button>
+                    
                 </div>
                 </div>
                 <div class="row col-6 justify-content-center">
